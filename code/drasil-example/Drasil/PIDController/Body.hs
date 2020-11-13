@@ -1,17 +1,35 @@
 module Drasil.PIDController.Body where
 
+import Data.Drasil.Concepts.Documentation (doccon, doccon')
+
 import qualified Data.Drasil.Concepts.Documentation as Doc (srs)
+
+import Data.Drasil.Concepts.Software (program)
+
+import Data.Drasil.People (naveen)
 import Database.Drasil
        (Block, ChunkDB, ReferenceDB, SystemInformation(SI), _authors, _concepts,
         _configFiles, _constants, _constraints, _datadefs, _defSequence,
         _definitions, _inputs, _kind, _outputs, _purpose, _quants, _sys,
         _sysinfodb, _usedinfodb, cdb, rdb, refdb)
 
+import Drasil.DocLang
+       (AuxConstntSec(AuxConsProg), DerivationDisplay(ShowDerivation),
+        DocSection(AuxConstntSec, Bibliography, IntroSec, RefSec, ReqrmntSec,
+                   SSDSec, TraceabilitySec),
+        Emphasis(Bold), Field(..), Fields, InclUnits(IncludeUnits),
+        IntroSec(..), IntroSub(IPurpose, IScope), PDSub(..), ProblemDescription(PDProg),
+        RefSec(..), RefTab(..), ReqrmntSec(..), ReqsSub(..), SCSSub(..),
+        SRSDecl, SSDSec(..), SSDSub(SSDProblem, SSDSolChSpec),
+        SolChSpec(SCSProg), TConvention(..), TSIntro(..),
+        TraceabilitySec(TraceabilityProg), Verbosity(Verbose), intro, mkDoc,
+        purpDoc, traceMatStandard, tsymb)
+
 import Drasil.DocLang (SRSDecl, mkDoc)
 
 import Drasil.PIDController.Concepts
 
-import Data.Drasil.People (naveen)
+import Drasil.PIDController.IntroSection (introPara, purposeOfDoc, scopeOfReq)
 
 import Language.Drasil
 import Language.Drasil.Printers (PrintingInformation(..), defaultConfiguration)
@@ -25,11 +43,15 @@ printSetting :: PrintingInformation
 printSetting = PI symbMap Equational defaultConfiguration
 
 mkSRS :: SRSDecl
-mkSRS = []
+mkSRS
+  = [RefSec $ RefProg intro [TUnits, tsymb [TSPurpose, SymbOrder], TAandA],
+     IntroSec $
+       IntroProg introPara (phrase pidControllerSystem)
+         [IPurpose [purposeOfDoc], IScope scopeOfReq]]
 
 si :: SystemInformation
 si
-  = SI{_sys = pidController, _kind = Doc.srs, _authors = [naveen],
+  = SI{_sys = pidControllerSystem, _kind = Doc.srs, _authors = [naveen],
        _purpose = [], _quants = [] :: [QuantityDict],
        _concepts = [] :: [DefinedQuantityDict],
        _definitions = [] :: [QDefinition], _datadefs = [] :: [DataDefinition],
@@ -42,7 +64,10 @@ si
 
 symbMap :: ChunkDB
 symbMap
-  = cdb ([] :: [QuantityDict]) [nw pidController] ([] :: [ConceptChunk])
+  = cdb ([] :: [QuantityDict])
+      (nw pidControllerSystem :
+         [nw program] ++ map nw doccon ++ map nw doccon' ++ concepts)
+      ([] :: [ConceptChunk])
       ([] :: [UnitDefn])
       ([] :: [DataDefinition])
       ([] :: [InstanceModel])
@@ -66,3 +91,4 @@ usedDB
 
 refDB :: ReferenceDB
 refDB = rdb [] []
+
