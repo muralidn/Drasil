@@ -6,6 +6,8 @@ import qualified Data.Drasil.Concepts.Documentation as Doc (srs)
 
 import Data.Drasil.Concepts.Software (program)
 
+import qualified Data.Drasil.IdeaDicts as IDict (dataDefn)
+
 import Data.Drasil.People (naveen)
 import Database.Drasil
        (Block, ChunkDB, ReferenceDB, SystemInformation(SI), _authors, _concepts,
@@ -15,21 +17,34 @@ import Database.Drasil
 
 import Drasil.DocLang
        (AuxConstntSec(AuxConsProg), DerivationDisplay(ShowDerivation),
-        DocSection(AuxConstntSec, Bibliography, IntroSec, RefSec, ReqrmntSec,
-                   SSDSec, TraceabilitySec),
-        Emphasis(Bold), Field(..), Fields, InclUnits(IncludeUnits),
-        IntroSec(..), IntroSub(IPurpose, IScope), PDSub(..), ProblemDescription(PDProg),
-        RefSec(..), RefTab(..), ReqrmntSec(..), ReqsSub(..), SCSSub(..),
-        SRSDecl, SSDSec(..), SSDSub(SSDProblem, SSDSolChSpec),
-        SolChSpec(SCSProg), TConvention(..), TSIntro(..),
-        TraceabilitySec(TraceabilityProg), Verbosity(Verbose), intro, mkDoc,
-        purpDoc, traceMatStandard, tsymb)
+        DocSection(AuxConstntSec, Bibliography, GSDSec, IntroSec, RefSec,
+                   ReqrmntSec, SSDSec, TraceabilitySec),
+        Emphasis(Bold), Field(..), Fields, GSDSec(..), GSDSub(..),
+        InclUnits(IncludeUnits), IntroSec(..), IntroSub(..), PDSub(..),
+        ProblemDescription(PDProg), RefSec(..), RefTab(..), ReqrmntSec(..),
+        ReqsSub(..), SCSSub(..), SRSDecl, SSDSec(..),
+        SSDSub(SSDProblem, SSDSolChSpec), SolChSpec(SCSProg), TConvention(..),
+        TSIntro(..), TraceabilitySec(TraceabilityProg), Verbosity(Verbose),
+        intro, mkDoc, purpDoc, traceMatStandard, tsymb)
 
 import Drasil.DocLang (SRSDecl, mkDoc)
 
+import qualified Drasil.DocLang.SRS as SRS (inModel)
+
 import Drasil.PIDController.Concepts
 
-import Drasil.PIDController.IntroSection (introPara, purposeOfDoc, scopeOfReq)
+import Drasil.PIDController.IntroSection
+       (introDocOrg, introPara, introPurposeOfDoc, introUserChar1,
+        introUserChar2, introscopeOfReq)
+
+import Drasil.PIDController.GenSysDesc
+       (gsdSysContextFig, gsdSysContextList, gsdSysContextP1, gsdSysContextP2,
+        gsdSysResp, gsdTitle, gsdUsrResp, gsduserCharacteristics)
+
+import Drasil.PIDController.SpSysDesc
+       (sysProblemDesc, sysParts, sysFigure, sysGoalStatement
+         
+       )
 
 import Language.Drasil
 import Language.Drasil.Printers (PrintingInformation(..), defaultConfiguration)
@@ -47,7 +62,24 @@ mkSRS
   = [RefSec $ RefProg intro [TUnits, tsymb [TSPurpose, SymbOrder], TAandA],
      IntroSec $
        IntroProg introPara (phrase pidControllerSystem)
-         [IPurpose [purposeOfDoc], IScope scopeOfReq]]
+         [IPurpose [introPurposeOfDoc], IScope introscopeOfReq,
+          IChar introUserChar1 introUserChar2 [],
+          IOrgSec introDocOrg IDict.dataDefn (SRS.inModel [] []) (S "")],
+     GSDSec $
+       GSDProg
+         [SysCntxt
+            [gsdSysContextP1, LlC gsdSysContextFig, gsdSysContextP2,
+             gsdSysContextList],
+          UsrChars [gsduserCharacteristics], SystCons [] []],
+         SSDSec
+         $
+         SSDProg
+           [SSDProblem $
+              PDProg sysProblemDesc []
+                [TermsAndDefs Nothing defs,
+                 PhySysDesc pidControllerSystem sysParts sysFigure [],
+                 Goals sysGoalStatement]
+           ]]
 
 si :: SystemInformation
 si
