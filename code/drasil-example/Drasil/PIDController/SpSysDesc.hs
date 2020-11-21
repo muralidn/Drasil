@@ -1,6 +1,6 @@
 module Drasil.PIDController.SpSysDesc where
 
-import Data.Drasil.Concepts.Documentation (physicalSystem)
+import Data.Drasil.Concepts.Documentation (goalStmtDom, physicalSystem)
 
 import Drasil.PIDController.Concepts
 import Language.Drasil
@@ -26,7 +26,17 @@ sysFigure
         ("../../../datafiles/PIDController/Fig_PDController.png")
         60
 
-sysGoalStatement :: [Sentence]
-sysGoalStatement
+sysGoalInput :: [Sentence]
+sysGoalInput
   = [phrase setPoint, phrase simulationTime, phrase propGain,
      phrase derGain]
+
+goals :: [ConceptInstance]
+goals = [sysProcessVariable]
+
+sysProcessVariable :: ConceptInstance
+sysProcessVariable = cic "processVariable" (foldlSent [S "Calculate the" +:+ 
+          S "output of the" +:+ phrase powerPlant +:+ S "(" +:+ phrase processVariable
+          +:+ S") at every step" ])
+  "Process-Variable" goalStmtDom
+

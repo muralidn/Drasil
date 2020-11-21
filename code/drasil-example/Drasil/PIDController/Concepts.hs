@@ -1,6 +1,5 @@
 module Drasil.PIDController.Concepts where
 
--- import Data.Drasil.IdeaDicts (controlEng)
 import Language.Drasil
 
 pidControllerSystem, controlEngineering :: CI
@@ -33,7 +32,7 @@ firstOrderSystem
 
 errorValue
   = dcc "errorValue" (nounPhraseSP "Error Value")
-      ("Input to the PID controller. Error Value is the difference between the Set Point and the Process Variable")                                       
+      ("Input to the PID controller. Error Value is the difference between the Set Point and the Process Variable")
 
 simulationTime
   = dcc "simulatiomTime" (nounPhraseSP "Simulation time")
@@ -55,11 +54,41 @@ derGain
   = dcc "derGain" (nounPhraseSP "Derivative Gain")
       ("Gain constant of the derivative controller")
 
-defs :: [ConceptChunk]
-defs
-  = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, errorValue,
-     simulationTime, processVariable, setPoint, propGain, derGain]
+simulation
+  = dcc "simulation" (nounPhraseSP "simulation")
+      ("Simulation of the PD controller")
+
+
+ccFrequencyDomain
+  = dcc "frequencyDomain" (nounPhraseSP "Frequency Domain")
+      ("The analysis of mathematical functions with respect to frequency, instead "
+         ++ "of time")
+
+ccLaplaceTransform
+  = dcc "laplaceTransform" (nounPhraseSP "Laplace transform")
+      ("an integral transform that converts a function of a real variable t " ++
+         "(often time) to a function of a complex variable s (complex frequency)")
+
 
 concepts :: [IdeaDict]
 concepts = map nw defs
+
+defs :: [ConceptChunk]
+defs
+  = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, errorValue,
+     simulationTime, processVariable, setPoint, propGain, derGain, ccFrequencyDomain,
+     ccLaplaceTransform]
+
+s, f_S :: Symbol
+f_S = Variable "F(s)"
+s = Variable "s"
+
+
+symbols :: [QuantityDict]
+symbols = [qdLaplaceTransform, qdFreqDomain]
+
+qdLaplaceTransform, qdFreqDomain :: QuantityDict
+qdLaplaceTransform = vc "qLaplaceTransform" (nounPhraseSent (S "Transform")) f_S Real
+qdFreqDomain = vc "qFreqDomain" (nounPhraseSent (S "qFD")) s Real
+
 

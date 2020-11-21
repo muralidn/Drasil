@@ -3,12 +3,15 @@ module Drasil.PIDController.Body where
 import Data.Drasil.Concepts.Documentation (doccon, doccon')
 
 import qualified Data.Drasil.Concepts.Documentation as Doc (srs)
+import Data.Drasil.Concepts.Math (mathcon)
 
 import Data.Drasil.Concepts.Software (program)
 
 import qualified Data.Drasil.IdeaDicts as IDict (dataDefn)
 
 import Data.Drasil.People (naveen)
+import Data.Drasil.Quantities.Physics (physicscon)
+import Data.Drasil.SI_Units (second)
 import Database.Drasil
        (Block, ChunkDB, ReferenceDB, SystemInformation(SI), _authors, _concepts,
         _configFiles, _constants, _constraints, _datadefs, _defSequence,
@@ -31,22 +34,25 @@ import Drasil.DocLang (SRSDecl, mkDoc)
 
 import qualified Drasil.DocLang.SRS as SRS (inModel)
 
-import Drasil.PIDController.Concepts
+import Drasil.PIDController.Assumptions (assumptions)
 
-import Drasil.PIDController.IntroSection
-       (introDocOrg, introPara, introPurposeOfDoc, introUserChar1,
-        introUserChar2, introscopeOfReq)
+import Drasil.PIDController.Concepts
 
 import Drasil.PIDController.GenSysDesc
        (gsdSysContextFig, gsdSysContextList, gsdSysContextP1, gsdSysContextP2,
         gsdSysResp, gsdTitle, gsdUsrResp, gsduserCharacteristics)
 
-import Drasil.PIDController.SpSysDesc
-       (sysProblemDesc, sysParts, sysFigure, sysGoalStatement
-         
-       )
+import Drasil.PIDController.IntroSection
+       (introDocOrg, introPara, introPurposeOfDoc, introUserChar1,
+        introUserChar2, introscopeOfReq)
 
-import Language.Drasil
+import Drasil.PIDController.SpSysDesc
+       (goals, sysFigure, sysGoalInput, sysParts, sysProblemDesc)
+
+import Drasil.PIDController.TModel
+
+import Language.Drasil hiding (Symbol(..), Vector)
+import Language.Drasil.Code (relToQD)
 import Language.Drasil.Printers (PrintingInformation(..), defaultConfiguration)
 import Theory.Drasil (DataDefinition, GenDefn, InstanceModel, TheoryModel)
 import Utils.Drasil
@@ -71,20 +77,19 @@ mkSRS
             [gsdSysContextP1, LlC gsdSysContextFig, gsdSysContextP2,
              gsdSysContextList],
           UsrChars [gsduserCharacteristics], SystCons [] []],
-         SSDSec
-         $
-         SSDProg
-           [SSDProblem $
-              PDProg sysProblemDesc []
-                [TermsAndDefs Nothing defs,
-                 PhySysDesc pidControllerSystem sysParts sysFigure [],
-                 Goals sysGoalStatement]
-           ]]
+     SSDSec $
+       SSDProg
+         [SSDProblem $
+            PDProg sysProblemDesc []
+              [TermsAndDefs Nothing defs,
+               PhySysDesc pidControllerSystem sysParts sysFigure [],
+               Goals sysGoalInput],
+          SSDSolChSpec $ SCSProg [Assumptions, TMs [] (Label : stdFields)]]]
 
 si :: SystemInformation
 si
   = SI{_sys = pidControllerSystem, _kind = Doc.srs, _authors = [naveen],
-       _purpose = [], _quants = [] :: [QuantityDict],
+       _purpose = [], _quants = symbols,
        _concepts = [] :: [DefinedQuantityDict],
        _definitions = [] :: [QDefinition], _datadefs = [] :: [DataDefinition],
        _configFiles = [], _inputs = [] :: [QuantityDict],
@@ -96,16 +101,21 @@ si
 
 symbMap :: ChunkDB
 symbMap
-  = cdb ([] :: [QuantityDict])
+  = cdb (map qw physicscon ++ symbols)
       (nw pidControllerSystem :
-         [nw program] ++ map nw doccon ++ map nw doccon' ++ concepts)
+         [nw program] ++
+           map nw doccon ++
+             map nw doccon' ++
+               concepts ++
+                 map nw mathcon ++
+                   map nw [second] ++ map nw symbols ++ map nw physicscon)
       ([] :: [ConceptChunk])
-      ([] :: [UnitDefn])
+      (map unitWrapper [second])
       ([] :: [DataDefinition])
       ([] :: [InstanceModel])
       ([] :: [GenDefn])
-      ([] :: [TheoryModel])
-      ([] :: [ConceptInstance])
+      (theoreticalModels)
+      (conceptInstances)
       ([] :: [Section])
       ([] :: [LabelledContent])
 
@@ -124,3 +134,9 @@ usedDB
 refDB :: ReferenceDB
 refDB = rdb [] []
 
+conceptInstances :: [ConceptInstance]
+conceptInstances = assumptions ++ goals
+
+stdFields :: Fields
+stdFields
+  = [DefiningEquation, Description Verbose IncludeUnits, Notes, Source, RefBy]
