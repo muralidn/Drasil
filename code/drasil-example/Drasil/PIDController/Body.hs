@@ -1,6 +1,6 @@
 module Drasil.PIDController.Body where
 
-import Data.Drasil.Concepts.Documentation (doccon, doccon')
+import Data.Drasil.Concepts.Documentation (doccon, doccon', srsDomains)
 
 import qualified Data.Drasil.Concepts.Documentation as Doc (srs)
 import Data.Drasil.Concepts.Math (mathcon)
@@ -37,6 +37,7 @@ import qualified Drasil.DocLang.SRS as SRS (inModel)
 import Drasil.PIDController.Assumptions (assumptions)
 
 import Drasil.PIDController.Concepts
+import Drasil.PIDController.DataDefs (dataDefinitions)
 
 import Drasil.PIDController.GenSysDesc
        (gsdSysContextFig, gsdSysContextList, gsdSysContextP1, gsdSysContextP2,
@@ -49,7 +50,9 @@ import Drasil.PIDController.IntroSection
 import Drasil.PIDController.SpSysDesc
        (goals, sysFigure, sysGoalInput, sysParts, sysProblemDesc)
 
-import Drasil.PIDController.TModel
+import Drasil.PIDController.TModel (theoreticalModels)
+
+import Drasil.PIDController.References (citations)
 
 import Language.Drasil hiding (Symbol(..), Vector)
 import Language.Drasil.Code (relToQD)
@@ -84,14 +87,17 @@ mkSRS
               [TermsAndDefs Nothing defs,
                PhySysDesc pidControllerSystem sysParts sysFigure [],
                Goals sysGoalInput],
-          SSDSolChSpec $ SCSProg [Assumptions, TMs [] (Label : stdFields)]]]
+          SSDSolChSpec $
+            SCSProg
+              [Assumptions, TMs [] (Label : stdFields),
+               DDs [] ([Label, Symbol, Units] ++ stdFields) ShowDerivation]]]
 
 si :: SystemInformation
 si
   = SI{_sys = pidControllerSystem, _kind = Doc.srs, _authors = [naveen],
        _purpose = [], _quants = symbols,
        _concepts = [] :: [DefinedQuantityDict],
-       _definitions = [] :: [QDefinition], _datadefs = [] :: [DataDefinition],
+       _definitions = [] :: [QDefinition], _datadefs = dataDefinitions,
        _configFiles = [], _inputs = [] :: [QuantityDict],
        _outputs = [] :: [QuantityDict],
        _defSequence = [] :: [Block QDefinition],
@@ -109,9 +115,9 @@ symbMap
                concepts ++
                  map nw mathcon ++
                    map nw [second] ++ map nw symbols ++ map nw physicscon)
-      ([] :: [ConceptChunk])
+      (srsDomains)
       (map unitWrapper [second])
-      ([] :: [DataDefinition])
+      (dataDefinitions)
       ([] :: [InstanceModel])
       ([] :: [GenDefn])
       (theoreticalModels)
@@ -132,7 +138,7 @@ usedDB
       ([] :: [LabelledContent])
 
 refDB :: ReferenceDB
-refDB = rdb [] []
+refDB = rdb citations conceptInstances
 
 conceptInstances :: [ConceptInstance]
 conceptInstances = assumptions ++ goals
