@@ -10,8 +10,10 @@ spencerSmith, henryFrankis, nKoothoor, dParnas, daAruliah, gWilson,
   wlBeason, tlKohutek, jmBracci, qhQian, dyZhu, cfLee, grChen, dgFredlund,
   jKrahn, dStolle, yCLi, ymChen, tltZhan, ssLing, pjCleall, pGuo,
   mCampidelli,   dmWiess, sPalmer, scottSmith, bKarchewski, rHuston, 
-  hJosephs, nrMorgenstern, vePrice, samCrawford, rcHibbeler, olu, rodPierce :: Person
+  hJosephs, nrMorgenstern, vePrice, samCrawford, rcHibbeler, olu, rodPierce, 
+  naveen :: Person
   
+
 pjAgerfalk    = person    "PJ"                        "Agerfalk"
 daAruliah     = personWM  "D"         ["A"]           "Aruliah"
 wlBeason      = personWM  "W"         ["Lynn"]        "Beason"
@@ -78,3 +80,4 @@ dyZhu         = personWM' "D"         ["Y"]           "Zhu"
 dmWiess       = personWM  ""          []              "Wiess"
 olu           = person    "Olu"                       "Owojaiye"
 rodPierce     = person    "Rod"                       "Pierce"
+naveen        = person    "Naveen"                    "Muralidharan"   
