@@ -1,8 +1,6 @@
 module Drasil.PIDController.Assumptions where
 
-import Data.Drasil.Concepts.Documentation (assumpDom, value)
-
-import Drasil.PIDController.References
+import Data.Drasil.Concepts.Documentation (assumpDom)
 
 import Drasil.PIDController.Concepts
 import Language.Drasil
@@ -10,17 +8,17 @@ import Utils.Drasil
 
 assumptions :: [ConceptInstance]
 assumptions
-  = [aPwrPlant, aDecoupled, aSP, aExtDisturb, aManualTuning, aInitialValue,
+  = [aPwrPlant, aDecoupled, aSP, aExtDisturb, aInitialValue,
      aParallelEq]
 
-aPwrPlant, aDecoupled, aSP, aExtDisturb, aManualTuning :: ConceptInstance
+aPwrPlant, aDecoupled, aSP, aExtDisturb, aInitialValue,
+          aParallelEq :: ConceptInstance
 
 aPwrPlant = cic "pwrPlant" pwrPlantDesc "Power plant" assumpDom
 aDecoupled = cic "decoupled" aDecoupledDesc "Decoupled equation" assumpDom
 aSP = cic "setPoint" aSPDesc "Set-Point" assumpDom
 aExtDisturb
   = cic "externalDistub" aExtDisturbDesc "External disturbance" assumpDom
-aManualTuning = cic "manualTuning" aExtDisturbDesc "Manual tuning" assumpDom
 aInitialValue = cic "initialValue" aInitialValueDesc "Initial value" assumpDom
 aParallelEq = cic "parallelEq" aParallelEqDesc "Parallel equation" assumpDom
 

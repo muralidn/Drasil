@@ -1,4 +1,4 @@
-module Drasil.PIDController.DataDefs (dataDefinitions) where
+module Drasil.PIDController.DataDefs where
 
 import Drasil.PIDController.Assumptions
 
@@ -9,11 +9,11 @@ import Drasil.PIDController.References
 import Drasil.PIDController.TModel
 import Language.Drasil
 
-import Theory.Drasil (DataDefinition, dd, mkQuantDef, ddNoRefs)
+import Theory.Drasil (DataDefinition, dd, mkQuantDef)
 import Utils.Drasil
 
 dataDefinitions :: [DataDefinition]
-dataDefinitions = [ddErrSig, ddPropCtrl, ddDerivCtrl, ddPowerPlant]
+dataDefinitions = [ddErrSig, ddPropCtrl, ddDerivCtrl, ddPowerPlant, ddCtrlVar]
 
 ----------------------------------------------
 
@@ -32,16 +32,19 @@ ddErrSigNote :: Sentence
 ddErrSigNote
   = foldlSent
       [S "Error Signal is the difference between the Set-Point and " +:+
-         S "Process Variable",
+         S "Process Variable.",
        S "The equation is converted to frequency" +:+
          S "domain by applying the Laplace transform ( from"
          +:+ makeRef2S tmLaplace
-         +:+ S ")",
+         +:+ S ").",
        S "The Set-Point is assumed to be constant throughout the" +:+
          S "simulation ( from "
          +:+ makeRef2S aSP
-         +:+ S ")", S "The initial value of the Process Variable if assumed" +:+
-         S "to be zero ( from " +:+ makeRef2S aInitialValue +:+ S ")"]
+         +:+ S ").",
+       S "The initial value of the Process Variable if assumed" +:+
+         S "to be zero ( from "
+         +:+ makeRef2S aInitialValue
+         +:+ S ")."]
 
 ----------------------------------------------
 
@@ -99,23 +102,56 @@ ddDerivCtrlNote
 
 ddPowerPlant :: DataDefinition
 ddPowerPlant
-  = ddNoRefs ddPowerPlantDefn Nothing "ddPowerPlant"
-      [ddPowerPlantNote]
+  = dd ddPowerPlantDefn [makeCite pidWiki] Nothing "ddPowerPlant" [ddPowerPlantNote]
 
 ddPowerPlantDefn :: QDefinition
 ddPowerPlantDefn = mkQuantDef qdTransferFunctionFD ddPowerPlantEqn
 
 ddPowerPlantEqn :: Expr
-ddPowerPlantEqn
-  = 1 / ((($.) 2 (sy qdFreqDomain)) + 1)
+ddPowerPlantEqn = 1 / ((2 * (sy qdFreqDomain)) + 1)
 
 ddPowerPlantNote :: Sentence
 ddPowerPlantNote
   = foldlSent
-      [S "The power plant is represented by a first order system ( from "
-         +:+ makeRef2S aPwrPlant +:+ S ")",
+      [S "The power plant is represented by a first order system ( from " +:+
+         makeRef2S aPwrPlant
+         +:+ S ")",
        S "The equation is" +:+ S "converted to frequency" +:+
          S "domain by applying the Laplace"
-         +:+ S "transform ( from" +:+ makeRef2S tmLaplace +:+ S ")", 
-         S "Additionally there are no external disturbances to the power plant" +:+
-         S "( from " +:+ makeRef2S aExtDisturb +:+ S ")"]
+         +:+ S "transform ( from"
+         +:+ makeRef2S tmLaplace
+         +:+ S ")",
+       S "Additionally there are no external disturbances to the power plant"
+         +:+ S "( from "
+         +:+ makeRef2S aExtDisturb
+         +:+ S ")"]
+
+----------------------------------------------
+
+ddCtrlVar :: DataDefinition
+ddCtrlVar
+  = dd ddCtrlVarDefn [makeCite johnson2008] Nothing "ddCtrlVar" [ddCtrlNote]
+
+ddCtrlVarDefn :: QDefinition
+ddCtrlVarDefn = mkQuantDef qdCtrlVarFD ddCtrlEqn
+
+ddCtrlEqn :: Expr
+ddCtrlEqn
+  = (($.) (sy qdPropGain) (sy qdErrorSignalFD)) +
+      (($.) (($.) (sy qdDerivGain) (sy qdErrorSignalFD)) (sy qdFreqDomain))
+
+ddCtrlNote :: Sentence
+ddCtrlNote
+  = foldlSent
+      [S "The control variable is the output of the controller.",
+       S "In this case," +:+ S "it is the sum of the Proportional ( from" +:+
+         makeRef2S ddPropCtrl
+         +:+ S ") and Derivative ( from "
+         +:+ makeRef2S ddDerivCtrl
+         +:+ S ") controllers",
+       S "The parallel ( from" +:+ makeRef2S aParallelEq +:+
+         S ") and de-coupled ( from"
+         +:+ makeRef2S aDecoupled
+         +:+ S ") form of the PD equation is"
+         +:+ S "used in this document"]
+

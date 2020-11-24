@@ -19,9 +19,9 @@ import Database.Drasil
         _sysinfodb, _usedinfodb, cdb, rdb, refdb)
 
 import Drasil.DocLang
-       (AuxConstntSec(AuxConsProg), DerivationDisplay(ShowDerivation),
+       (AuxConstntSec(AuxConsProg), DerivationDisplay(..),
         DocSection(AuxConstntSec, Bibliography, GSDSec, IntroSec, RefSec,
-                   ReqrmntSec, SSDSec, TraceabilitySec),
+                   ReqrmntSec, SSDSec, TraceabilitySec, LCsSec),
         Emphasis(Bold), Field(..), Fields, GSDSec(..), GSDSub(..),
         InclUnits(IncludeUnits), IntroSec(..), IntroSub(..), PDSub(..),
         ProblemDescription(PDProg), RefSec(..), RefTab(..), ReqrmntSec(..),
@@ -29,8 +29,6 @@ import Drasil.DocLang
         SSDSub(SSDProblem, SSDSolChSpec), SolChSpec(SCSProg), TConvention(..),
         TSIntro(..), TraceabilitySec(TraceabilityProg), Verbosity(Verbose),
         intro, mkDoc, purpDoc, traceMatStandard, tsymb)
-
-import Drasil.DocLang (SRSDecl, mkDoc)
 
 import qualified Drasil.DocLang.SRS as SRS (inModel)
 
@@ -41,19 +39,23 @@ import Drasil.PIDController.DataDefs (dataDefinitions)
 
 import Drasil.PIDController.GenSysDesc
        (gsdSysContextFig, gsdSysContextList, gsdSysContextP1, gsdSysContextP2,
-        gsdSysResp, gsdTitle, gsdUsrResp, gsduserCharacteristics)
+        gsduserCharacteristics)
+import Drasil.PIDController.IModel
 
 import Drasil.PIDController.IntroSection
        (introDocOrg, introPara, introPurposeOfDoc, introUserChar1,
         introUserChar2, introscopeOfReq)
 
+import Drasil.PIDController.References (citations)
+
+import Drasil.PIDController.Requirements
+
 import Drasil.PIDController.SpSysDesc
        (goals, sysFigure, sysGoalInput, sysParts, sysProblemDesc)
 
+import Drasil.PIDController.Changes 
+
 import Drasil.PIDController.TModel (theoreticalModels)
-
-import Drasil.PIDController.References (citations)
-
 import Language.Drasil hiding (Symbol(..), Vector)
 import Language.Drasil.Code (relToQD)
 import Language.Drasil.Printers (PrintingInformation(..), defaultConfiguration)
@@ -90,18 +92,29 @@ mkSRS
           SSDSolChSpec $
             SCSProg
               [Assumptions, TMs [] (Label : stdFields),
-               DDs [] ([Label, Symbol, Units] ++ stdFields) ShowDerivation]]]
+               GDs [S "No general definitions for this project"] []
+                 HideDerivation,
+               DDs [] ([Label, Symbol, Units] ++ stdFields) ShowDerivation,
+               IMs []
+                 ([Label, Input, Output, InConstraints, OutConstraints] ++
+                    stdFields)
+                 ShowDerivation,
+               Constraints EmptyS inputsUC]],
+
+     ReqrmntSec $ ReqsProg [FReqsSub EmptyS [], NonFReqsSub],
+      LCsSec,
+     TraceabilitySec $ TraceabilityProg $ traceMatStandard si,
+     Bibliography]
 
 si :: SystemInformation
 si
   = SI{_sys = pidControllerSystem, _kind = Doc.srs, _authors = [naveen],
        _purpose = [], _quants = symbols,
        _concepts = [] :: [DefinedQuantityDict],
-       _definitions = [] :: [QDefinition], _datadefs = dataDefinitions,
-       _configFiles = [], _inputs = [] :: [QuantityDict],
-       _outputs = [] :: [QuantityDict],
-       _defSequence = [] :: [Block QDefinition],
-       _constraints = [] :: [ConstrainedChunk],
+       _definitions = map (relToQD symbMap) instanceModels,
+       _datadefs = dataDefinitions, _configFiles = [], _inputs = inputs,
+       _outputs = outputs, _defSequence = [] :: [Block QDefinition],
+       _constraints = map cnstrw inpConstrained,
        _constants = [] :: [QDefinition], _sysinfodb = symbMap,
        _usedinfodb = usedDB, refdb = refDB}
 
@@ -114,11 +127,11 @@ symbMap
              map nw doccon' ++
                concepts ++
                  map nw mathcon ++
-                   map nw [second] ++ map nw symbols ++ map nw physicscon)
-      (srsDomains)
+                   map nw [second] ++ map nw symbols ++ map nw physicscon ++ map nw acronyms)
+      (map cw inpConstrained ++ srsDomains)
       (map unitWrapper [second])
       (dataDefinitions)
-      ([] :: [InstanceModel])
+      (instanceModels)
       ([] :: [GenDefn])
       (theoreticalModels)
       (conceptInstances)
@@ -127,7 +140,7 @@ symbMap
 
 usedDB :: ChunkDB
 usedDB
-  = cdb ([] :: [QuantityDict]) ([] :: [IdeaDict]) ([] :: [ConceptChunk])
+  = cdb ([] :: [QuantityDict]) (map nw acronyms ++ map nw symbols) ([] :: [ConceptChunk])
       ([] :: [UnitDefn])
       ([] :: [DataDefinition])
       ([] :: [InstanceModel])
@@ -141,7 +154,7 @@ refDB :: ReferenceDB
 refDB = rdb citations conceptInstances
 
 conceptInstances :: [ConceptInstance]
-conceptInstances = assumptions ++ goals
+conceptInstances = assumptions ++ goals ++ funcReqs ++ nonfuncReqs ++ likelyChgs
 
 stdFields :: Fields
 stdFields

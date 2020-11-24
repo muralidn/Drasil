@@ -1,6 +1,16 @@
 module Drasil.PIDController.Concepts where
+import Data.Drasil.Constraints (gtZeroConstr)
 
+import Data.Drasil.Concepts.Documentation (assumption, goalStmt, physSyst,
+  requirement, srs, typUnc)
+
+import Data.Drasil.SI_Units (second)
 import Language.Drasil
+import Data.Drasil.IdeaDicts
+
+acronyms :: [CI]
+acronyms = [assumption, dataDefn, genDefn, goalStmt, inModel, physSyst, 
+            requirement, srs, thModel, typUnc]
 
 pidControllerSystem, controlEngineering :: CI
 pidControllerSystem
@@ -11,7 +21,8 @@ controlEngineering
 
 pidC, pidCL, summingPt, powerPlant, firstOrderSystem, errorValue,
       simulationTime, processVariable, setPoint, propGain, derGain, simulation,
-      ccFrequencyDomain, ccLaplaceTransform :: ConceptChunk
+      ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime ::
+      ConceptChunk
 pidCL
   = dcc "pdCtrlLoop" (nounPhraseSP "PD Control Loop")
       ("Closed loop control system with PD Controller, Summing Point and Power Plant")
@@ -36,13 +47,19 @@ errorValue
   = dcc "errorValue" (nounPhraseSP "Error Value")
       ("Input to the PID controller. Error Value is the difference between the Set Point and the Process Variable")
 
+stepTime = dcc "stepTime" (nounPhraseSP "Step time") ("Simulation step time")
+
 simulationTime
-  = dcc "simulatiomTime" (nounPhraseSP "Simulation time")
+  = dcc "simulationTime" (nounPhraseSP "Simulation time")
       ("Total execution time of the PD simulation")
 
 processVariable
   = dcc "processVariable" (nounPhraseSP "Process Variable")
       ("The output value from the power plant")
+
+controlVariable
+  = dcc "controlVariable" (nounPhraseSP "Control Variable")
+      ("The Control Variable is the output of the PD controller")
 
 setPoint
   = dcc "setPoint" (nounPhraseSP "Set-Point")
@@ -77,10 +94,11 @@ defs :: [ConceptChunk]
 defs
   = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, errorValue,
      simulationTime, processVariable, setPoint, propGain, derGain,
-     ccFrequencyDomain, ccLaplaceTransform]
+     ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime]
 
 sym_s, sym_f_S, sym_f_t, sym_negInf, sym_posInf, sym_invLaplace, sym_Kd, sym_Kp,
-       sym_YT, sym_YS, sym_YrT, sym_YrS, sym_ET, sym_ES, sym_PS, sym_DS, sym_HS :: Symbol
+       sym_YT, sym_YS, sym_YrT, sym_YrS, sym_ET, sym_ES, sym_PS, sym_DS, sym_HS,
+       sym_CT, sym_CS, sym_TStep, sym_TSim :: Symbol
 
 sym_f_S = Variable "F(s)"
 sym_s = Variable "s"
@@ -88,10 +106,10 @@ sym_f_t = Variable "f(t)"
 sym_negInf = Variable "-∞"
 sym_posInf = Variable "∞"
 sym_invLaplace = Variable "L⁻¹{F(s)}"
-sym_Kd = Variable "Kd"
-sym_Kp = Variable "Kp"
-sym_YrT = Variable "yʳ(t)"
-sym_YrS = Variable "Yʳ(s)"
+sym_Kd = sub (Variable "K") $ Label "d"
+sym_Kp = sub (Variable "K") $ Label "p"
+sym_YrT = Variable "r(t)"
+sym_YrS = Variable "R(s)"
 sym_YT = Variable "y(t)"
 sym_YS = Variable "Y(s)"
 sym_ET = Variable "e(t)"
@@ -99,63 +117,81 @@ sym_ES = Variable "E(s)"
 sym_PS = Variable "P(s)"
 sym_DS = Variable "D(s)"
 sym_HS = Variable "H(s)"
+sym_CT = Variable "c(t)"
+sym_CS = Variable "C(s)"
+sym_TStep = sub (Variable "t") $ Label "step"
+sym_TSim = sub (Variable "t") $ Label "sim"
 
 symbols :: [QuantityDict]
 symbols
   = [qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
      qdInvLaplaceTransform, qdPropGain, qdDerivGain, qdSetPointTD, qdSetPointFD,
      qdProcessVariableTD, qdProcessVariableFD, qdErrorSignalTD, qdErrorSignalFD,
-     qdDerivativeControlFD, qdPropControlFD, qdTransferFunctionFD]
+     qdDerivativeControlFD, qdPropControlFD, qdTransferFunctionFD, qdCtrlVarTD,
+     qdCtrlVarFD, qdStepTime, qdSimTime]
 
 qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
                     qdInvLaplaceTransform, qdPropGain, qdDerivGain,
                     qdSetPointTD, qdSetPointFD, qdProcessVariableTD,
                     qdProcessVariableFD, qdErrorSignalTD, qdErrorSignalFD,
-                    qdPropControlFD, qdDerivativeControlFD, qdTransferFunctionFD :: QuantityDict
-qdLaplaceTransform
-  = vc "qLaplaceTransform"
-      (nounPhraseSent (S "Laplace Transform of a function f(t)"))
-      sym_f_S
-      Real
-qdFreqDomain
-  = vc "qFreqDomain" (nounPhraseSent (S "Complex frequency domain parameter"))
-      sym_s
-      Real
-qdFxnTDomain
-  = vc "qdFxnTDomain" (nounPhraseSent (S "Function in the time domain")) sym_f_t
-      Real
+                    qdPropControlFD, qdDerivativeControlFD,
+                    qdTransferFunctionFD, qdCtrlVarFD, qdCtrlVarTD, qdStepTime,
+                    qdSimTime :: QuantityDict
 
-qdNegInf
-  = vc "qdNegInf" (nounPhraseSent (S "Negative Infinity")) sym_negInf Real
+inputs :: [QuantityDict]
+inputs = [qdSetPointTD, qdDerivGain, qdPropGain, qdStepTime, qdSimTime]
 
-qdPosInf = vc "qdPosInf" (nounPhraseSent (S "Infinity")) sym_posInf Real
+outputs :: [QuantityDict]
+outputs = [qdProcessVariableTD]
 
-qdInvLaplaceTransform
-  = vc "qInvLaplaceTransform"
-      (nounPhraseSent (S "Inverse Laplace Transform of F(s)"))
-      sym_invLaplace
-      Real
+inputsUC :: [UncertQ]
+inputsUC
+  = [ipSetPtUnc, ipPropGainUnc, ipDerGainUnc, ipStepTimeUnc, ipSimTimeUnc]
 
-qdPropGain
-  = vc "qdPropGain" (nounPhraseSent (S "Proportional Gain")) sym_Kp Real
+inpConstrained :: [ConstrConcept]
+inpConstrained = [ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime]
 
-qdDerivGain
-  = vc "qdDerivGain" (nounPhraseSent (S "Derivative Gain")) sym_Kd Real
+ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime :: ConstrConcept
 
-qdSetPointTD
-  = vc "qdSetPointTD" (nounPhraseSent (S "Set Point in the time domain"))
-      sym_YrT
-      Real
+ipSetPtUnc, ipPropGainUnc, ipDerGainUnc, ipStepTimeUnc, ipSimTimeUnc :: UncertQ
 
-qdSetPointFD
-  = vc "qdSetPointFD" (nounPhraseSent (S "Set Point in the frequency domain"))
-      sym_YrS
-      Real
+ipPropGain
+  = constrained' (dqdNoUnit propGain sym_Kp Real) [gtZeroConstr] (int 100)
+ipPropGainUnc = uq ipPropGain defaultUncrt
+qdPropGain = qw ipPropGain
+
+ipDerivGain
+  = constrained' (dqdNoUnit propGain sym_Kd Real) [gtZeroConstr] (int 1)
+ipDerGainUnc = uq ipDerivGain defaultUncrt
+qdDerivGain = qw ipDerivGain
+
+ipSetPt = constrained' (dqdNoUnit setPoint sym_YrT Real) [gtZeroConstr] (int 1)
+ipSetPtUnc = uq ipSetPt defaultUncrt
+qdSetPointTD = qw ipSetPt
+
+ipStepTime
+  = constrained' (dqd stepTime sym_TStep Real second)
+      [physc $ Bounded (Exc, 0.01  ) (Exc, 1)]
+      (dbl 0.01  )
+ipStepTimeUnc = uq ipStepTime defaultUncrt
+qdStepTime = qw ipStepTime
+
+ipSimTime
+  = constrained' (dqd simulationTime sym_TSim Real second)
+      [physc $ Bounded (Exc, 1) (Exc, 60)]
+      (dbl 10)
+ipSimTimeUnc = uq ipSimTime defaultUncrt
+qdSimTime = qw ipSimTime
 
 qdProcessVariableTD
   = vc "qdProcessVariableTD"
       (nounPhraseSent (S "Process Variable in the time domain"))
       sym_YT
+      Real
+
+qdSetPointFD
+  = vc "qdSetPointFD" (nounPhraseSent (S "Set Point in the frequency domain"))
+      sym_YrS
       Real
 
 qdProcessVariableFD
@@ -183,12 +219,47 @@ qdPropControlFD
 
 qdDerivativeControlFD
   = vc "qdDerivativeControlFD"
-      (nounPhraseSent (S "Proportional Control in frequency domain"))
+      (nounPhraseSent (S "Derivative Control in frequency domain"))
       sym_DS
       Real
 
 qdTransferFunctionFD
   = vc "qdTransferFunctionFD"
-      (nounPhraseSent (S "Transfer function of the Power-Plant in frequency domain"))
+      (nounPhraseSent
+         (S "Transfer function of the Power-Plant in frequency domain"))
       sym_HS
+      Real
+
+qdCtrlVarTD
+  = vc "qdCtrlVarTD" (nounPhraseSent (S "Control-Variable in time domain"))
+      sym_CT
+      Real
+
+qdCtrlVarFD
+  = vc "qdCtrlVarFD" (nounPhraseSent (S "Control-Variable in frequency domain"))
+      sym_CS
+      Real
+
+qdLaplaceTransform
+  = vc "qLaplaceTransform"
+      (nounPhraseSent (S "Laplace Transform of a function f(t)"))
+      sym_f_S
+      Real
+qdFreqDomain
+  = vc "qFreqDomain" (nounPhraseSent (S "Complex frequency domain parameter"))
+      sym_s
+      Real
+qdFxnTDomain
+  = vc "qdFxnTDomain" (nounPhraseSent (S "Function in the time domain")) sym_f_t
+      Real
+
+qdNegInf
+  = vc "qdNegInf" (nounPhraseSent (S "Negative Infinity")) sym_negInf Real
+
+qdPosInf = vc "qdPosInf" (nounPhraseSent (S "Infinity")) sym_posInf Real
+
+qdInvLaplaceTransform
+  = vc "qInvLaplaceTransform"
+      (nounPhraseSent (S "Inverse Laplace Transform of F(s)"))
+      sym_invLaplace
       Real

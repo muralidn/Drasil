@@ -29,7 +29,7 @@ sysFigure
 sysGoalInput :: [Sentence]
 sysGoalInput
   = [phrase setPoint, phrase simulationTime, phrase propGain,
-     phrase derGain]
+     phrase derGain, phrase stepTime]
 
 goals :: [ConceptInstance]
 goals = [sysProcessVariable]
@@ -37,6 +37,6 @@ goals = [sysProcessVariable]
 sysProcessVariable :: ConceptInstance
 sysProcessVariable = cic "processVariable" (foldlSent [S "Calculate the" +:+ 
           S "output of the" +:+ phrase powerPlant +:+ S "(" +:+ phrase processVariable
-          +:+ S") at every step" ])
+          +:+ S") over time" ])
   "Process-Variable" goalStmtDom
 

@@ -26,7 +26,7 @@ pidCtrlEditor1 = personWM "Michael" ["A"] "Johnson"
 pidCtrlEditor2 = personWM "Mohammad" ["H"] "Moradi"
 
 johnson2008
-  = cBookE [pidCtrlEditor1, pidCtrlEditor2]
+  = cBookA [pidCtrlEditor1, pidCtrlEditor2]
       "PID Control: New Identification and Design Methods, Chapter 1"
       "Springer Science and Business Media"
       2006
