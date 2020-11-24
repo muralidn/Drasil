@@ -320,8 +320,18 @@ executable pidController
   hs-source-dirs: .
   main-is: Drasil/PIDController/Main.hs
   other-modules:
+      Drasil.PIDController.Assumptions
       Drasil.PIDController.Body
+      Drasil.PIDController.Changes
       Drasil.PIDController.Concepts
+      Drasil.PIDController.DataDefs
+      Drasil.PIDController.IModel
+      Drasil.PIDController.IntroSection
+      Drasil.PIDController.GenSysDesc
+      Drasil.PIDController.References
+      Drasil.PIDController.Requirements
+      Drasil.PIDController.SpSysDesc
+      Drasil.PIDController.TModel
   Build-Depends:
     base >= 4.7,
     lens >= 4.12,
