@@ -61,42 +61,47 @@
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>C(s)</em></td>
+                  <td><em>A<sub>tol</sub></em></td>
+                  <td>Absolute tolerance</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><em>C<sub>s</sub></em></td>
                   <td>Control-Variable in frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>c(t)</em></td>
+                  <td><em>c<sub>t</sub></em></td>
                   <td>Control-Variable in time domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>D(s)</em></td>
+                  <td><em>D<sub>s</sub></em></td>
                   <td>Derivative Control in frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>E(s)</em></td>
+                  <td><em>E<sub>s</sub></em></td>
                   <td>Error Signal in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>e(t)</em></td>
+                  <td><em>e<sub>t</sub></em></td>
                   <td>Error Signal in the time domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>F(s)</em></td>
+                  <td><em>F<sub>s</sub></em></td>
                   <td>Laplace Transform of a function f(t)</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>f(t)</em></td>
+                  <td><em>f<sub>t</sub></em></td>
                   <td>Function in the time domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>H(s)</em></td>
+                  <td><em>H<sub>s</sub></em></td>
                   <td>Transfer function of the Power-Plant in frequency domain</td>
                   <td>--</td>
                 </tr>
@@ -111,17 +116,22 @@
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>P(s)</em></td>
+                  <td><em>P<sub>s</sub></em></td>
                   <td>Proportional Control in frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>R(s)</em></td>
+                  <td><em>R<sub>s</sub></em></td>
                   <td>Set Point in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>r(t)</em></td>
+                  <td><em>R<sub>tol</sub></em></td>
+                  <td>Relative tolerance</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><em>r<sub>t</sub></em></td>
                   <td>Set-Point</td>
                   <td>--</td>
                 </tr>
@@ -146,13 +156,13 @@
                   <td><em>s</em></td>
                 </tr>
                 <tr>
-                  <td><em>Y(s)</em></td>
+                  <td><em>Y<sub>s</sub></em></td>
                   <td>Process Variable in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>y(t)</em></td>
-                  <td>Process Variable in the time domain</td>
+                  <td><em>y<sub>t</sub></em></td>
+                  <td>Process Variable</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -483,17 +493,19 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[F(s)=\int_{-∞}^{∞}{f(t) e^{-s t}}\,dt\]</td>
+                      <td>
+                        \[{F_{\text{s}}}=\int_{-∞}^{∞}{{f_{\text{t}}} e^{-s t}}\,dt\]
+                      </td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>F(s)</em> is the Laplace Transform of a function f(t) (Unitless)
+                            <em>F<sub>s</sub></em> is the Laplace Transform of a function f(t) (Unitless)
                           </li>
                           <li>
-                            <em>f(t)</em> is the Function in the time domain (Unitless)
+                            <em>f<sub>t</sub></em> is the Function in the time domain (Unitless)
                           </li>
                           <li>
                             <em>s</em> is the Complex frequency domain parameter (Unitless)
@@ -538,14 +550,14 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[f(t)=L⁻¹{F(s)}\]</td>
+                      <td>\[{f_{\text{t}}}=L⁻¹{F(s)}\]</td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>f(t)</em> is the Function in the time domain (Unitless)
+                            <em>f<sub>t</sub></em> is the Function in the time domain (Unitless)
                           </li>
                           <li>
                             <em>L⁻¹{F(s)}</em> is the Inverse Laplace Transform of F(s) (Unitless)
@@ -605,7 +617,7 @@
                     </tr>
                     <tr>
                       <th>Symbol</th>
-                      <td><p class="paragraph"><em>E(s)</em></p></td>
+                      <td><p class="paragraph"><em>E<sub>s</sub></em></p></td>
                     </tr>
                     <tr>
                       <th>Units</th>
@@ -613,20 +625,20 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[E(s)=R(s)-Y(s)\]</td>
+                      <td>\[{E_{\text{s}}}={R_{\text{s}}}-{Y_{\text{s}}}\]</td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>E(s)</em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
                           <li>
-                            <em>R(s)</em> is the Set Point in the frequency domain (Unitless)
+                            <em>R<sub>s</sub></em> is the Set Point in the frequency domain (Unitless)
                           </li>
                           <li>
-                            <em>Y(s)</em> is the Process Variable in the frequency domain (Unitless)
+                            <em>Y<sub>s</sub></em> is the Process Variable in the frequency domain (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -670,7 +682,7 @@
                     </tr>
                     <tr>
                       <th>Symbol</th>
-                      <td><p class="paragraph"><em>P(s)</em></p></td>
+                      <td><p class="paragraph"><em>P<sub>s</sub></em></p></td>
                     </tr>
                     <tr>
                       <th>Units</th>
@@ -678,18 +690,18 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[P(s)={K_{\text{d}}}\cdot{}E(s)\]</td>
+                      <td>\[{P_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}\]</td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>P(s)</em> is the Proportional Control in frequency domain (Unitless)
+                            <em>P<sub>s</sub></em> is the Proportional Control in frequency domain (Unitless)
                           </li>
                           <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
                           <li>
-                            <em>E(s)</em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -731,7 +743,7 @@
                     </tr>
                     <tr>
                       <th>Symbol</th>
-                      <td><p class="paragraph"><em>D(s)</em></p></td>
+                      <td><p class="paragraph"><em>D<sub>s</sub></em></p></td>
                     </tr>
                     <tr>
                       <th>Units</th>
@@ -739,18 +751,20 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[D(s)={K_{\text{d}}}\cdot{}E(s)\cdot{}s\]</td>
+                      <td>
+                        \[{D_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s\]
+                      </td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>D(s)</em> is the Derivative Control in frequency domain (Unitless)
+                            <em>D<sub>s</sub></em> is the Derivative Control in frequency domain (Unitless)
                           </li>
                           <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
                           <li>
-                            <em>E(s)</em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
                           <li>
                             <em>s</em> is the Complex frequency domain parameter (Unitless)
@@ -797,7 +811,7 @@
                     </tr>
                     <tr>
                       <th>Symbol</th>
-                      <td><p class="paragraph"><em>H(s)</em></p></td>
+                      <td><p class="paragraph"><em>H<sub>s</sub></em></p></td>
                     </tr>
                     <tr>
                       <th>Units</th>
@@ -805,14 +819,14 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[H(s)=\frac{1}{2 s+1}\]</td>
+                      <td>\[{H_{\text{s}}}=\frac{1}{2 s+1}\]</td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>H(s)</em> is the Transfer function of the Power-Plant in frequency domain (Unitless)
+                            <em>H<sub>s</sub></em> is the Transfer function of the Power-Plant in frequency domain (Unitless)
                           </li>
                           <li>
                             <em>s</em> is the Complex frequency domain parameter (Unitless)
@@ -857,7 +871,7 @@
                     </tr>
                     <tr>
                       <th>Symbol</th>
-                      <td><p class="paragraph"><em>C(s)</em></p></td>
+                      <td><p class="paragraph"><em>C<sub>s</sub></em></p></td>
                     </tr>
                     <tr>
                       <th>Units</th>
@@ -866,7 +880,7 @@
                     <tr>
                       <th>Equation</th>
                       <td>
-                        \[C(s)={K_{\text{d}}}\cdot{}E(s)+{K_{\text{d}}}\cdot{}E(s)\cdot{}s\]
+                        \[{C_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}+{K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s\]
                       </td>
                     </tr>
                     <tr>
@@ -874,11 +888,11 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>C(s)</em> is the Control-Variable in frequency domain (Unitless)
+                            <em>C<sub>s</sub></em> is the Control-Variable in frequency domain (Unitless)
                           </li>
                           <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
                           <li>
-                            <em>E(s)</em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
                           <li>
                             <em>s</em> is the Complex frequency domain parameter (Unitless)
@@ -937,30 +951,30 @@
                       <th>Input</th>
                       <td>
                         <p class="paragraph">
-                          <em>r(t)</em>, <em>K<sub>p</sub></em>, <em>K<sub>d</sub></em>
+                          <em>r<sub>t</sub></em>, <em>K<sub>p</sub></em>, <em>K<sub>d</sub></em>
                         </p>
                       </td>
                     </tr>
                     <tr>
                       <th>Output</th>
-                      <td><p class="paragraph"><em>y(t)</em></p></td>
+                      <td><p class="paragraph"><em>y<sub>t</sub></em></p></td>
                     </tr>
                     <tr>
                       <th>Input Constraints</th>
                       <td>
-                        \[r(t)\gt{}0\]
+                        \[{r_{\text{t}}}\gt{}0\]
                         \[{K_{\text{d}}}\gt{}0\]
                         \[{K_{\text{d}}}\gt{}0\]
                       </td>
                     </tr>
                     <tr>
                       <th>Output Constraints</th>
-                      <td>\[y(t)\gt{}0\]</td>
+                      <td>\[{y_{\text{t}}}\gt{}0\]</td>
                     </tr>
                     <tr>
                       <th>Equation</th>
                       <td>
-                        \[\left(2+{K_{\text{d}}}\right) \frac{\,dy(t)}{\,dt}+\left(1+{K_{\text{d}}}\right) y(t)-r(t) {K_{\text{d}}}=0\]
+                        \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0\]
                       </td>
                     </tr>
                     <tr>
@@ -969,10 +983,8 @@
                         <ul class="hide-list-style-no-indent">
                           <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
                           <li><em>t</em> is the time (<em>s</em>)</li>
-                          <li>
-                            <em>y(t)</em> is the Process Variable in the time domain (Unitless)
-                          </li>
-                          <li><em>r(t)</em> is the Set-Point (Unitless)</li>
+                          <li><em>y<sub>t</sub></em> is the Process Variable (Unitless)</li>
+                          <li><em>r<sub>t</sub></em> is the Set-Point (Unitless)</li>
                         </ul>
                       </td>
                     </tr>
@@ -1000,17 +1012,17 @@
                     <p class="paragraph">
                       The Process Variable (Y(S)) in a PD Control Loop is the product of the Error signal ( from  <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a> ), Control Variable ( from <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>  ), and the Power-Plant ( from <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> ).
                     </p>
-                    \[Y(s)=\left(R(s)-Y(s)\right) \left({K_{\text{d}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}\]
+                    \[{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{d}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}\]
                     <p class="paragraph">Rearranging the equation.</p>
-                    \[\left(2+{K_{\text{d}}}\right) Y(s) s+\left(1+{K_{\text{d}}}\right) Y(s)-R(s) s {K_{\text{d}}}-R(s) {K_{\text{d}}}=0\]
+                    \[\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{d}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{d}}}=0\]
                     <p class="paragraph">
                       Computing the Inverse Laplace Transform of F(s) (from  <a href=#TM:invLaplaceTransform>TM: invLaplaceTransform</a> ) of the equation.
                     </p>
-                    \[\left(2+{K_{\text{d}}}\right) \frac{\,dy(t)}{\,dt}+\left(1+{K_{\text{d}}}\right) y(t)-{K_{\text{d}}} \frac{\,dr(t)}{\,dt}-r(t) {K_{\text{d}}}=0\]
+                    \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{d}}}=0\]
                     <p class="paragraph">
                       The Set point (r(t)) is a step function, and a constant  ( from  <a href=#setPoint>A: Set-Point</a> ). Therefore the  differential of the set point is zero. Hence the equation  reduces to,
                     </p>
-                    \[\left(2+{K_{\text{d}}}\right) \frac{\,dy(t)}{\,dt}+\left(1+{K_{\text{d}}}\right) y(t)-r(t) {K_{\text{d}}}=0\]
+                    \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0\]
                   </div>
                 </div>
               </div>
@@ -1032,25 +1044,25 @@
                     <tr>
                       <td><em>K<sub>d</sub></em></td>
                       <td><em>K<sub>d</sub>&thinsp;&gt;&thinsp;0</em></td>
-                      <td><em>1</em></td>
+                      <td><em>1.0</em></td>
                       <td>10<em>%</em></td>
                     </tr>
                     <tr>
                       <td><em>K<sub>d</sub></em></td>
                       <td><em>K<sub>d</sub>&thinsp;&gt;&thinsp;0</em></td>
-                      <td><em>100</em></td>
+                      <td><em>100.0</em></td>
                       <td>10<em>%</em></td>
                     </tr>
                     <tr>
-                      <td><em>r(t)</em></td>
-                      <td><em>r(t)&thinsp;&gt;&thinsp;0</em></td>
-                      <td><em>1</em></td>
+                      <td><em>r<sub>t</sub></em></td>
+                      <td><em>r<sub>t</sub>&thinsp;&gt;&thinsp;0</em></td>
+                      <td><em>1.0</em></td>
                       <td>10<em>%</em></td>
                     </tr>
                     <tr>
                       <td><em>t<sub>sim</sub></em></td>
                       <td>
-                        <em>1&thinsp;&lt;&thinsp;t<sub>sim</sub>&thinsp;&lt;&thinsp;60</em>
+                        <em>1&thinsp;&le;&thinsp;t<sub>sim</sub>&thinsp;&le;&thinsp;60</em>
                       </td>
                       <td><em>10.0</em> <em>s</em></td>
                       <td>10<em>%</em></td>
@@ -1058,7 +1070,7 @@
                     <tr>
                       <td><em>t<sub>step</sub></em></td>
                       <td>
-                        <em>\(\frac{1}{100}\)&thinsp;&lt;&thinsp;t<sub>step</sub>&thinsp;&lt;&thinsp;1</em>
+                        <em>\(\frac{1}{100}\)&thinsp;&le;&thinsp;t<sub>step</sub>&thinsp;&le;&thinsp;1</em>
                       </td>
                       <td><em>0.01</em> <em>s</em></td>
                       <td>10<em>%</em></td>
@@ -1114,8 +1126,8 @@
                   <th>Units</th>
                 </tr>
                 <tr>
-                  <td><em>K<sub>d</sub></em></td>
-                  <td>Proportional Gain</td>
+                  <td><em>A<sub>tol</sub></em></td>
+                  <td>Absolute tolerance</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -1124,7 +1136,17 @@
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>r(t)</em></td>
+                  <td><em>K<sub>d</sub></em></td>
+                  <td>Proportional Gain</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><em>R<sub>tol</sub></em></td>
+                  <td>Relative tolerance</td>
+                  <td>--</td>
+                </tr>
+                <tr>
+                  <td><em>r<sub>t</sub></em></td>
                   <td>Set-Point</td>
                   <td>--</td>
                 </tr>

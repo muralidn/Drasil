@@ -61,31 +61,35 @@ The symbols used in this document are summarized in \hyperref[Table:ToS]{Tab: To
 \endhead
 $-∞$ & Negative Infinity & --
 \\
-$C(s)$ & Control-Variable in frequency domain & --
+${A_{\text{tol}}}$ & Absolute tolerance & --
 \\
-$c(t)$ & Control-Variable in time domain & --
+${C_{\text{s}}}$ & Control-Variable in frequency domain & --
 \\
-$D(s)$ & Derivative Control in frequency domain & --
+${c_{\text{t}}}$ & Control-Variable in time domain & --
 \\
-$E(s)$ & Error Signal in the frequency domain & --
+${D_{\text{s}}}$ & Derivative Control in frequency domain & --
 \\
-$e(t)$ & Error Signal in the time domain & --
+${E_{\text{s}}}$ & Error Signal in the frequency domain & --
 \\
-$F(s)$ & Laplace Transform of a function f(t) & --
+${e_{\text{t}}}$ & Error Signal in the time domain & --
 \\
-$f(t)$ & Function in the time domain & --
+${F_{\text{s}}}$ & Laplace Transform of a function f(t) & --
 \\
-$H(s)$ & Transfer function of the Power-Plant in frequency domain & --
+${f_{\text{t}}}$ & Function in the time domain & --
+\\
+${H_{\text{s}}}$ & Transfer function of the Power-Plant in frequency domain & --
 \\
 ${K_{\text{p}}}$ & Proportional Gain & --
 \\
 $L⁻¹{F(s)}$ & Inverse Laplace Transform of F(s) & --
 \\
-$P(s)$ & Proportional Control in frequency domain & --
+${P_{\text{s}}}$ & Proportional Control in frequency domain & --
 \\
-$R(s)$ & Set Point in the frequency domain & --
+${R_{\text{s}}}$ & Set Point in the frequency domain & --
 \\
-$r(t)$ & Set-Point & --
+${R_{\text{tol}}}$ & Relative tolerance & --
+\\
+${r_{\text{t}}}$ & Set-Point & --
 \\
 $s$ & Complex frequency domain parameter & --
 \\
@@ -95,9 +99,9 @@ ${t_{\text{sim}}}$ & Simulation time & ${\text{s}}$
 \\
 ${t_{\text{step}}}$ & Step time & ${\text{s}}$
 \\
-$Y(s)$ & Process Variable in the frequency domain & --
+${Y_{\text{s}}}$ & Process Variable in the frequency domain & --
 \\
-$y(t)$ & Process Variable in the time domain & --
+${y_{\text{t}}}$ & Process Variable & --
 \\
 $∞$ & Infinity & --
 \\
@@ -282,12 +286,12 @@ Label & Laplace transform
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           F(s)=\int_{-∞}^{∞}{f(t) e^{-s t}}\,dt
+           {F_{\text{s}}}=\int_{-∞}^{∞}{{f_{\text{t}}} e^{-s t}}\,dt
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$F(s)$ is the Laplace Transform of a function f(t) (Unitless)}
-              \item{$f(t)$ is the Function in the time domain (Unitless)}
+              \item{${F_{\text{s}}}$ is the Laplace Transform of a function f(t) (Unitless)}
+              \item{${f_{\text{t}}}$ is the Function in the time domain (Unitless)}
               \item{$s$ is the Complex frequency domain parameter (Unitless)}
               \item{$t$ is the time (${\text{s}}$)}
               \end{symbDescription}
@@ -315,11 +319,11 @@ Label & Inverse laplace transform
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           f(t)=L⁻¹{F(s)}
+           {f_{\text{t}}}=L⁻¹{F(s)}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$f(t)$ is the Function in the time domain (Unitless)}
+              \item{${f_{\text{t}}}$ is the Function in the time domain (Unitless)}
               \item{$L⁻¹{F(s)}$ is the Inverse Laplace Transform of F(s) (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -353,20 +357,20 @@ This section collects and defines all the data needed to build the instance mode
 Label & Error Signal in the frequency domain
         
 \\ \midrule \\
-Symbol & $E(s)$
+Symbol & ${E_{\text{s}}}$
          
 \\ \midrule \\
 Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           E(s)=R(s)-Y(s)
+           {E_{\text{s}}}={R_{\text{s}}}-{Y_{\text{s}}}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$E(s)$ is the Error Signal in the frequency domain (Unitless)}
-              \item{$R(s)$ is the Set Point in the frequency domain (Unitless)}
-              \item{$Y(s)$ is the Process Variable in the frequency domain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${R_{\text{s}}}$ is the Set Point in the frequency domain (Unitless)}
+              \item{${Y_{\text{s}}}$ is the Process Variable in the frequency domain (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
 Notes & Error Signal is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ). The Set-Point is assumed to be constant throughout the simulation ( from  \hyperref[setPoint]{A: Set-Point} ). The initial value of the Process Variable if assumed to be zero ( from  \hyperref[initialValue]{A: Initial value} )..
@@ -392,20 +396,20 @@ RefBy & \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}, \hyperref[DD:ddDerivCtrl]{DD: 
 Label & Proportional Control in frequency domain
         
 \\ \midrule \\
-Symbol & $P(s)$
+Symbol & ${P_{\text{s}}}$
          
 \\ \midrule \\
 Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           P(s)={K_{\text{d}}}\cdot{}E(s)
+           {P_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$P(s)$ is the Proportional Control in frequency domain (Unitless)}
+              \item{${P_{\text{s}}}$ is the Proportional Control in frequency domain (Unitless)}
               \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
-              \item{$E(s)$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
 Notes & Proportional controller is the product of the Proportional Gain and the Error Signal ( from  \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ).
@@ -431,20 +435,20 @@ RefBy & \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}
 Label & Derivative Control in frequency domain
         
 \\ \midrule \\
-Symbol & $D(s)$
+Symbol & ${D_{\text{s}}}$
          
 \\ \midrule \\
 Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           D(s)={K_{\text{d}}}\cdot{}E(s)\cdot{}s
+           {D_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$D(s)$ is the Derivative Control in frequency domain (Unitless)}
+              \item{${D_{\text{s}}}$ is the Derivative Control in frequency domain (Unitless)}
               \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
-              \item{$E(s)$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
               \item{$s$ is the Complex frequency domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -471,18 +475,18 @@ RefBy & \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}
 Label & Transfer function of the Power-Plant in frequency domain
         
 \\ \midrule \\
-Symbol & $H(s)$
+Symbol & ${H_{\text{s}}}$
          
 \\ \midrule \\
 Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           H(s)=\frac{1}{2 s+1}
+           {H_{\text{s}}}=\frac{1}{2 s+1}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$H(s)$ is the Transfer function of the Power-Plant in frequency domain (Unitless)}
+              \item{${H_{\text{s}}}$ is the Transfer function of the Power-Plant in frequency domain (Unitless)}
               \item{$s$ is the Complex frequency domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -509,20 +513,20 @@ RefBy & \hyperref[IM:pdEquationIM]{IM: pdEquationIM}
 Label & Control-Variable in frequency domain
         
 \\ \midrule \\
-Symbol & $C(s)$
+Symbol & ${C_{\text{s}}}$
          
 \\ \midrule \\
 Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           C(s)={K_{\text{d}}}\cdot{}E(s)+{K_{\text{d}}}\cdot{}E(s)\cdot{}s
+           {C_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}+{K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{$C(s)$ is the Control-Variable in frequency domain (Unitless)}
+              \item{${C_{\text{s}}}$ is the Control-Variable in frequency domain (Unitless)}
               \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
-              \item{$E(s)$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
               \item{$s$ is the Complex frequency domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -553,14 +557,14 @@ This section transforms the problem defined in \hyperref[Sec:ProbDesc]{Section: 
 Label & Computation of the Process Variable as a function of time.
         
 \\ \midrule \\
-Input & $r(t)$, ${K_{\text{p}}}$, ${K_{\text{d}}}$
+Input & ${r_{\text{t}}}$, ${K_{\text{p}}}$, ${K_{\text{d}}}$
         
 \\ \midrule \\
-Output & $y(t)$
+Output & ${y_{\text{t}}}$
          
 \\ \midrule \\
 Input Constraints & \begin{displaymath}
-                    r(t)\gt{}0
+                    {r_{\text{t}}}\gt{}0
                     \end{displaymath}
                     \begin{displaymath}
                     {K_{\text{d}}}\gt{}0
@@ -570,18 +574,18 @@ Input Constraints & \begin{displaymath}
                     \end{displaymath}
 \\ \midrule \\
 Output Constraints & \begin{displaymath}
-                     y(t)\gt{}0
+                     {y_{\text{t}}}\gt{}0
                      \end{displaymath}
 \\ \midrule \\
 Equation & \begin{displaymath}
-           \left(2+{K_{\text{d}}}\right) \frac{\,dy(t)}{\,dt}+\left(1+{K_{\text{d}}}\right) y(t)-r(t) {K_{\text{d}}}=0
+           \left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
               \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
               \item{$t$ is the time (${\text{s}}$)}
-              \item{$y(t)$ is the Process Variable in the time domain (Unitless)}
-              \item{$r(t)$ is the Set-Point (Unitless)}
+              \item{${y_{\text{t}}}$ is the Process Variable (Unitless)}
+              \item{${r_{\text{t}}}$ is the Set-Point (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
 Source & \cite{abbasi2015} and \cite{johnson2008}
@@ -597,22 +601,22 @@ RefBy & \hyperref[outputValues]{FR: Output-Values} and \hyperref[calculateValues
 The Process Variable (Y(S)) in a PD Control Loop is the product of the Error signal ( from  \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} ), Control Variable ( from \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}  ), and the Power-Plant ( from \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} ).
 
 \begin{displaymath}
-Y(s)=\left(R(s)-Y(s)\right) \left({K_{\text{d}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}
+{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{d}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}
 \end{displaymath}
 Rearranging the equation.
 
 \begin{displaymath}
-\left(2+{K_{\text{d}}}\right) Y(s) s+\left(1+{K_{\text{d}}}\right) Y(s)-R(s) s {K_{\text{d}}}-R(s) {K_{\text{d}}}=0
+\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{d}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{d}}}=0
 \end{displaymath}
 Computing the Inverse Laplace Transform of F(s) (from  \hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} ) of the equation.
 
 \begin{displaymath}
-\left(2+{K_{\text{d}}}\right) \frac{\,dy(t)}{\,dt}+\left(1+{K_{\text{d}}}\right) y(t)-{K_{\text{d}}} \frac{\,dr(t)}{\,dt}-r(t) {K_{\text{d}}}=0
+\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{d}}}=0
 \end{displaymath}
 The Set point (r(t)) is a step function, and a constant  ( from  \hyperref[setPoint]{A: Set-Point} ). Therefore the  differential of the set point is zero. Hence the equation  reduces to,
 
 \begin{displaymath}
-\left(2+{K_{\text{d}}}\right) \frac{\,dy(t)}{\,dt}+\left(1+{K_{\text{d}}}\right) y(t)-r(t) {K_{\text{d}}}=0
+\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0
 \end{displaymath}
 \subsubsection{Data Constraints}
 \label{Sec:DataConstraints}
@@ -624,15 +628,15 @@ The Set point (r(t)) is a step function, and a constant  ( from  \hyperref[setPo
 \\
 \midrule
 \endhead
-${K_{\text{d}}}$ & ${K_{\text{d}}}\gt{}0$ & $1$ & 10$\%$
+${K_{\text{d}}}$ & ${K_{\text{d}}}\gt{}0$ & $1.0$ & 10$\%$
 \\
-${K_{\text{d}}}$ & ${K_{\text{d}}}\gt{}0$ & $100$ & 10$\%$
+${K_{\text{d}}}$ & ${K_{\text{d}}}\gt{}0$ & $100.0$ & 10$\%$
 \\
-$r(t)$ & $r(t)\gt{}0$ & $1$ & 10$\%$
+${r_{\text{t}}}$ & ${r_{\text{t}}}\gt{}0$ & $1.0$ & 10$\%$
 \\
-${t_{\text{sim}}}$ & $1\lt{}{t_{\text{sim}}}\lt{}60$ & $10.0$ ${\text{s}}$ & 10$\%$
+${t_{\text{sim}}}$ & $1\leq{}{t_{\text{sim}}}\leq{}60$ & $10.0$ ${\text{s}}$ & 10$\%$
 \\
-${t_{\text{step}}}$ & $\frac{1}{100}\lt{}{t_{\text{step}}}\lt{}1$ & $0.01$ ${\text{s}}$ & 10$\%$
+${t_{\text{step}}}$ & $\frac{1}{100}\leq{}{t_{\text{step}}}\leq{}1$ & $0.01$ ${\text{s}}$ & 10$\%$
 \\
 \bottomrule
 \caption{Input Data Constraints}
@@ -658,11 +662,15 @@ This section provides the functional requirements, the tasks and behaviours that
 \\
 \midrule
 \endhead
-${K_{\text{d}}}$ & Proportional Gain & --
+${A_{\text{tol}}}$ & Absolute tolerance & --
 \\
 ${K_{\text{d}}}$ & Proportional Gain & --
 \\
-$r(t)$ & Set-Point & --
+${K_{\text{d}}}$ & Proportional Gain & --
+\\
+${R_{\text{tol}}}$ & Relative tolerance & --
+\\
+${r_{\text{t}}}$ & Set-Point & --
 \\
 ${t_{\text{sim}}}$ & Simulation time & ${\text{s}}$
 \\
