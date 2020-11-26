@@ -332,6 +332,8 @@ executable pidController
       Drasil.PIDController.Requirements
       Drasil.PIDController.SpSysDesc
       Drasil.PIDController.TModel
+      Drasil.SWHS.Concepts
+      Drasil.SWHS.Unitals
   Build-Depends:
     base >= 4.7,
     lens >= 4.12,
