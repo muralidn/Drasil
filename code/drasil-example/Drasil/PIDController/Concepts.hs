@@ -1,16 +1,17 @@
 module Drasil.PIDController.Concepts where
-import Data.Drasil.Constraints (gtZeroConstr)
 
-import Data.Drasil.Concepts.Documentation (assumption, goalStmt, physSyst,
-  requirement, srs, typUnc)
+import Data.Drasil.Concepts.Documentation
+       (assumption, goalStmt, physSyst, requirement, srs, typUnc)
+import Data.Drasil.Constraints (gtZeroConstr)
+import Data.Drasil.IdeaDicts
 
 import Data.Drasil.SI_Units (second)
 import Language.Drasil
-import Data.Drasil.IdeaDicts
 
 acronyms :: [CI]
-acronyms = [assumption, dataDefn, genDefn, goalStmt, inModel, physSyst, 
-            requirement, srs, thModel, typUnc]
+acronyms
+  = [assumption, dataDefn, genDefn, goalStmt, inModel, physSyst, requirement,
+     srs, thModel, typUnc]
 
 pidControllerSystem, controlEngineering :: CI
 pidControllerSystem
@@ -100,25 +101,25 @@ sym_s, sym_f_S, sym_f_t, sym_negInf, sym_posInf, sym_invLaplace, sym_Kd, sym_Kp,
        sym_YT, sym_YS, sym_YrT, sym_YrS, sym_ET, sym_ES, sym_PS, sym_DS, sym_HS,
        sym_CT, sym_CS, sym_TStep, sym_TSim :: Symbol
 
-sym_f_S = Variable "F(s)"
-sym_s = Variable "s"
-sym_f_t = Variable "f(t)"
 sym_negInf = Variable "-∞"
 sym_posInf = Variable "∞"
 sym_invLaplace = Variable "L⁻¹{F(s)}"
+sym_f_S = sub (Variable "F") $ Label "s"
+sym_s = Variable "s"
+sym_f_t = sub (Variable "f") $ Label "t"
 sym_Kd = sub (Variable "K") $ Label "d"
 sym_Kp = sub (Variable "K") $ Label "p"
-sym_YrT = Variable "r(t)"
-sym_YrS = Variable "R(s)"
-sym_YT = Variable "y(t)"
-sym_YS = Variable "Y(s)"
-sym_ET = Variable "e(t)"
-sym_ES = Variable "E(s)"
-sym_PS = Variable "P(s)"
-sym_DS = Variable "D(s)"
-sym_HS = Variable "H(s)"
-sym_CT = Variable "c(t)"
-sym_CS = Variable "C(s)"
+sym_YrT = sub (Variable "r") $ Label "t"
+sym_YrS = sub (Variable "R") $ Label "s"
+sym_YT = sub (Variable "y") $ Label "t"
+sym_YS = sub (Variable "Y") $ Label "s"
+sym_ET = sub (Variable "e") $ Label "t"
+sym_ES = sub (Variable "E") $ Label "s"
+sym_PS = sub (Variable "P") $ Label "s"
+sym_DS = sub (Variable "D") $ Label "s"
+sym_HS = sub (Variable "H") $ Label "s"
+sym_CT = sub (Variable "c") $ Label "t"
+sym_CS = sub (Variable "C") $ Label "s"
 sym_TStep = sub (Variable "t") $ Label "step"
 sym_TSim = sub (Variable "t") $ Label "sim"
 
@@ -149,45 +150,47 @@ inputsUC
   = [ipSetPtUnc, ipPropGainUnc, ipDerGainUnc, ipStepTimeUnc, ipSimTimeUnc]
 
 inpConstrained :: [ConstrConcept]
-inpConstrained = [ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime]
+inpConstrained
+  = [ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime, opProcessVariable]
 
-ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime :: ConstrConcept
+ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime, opProcessVariable ::
+            ConstrConcept
 
 ipSetPtUnc, ipPropGainUnc, ipDerGainUnc, ipStepTimeUnc, ipSimTimeUnc :: UncertQ
 
 ipPropGain
-  = constrained' (dqdNoUnit propGain sym_Kp Real) [gtZeroConstr] (int 100)
+  = constrained' (dqdNoUnit propGain sym_Kp Real) [gtZeroConstr] (dbl 100)
 ipPropGainUnc = uq ipPropGain defaultUncrt
 qdPropGain = qw ipPropGain
 
 ipDerivGain
-  = constrained' (dqdNoUnit propGain sym_Kd Real) [gtZeroConstr] (int 1)
+  = constrained' (dqdNoUnit propGain sym_Kd Real) [gtZeroConstr] (dbl 1)
 ipDerGainUnc = uq ipDerivGain defaultUncrt
 qdDerivGain = qw ipDerivGain
 
-ipSetPt = constrained' (dqdNoUnit setPoint sym_YrT Real) [gtZeroConstr] (int 1)
+ipSetPt = constrained' (dqdNoUnit setPoint sym_YrT Real) [gtZeroConstr] (dbl 1)
 ipSetPtUnc = uq ipSetPt defaultUncrt
 qdSetPointTD = qw ipSetPt
 
 ipStepTime
   = constrained' (dqd stepTime sym_TStep Real second)
-      [physc $ Bounded (Exc, 0.01  ) (Exc, 1)]
+      [physc $ Bounded (Inc, 0.01  ) (Inc, 1)]
       (dbl 0.01  )
 ipStepTimeUnc = uq ipStepTime defaultUncrt
 qdStepTime = qw ipStepTime
 
 ipSimTime
   = constrained' (dqd simulationTime sym_TSim Real second)
-      [physc $ Bounded (Exc, 1) (Exc, 60)]
+      [physc $ Bounded (Inc, 1) (Inc, 60)]
       (dbl 10)
 ipSimTimeUnc = uq ipSimTime defaultUncrt
 qdSimTime = qw ipSimTime
 
-qdProcessVariableTD
-  = vc "qdProcessVariableTD"
-      (nounPhraseSent (S "Process Variable in the time domain"))
-      sym_YT
-      Real
+opProcessVariable
+  = constrained' (dqdNoUnit processVariable sym_YT (Vect Rational))
+      [gtZeroConstr]
+      (dbl 1)
+qdProcessVariableTD = qw opProcessVariable
 
 qdSetPointFD
   = vc "qdSetPointFD" (nounPhraseSent (S "Set Point in the frequency domain"))

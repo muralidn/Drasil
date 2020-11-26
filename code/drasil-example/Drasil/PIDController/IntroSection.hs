@@ -23,7 +23,8 @@ introscopeOfReq
   = foldlSent_
       [S "a", phrase pidCL, S " with three subsystems namely a ", phrase pidC,
        S ", a", phrase summingPt, S ", and a", phrase powerPlant, S ". This ",
-       S "software is intended to aid with the manual tuning of the", phrase pidC]
+       S "software is intended to aid with the manual tuning of the",
+       phrase pidC]
 
 introPurposeOfDoc
   = foldlSent

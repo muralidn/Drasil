@@ -12,7 +12,8 @@ import Utils.Drasil
 gsdSysContextFig :: LabelledContent
 gsdSysContextFig
   = llcc (makeFigRef "systemContextDiag") $
-      fig (titleize sysCont) ("../../../datafiles/PIDController/Fig_SystemContext.png")
+      fig (titleize sysCont)
+        ("../../../datafiles/PIDController/Fig_SystemContext.png")
 
 gsdSysContextP1, gsdSysContextP2 :: Contents
 gsdSysContextP1
@@ -62,5 +63,5 @@ gsduserCharacteristics :: Contents
 gsduserCharacteristics
   = foldlSP
       [S "The end user of " +:+ phrase pidC +:+
-          S " is expected to have completed at least the",
-        S "equivalent of the second year of an undergraduate degree in electrical engineering"]
+         S " is expected to have completed at least the",
+       S "equivalent of the second year of an undergraduate degree in electrical engineering"]

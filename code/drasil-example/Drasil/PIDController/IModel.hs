@@ -19,8 +19,8 @@ instanceModels = [imPD]
 imPD :: InstanceModel
 imPD
   = im imPDRC
-      [qwC qdSetPointTD $  UpFrom (Exc, 0),
-       qwC qdPropGain $ UpFrom (Exc, 0), qwC qdDerivGain $ UpFrom (Exc, 0)]
+      [qwC qdSetPointTD $ UpFrom (Exc, 0), qwC qdPropGain $ UpFrom (Exc, 0),
+       qwC qdDerivGain $ UpFrom (Exc, 0)]
       (qw qdProcessVariableTD)
       [UpFrom (Exc, 0)]
       [makeCite abbasi2015, makeCite johnson2008]
@@ -43,11 +43,12 @@ eqn
       - ((sy qdSetPointTD) * sy qdPropGain) $= 0
 
 imDeriv :: Derivation
-imDeriv = mkDerivName (phrase processVariable) (weave [imDerivStmts, map E imDerivEqns])
+imDeriv
+  = mkDerivName (phrase processVariable)
+      (weave [imDerivStmts, map E imDerivEqns])
 
 imDerivStmts :: [Sentence]
 imDerivStmts = [derivStmt1, derivStmt2, derivStmt3, derivStmt4]
-
 
 imDerivEqns :: [Expr]
 imDerivEqns = [derivEqn1, derivEqn2, derivEqn3, derivEqn4]
@@ -71,21 +72,20 @@ derivEqn1
       * (1 / (2 * (sy qdFreqDomain) + 1))
 
 derivStmt2 :: Sentence
-derivStmt2
-  = foldlSent
-      [S "Rearranging the equation"]
+derivStmt2 = foldlSent [S "Rearranging the equation"]
 
 derivEqn2 :: Expr
 derivEqn2
-  = (2 + sy qdDerivGain) * (sy qdProcessVariableFD) * (sy qdFreqDomain) + 
-    (1 + sy qdPropGain) * (sy qdProcessVariableFD) - (sy qdSetPointFD) *
-    (sy qdFreqDomain) * (sy qdDerivGain) - (sy qdSetPointFD) * (sy qdPropGain)
-    $= 0
+  = (2 + sy qdDerivGain) * (sy qdProcessVariableFD) * (sy qdFreqDomain) +
+      (1 + sy qdPropGain) * (sy qdProcessVariableFD)
+      - (sy qdSetPointFD) * (sy qdFreqDomain) * (sy qdDerivGain)
+      - (sy qdSetPointFD) * (sy qdPropGain) $= 0
 
 derivStmt3 :: Sentence
 derivStmt3
-  = S "Computing the" +:+ phrase qdInvLaplaceTransform +:+ S "(from "
-        +:+ makeRef2S tmInvLaplace +:+ S ") of the equation."
+  = S "Computing the" +:+ phrase qdInvLaplaceTransform +:+ S "(from " +:+
+      makeRef2S tmInvLaplace
+      +:+ S ") of the equation."
 
 derivEqn3 :: Expr
 derivEqn3
@@ -93,13 +93,18 @@ derivEqn3
       ((1 + sy qdPropGain) * (sy qdProcessVariableTD))
       - (sy qdDerivGain) * (deriv (sy qdSetPointTD) time)
       - ((sy qdSetPointTD) * sy qdPropGain) $= 0
- 
+
 derivStmt4 :: Sentence
 derivStmt4
-  = foldlSent_ [S "The Set point (r(t)) is a step function, and a constant "
-                +:+ S "( from " +:+ makeRef2S aSP +:+ S ").", S "Therefore the"
-                +:+ S" differential of the set point is zero. Hence the equation "
-                +:+ S "reduces to,"]
+  = foldlSent_
+      [S "The Set point (r(t)) is a step function, and a constant " +:+
+         S "( from "
+         +:+ makeRef2S aSP
+         +:+ S ").",
+       S "Therefore the" +:+
+         S " differential of the set point is zero. Hence the equation "
+         +:+ S "reduces to,"]
+
 derivEqn4 :: Expr
 derivEqn4
   = ((2 + sy qdDerivGain) * (deriv (sy qdProcessVariableTD) time)) +

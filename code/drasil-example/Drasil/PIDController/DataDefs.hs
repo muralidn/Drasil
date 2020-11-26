@@ -102,7 +102,8 @@ ddDerivCtrlNote
 
 ddPowerPlant :: DataDefinition
 ddPowerPlant
-  = dd ddPowerPlantDefn [makeCite pidWiki] Nothing "ddPowerPlant" [ddPowerPlantNote]
+  = dd ddPowerPlantDefn [makeCite pidWiki] Nothing "ddPowerPlant"
+      [ddPowerPlantNote]
 
 ddPowerPlantDefn :: QDefinition
 ddPowerPlantDefn = mkQuantDef qdTransferFunctionFD ddPowerPlantEqn

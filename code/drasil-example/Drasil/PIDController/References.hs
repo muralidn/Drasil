@@ -10,8 +10,8 @@ pidWiki, johnson2008, abbasi2015, laplaceWiki :: Citation
 laplaceWiki
   = cMisc
       [author [mononym "Wikipedia Contributors"], title "Laplace transform",
-       howPublishedU "https://en.wikipedia.org/wiki/Laplace_transform", month Nov,
-       year 2020]
+       howPublishedU "https://en.wikipedia.org/wiki/Laplace_transform",
+       month Nov, year 2020]
       "laplaceWiki"
 
 pidWiki

@@ -8,11 +8,10 @@ import Utils.Drasil
 
 assumptions :: [ConceptInstance]
 assumptions
-  = [aPwrPlant, aDecoupled, aSP, aExtDisturb, aInitialValue,
-     aParallelEq]
+  = [aPwrPlant, aDecoupled, aSP, aExtDisturb, aInitialValue, aParallelEq]
 
-aPwrPlant, aDecoupled, aSP, aExtDisturb, aInitialValue,
-          aParallelEq :: ConceptInstance
+aPwrPlant, aDecoupled, aSP, aExtDisturb, aInitialValue, aParallelEq ::
+           ConceptInstance
 
 aPwrPlant = cic "pwrPlant" pwrPlantDesc "Power plant" assumpDom
 aDecoupled = cic "decoupled" aDecoupledDesc "Decoupled equation" assumpDom
