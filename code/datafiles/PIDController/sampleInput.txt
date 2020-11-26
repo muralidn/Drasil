@@ -1,0 +1,14 @@
+#Set-Point (Unitless)
+1
+#K_p (Unitless)
+20
+#K_d (Unitless)
+1
+#tstep	(s)
+0.01
+#TSim	(s)
+10
+#AbsTol	(1e-10)
+1e-10
+#RelTol	(1e-10)
+1e-10
