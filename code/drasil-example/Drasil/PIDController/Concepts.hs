@@ -67,11 +67,11 @@ setPoint
       ("The desired value that the control system must reach. This also knows as reference variable")
 
 propGain
-  = dcc "propGain" (nounPhraseSP "Proportional Gain")
+  = dcc "propGain" (nounPhraseSP "Proportional-Gain")
       ("Gain constant of the proportional controller")
 
 derGain
-  = dcc "derGain" (nounPhraseSP "Derivative Gain")
+  = dcc "derGain" (nounPhraseSP "Derivative-Gain")
       ("Gain constant of the derivative controller")
 
 simulation

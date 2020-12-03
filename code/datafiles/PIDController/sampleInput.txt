@@ -1,9 +1,9 @@
 #Set-Point (Unitless)
 1
-#K_p (Unitless)
-20
-#K_d (Unitless)
+#Derivative-Gain (Unitless)
 1
+#Proportional-Gain (Unitless)
+20
 #tstep	(s)
 0.01
 #TSim	(s)
