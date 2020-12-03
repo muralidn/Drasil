@@ -12,8 +12,6 @@ import Data.Drasil.ExternalLibraries.ODELibraries
         scipyODESymbols)
 
 import qualified Data.Drasil.IdeaDicts as IDict (dataDefn)
-
-import Data.Drasil.People (naveen)
 import Data.Drasil.Quantities.Physics (physicscon, time)
 import Data.Drasil.SI_Units (second)
 import Database.Drasil
@@ -71,6 +69,9 @@ import Language.Drasil.Code (relToQD)
 import Language.Drasil.Printers (PrintingInformation(..), defaultConfiguration)
 import Theory.Drasil (DataDefinition, GenDefn, InstanceModel, TheoryModel)
 import Utils.Drasil
+
+naveen :: Person
+naveen = person "Naveen Ganesh"  "Muralidharan"  
 
 srs :: Document
 srs = mkDoc mkSRS (for'' titleize phrase) si
