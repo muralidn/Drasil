@@ -164,7 +164,7 @@ ipPropGainUnc = uq ipPropGain defaultUncrt
 qdPropGain = qw ipPropGain
 
 ipDerivGain
-  = constrained' (dqdNoUnit propGain sym_Kd Real) [gtZeroConstr] (dbl 1)
+  = constrained' (dqdNoUnit derGain sym_Kd Real) [gtZeroConstr] (dbl 1)
 ipDerGainUnc = uq ipDerivGain defaultUncrt
 qdDerivGain = qw ipDerivGain
 
