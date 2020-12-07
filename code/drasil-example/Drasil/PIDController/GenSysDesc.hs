@@ -3,8 +3,6 @@ module Drasil.PIDController.GenSysDesc where
 import Data.Drasil.Concepts.Documentation
        (environment, software, softwareSys, sysCont, system, user)
 
-import Drasil.DocLang (characteristicsLabel)
-
 import Drasil.PIDController.Concepts
 import Language.Drasil
 import Utils.Drasil

@@ -3,8 +3,7 @@ module Main (main) where
 import Data.Drasil.ExternalLibraries.ODELibraries
        (apacheODEPckg, odeintPckg, osloPckg, scipyODEPckg)
 
-import Drasil.PIDController.Body
-       (pidODEInfo, pidODEOptions, printSetting, si, srs)
+import Drasil.PIDController.Body (pidODEInfo, printSetting, si, srs)
 
 import Language.Drasil.Code
        (AuxFile(..), Choices(..), CodeSpec, Comments(..), ConstantRepr(..),
@@ -23,8 +22,8 @@ codeChoices
   = defaultChoices{lang = [Python, Cpp, CSharp], modularity = Modular Combined,
                    impType = Program, logFile = "log.txt", logging = [],
                    comments = [CommentFunc, CommentClass, CommentMod],
-                   doxVerbosity = Quiet, dates = Hide,
-                   onSfwrConstraint = Warning, onPhysConstraint = Warning,
+                   doxVerbosity = Verbose, dates = Show,
+                   onSfwrConstraint = Exception, onPhysConstraint = Exception,
                    inputStructure = Unbundled, constStructure = Store Bundled,
                    constRepr = Const,
                    auxFiles =

@@ -4,9 +4,10 @@ import Data.Drasil.Concepts.Documentation
        (assumption, goalStmt, physSyst, requirement, srs, typUnc)
 import Data.Drasil.Constraints (gtZeroConstr)
 import Data.Drasil.IdeaDicts
-
 import Data.Drasil.SI_Units (second)
 import Language.Drasil
+
+import Theory.Drasil (mkQuantDef)
 
 acronyms :: [CI]
 acronyms
@@ -22,8 +23,8 @@ controlEngineering
 
 pidC, pidCL, summingPt, powerPlant, firstOrderSystem, errorValue,
       simulationTime, processVariable, setPoint, propGain, derGain, simulation,
-      ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime ::
-      ConceptChunk
+      ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime,
+      ccAbsTolerance, ccRelTolerance :: ConceptChunk
 pidCL
   = dcc "pdCtrlLoop" (nounPhraseSP "PD Control Loop")
       ("Closed loop control system with PD Controller, Summing Point and Power Plant")
@@ -88,6 +89,14 @@ ccLaplaceTransform
       ("an integral transform that converts a function of a real variable t " ++
          "(often time) to a function of a complex variable s (complex frequency)")
 
+ccAbsTolerance
+  = dcc "absoluteTolerance" (nounPhraseSP "Absolute Tolerance")
+      ("Absolute tolerance for the integrator.")
+
+ccRelTolerance
+  = dcc "relativeTolerance" (nounPhraseSP "Relative Tolerance")
+      ("Relative tolerance for the integrator.")
+
 concepts :: [IdeaDict]
 concepts = map nw defs
 
@@ -95,11 +104,12 @@ defs :: [ConceptChunk]
 defs
   = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, errorValue,
      simulationTime, processVariable, setPoint, propGain, derGain,
-     ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime]
+     ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime,
+     ccAbsTolerance, ccRelTolerance]
 
 sym_s, sym_f_S, sym_f_t, sym_negInf, sym_posInf, sym_invLaplace, sym_Kd, sym_Kp,
        sym_YT, sym_YS, sym_YrT, sym_YrS, sym_ET, sym_ES, sym_PS, sym_DS, sym_HS,
-       sym_CT, sym_CS, sym_TStep, sym_TSim :: Symbol
+       sym_CT, sym_CS, sym_TStep, sym_TSim, sym_AbsTol, sym_RelTol :: Symbol
 
 sym_negInf = Variable "-∞"
 sym_posInf = Variable "∞"
@@ -122,6 +132,8 @@ sym_CT = sub (Variable "c") $ Label "t"
 sym_CS = sub (Variable "C") $ Label "s"
 sym_TStep = sub (Variable "t") $ Label "step"
 sym_TSim = sub (Variable "t") $ Label "sim"
+sym_AbsTol = Variable "AbsTol"
+sym_RelTol = Variable "RelTol"
 
 symbols :: [QuantityDict]
 symbols
@@ -185,6 +197,22 @@ ipSimTime
       (dbl 10)
 ipSimTimeUnc = uq ipSimTime defaultUncrt
 qdSimTime = qw ipSimTime
+
+odeAbsTolConst, odeRelTolConst :: QDefinition
+
+dqdAbsTol, dqdRelTol :: DefinedQuantityDict
+
+pidConstants :: [QDefinition]
+pidConstants = [odeAbsTolConst, odeRelTolConst]
+
+pidDqdConstants :: [DefinedQuantityDict]
+pidDqdConstants = [dqdAbsTol, dqdRelTol]
+
+dqdAbsTol = dqdNoUnit ccAbsTolerance sym_AbsTol Real
+dqdRelTol = dqdNoUnit ccRelTolerance sym_RelTol Real
+
+odeAbsTolConst = mkQuantDef dqdAbsTol (Dbl 1.0e-10)
+odeRelTolConst = mkQuantDef dqdRelTol (Dbl 1.0e-10)
 
 opProcessVariable
   = constrained' (dqdNoUnit processVariable sym_YT (Vect Rational))

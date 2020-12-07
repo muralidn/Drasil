@@ -21,16 +21,15 @@ import Database.Drasil
         _sysinfodb, _usedinfodb, cdb, rdb, refdb)
 
 import Drasil.DocLang
-       (AuxConstntSec(AuxConsProg), DerivationDisplay(..),
-        DocSection(AuxConstntSec, Bibliography, GSDSec, IntroSec, LCsSec,
-                   RefSec, ReqrmntSec, SSDSec, TraceabilitySec),
-        Emphasis(Bold), Field(..), Fields, GSDSec(..), GSDSub(..),
-        InclUnits(IncludeUnits), IntroSec(..), IntroSub(..), PDSub(..),
-        ProblemDescription(PDProg), RefSec(..), RefTab(..), ReqrmntSec(..),
-        ReqsSub(..), SCSSub(..), SRSDecl, SSDSec(..),
-        SSDSub(SSDProblem, SSDSolChSpec), SolChSpec(SCSProg), TConvention(..),
-        TSIntro(..), TraceabilitySec(TraceabilityProg), Verbosity(Verbose),
-        intro, mkDoc, purpDoc, traceMatStandard, tsymb)
+       (DerivationDisplay(..),
+        DocSection(Bibliography, GSDSec, IntroSec, LCsSec, RefSec, ReqrmntSec,
+                   SSDSec, TraceabilitySec),
+        Field(..), Fields, GSDSec(..), GSDSub(..), InclUnits(IncludeUnits),
+        IntroSec(..), IntroSub(..), PDSub(..), ProblemDescription(PDProg),
+        RefSec(..), RefTab(..), ReqrmntSec(..), ReqsSub(..), SCSSub(..),
+        SRSDecl, SSDSec(..), SSDSub(SSDProblem, SSDSolChSpec),
+        SolChSpec(SCSProg), TSIntro(..), TraceabilitySec(TraceabilityProg),
+        Verbosity(Verbose), intro, mkDoc, traceMatStandard, tsymb)
 
 import qualified Drasil.DocLang.SRS as SRS (inModel)
 
@@ -59,19 +58,17 @@ import Drasil.PIDController.SpSysDesc
 
 import Drasil.PIDController.TModel (theoreticalModels)
 
-import Drasil.SWHS.Unitals (absTol, relTol)
 import Language.Drasil hiding (Symbol(..), Vector)
 
 import Language.Drasil.Code
-       (ODEInfo, ODEMethod(..), ODEOptions, listToArray, odeInfo, odeOptions,
-        quantvar)
-import Language.Drasil.Code (relToQD)
+       (ODEInfo, ODEMethod(..), ODEOptions, odeInfo, odeOptions, quantvar)
+
 import Language.Drasil.Printers (PrintingInformation(..), defaultConfiguration)
 import Theory.Drasil (DataDefinition, GenDefn, InstanceModel, TheoryModel)
 import Utils.Drasil
 
 naveen :: Person
-naveen = person "Naveen Ganesh"  "Muralidharan"  
+naveen = person "Naveen Ganesh" "Muralidharan"
 
 srs :: Document
 srs = mkDoc mkSRS (for'' titleize phrase) si
@@ -121,17 +118,10 @@ si
        _purpose = [], _quants = symbolsAll,
        _concepts = [] :: [DefinedQuantityDict],
        _definitions = [] :: [QDefinition], _datadefs = dataDefinitions,
-       _configFiles = [], _inputs = inputsAll, _outputs = outputs,
+       _configFiles = [], _inputs = inputs, _outputs = outputs,
        _defSequence = [] :: [Block QDefinition],
-       _constraints = map cnstrw inpConstrained,
-       _constants = [] :: [QDefinition], _sysinfodb = symbMap,
-       _usedinfodb = usedDB, refdb = refDB}
-
-unconstrained :: [UncertainChunk]
-unconstrained = [absTol, relTol]
-
-inputsAll :: [QuantityDict]
-inputsAll = inputs ++ map qw unconstrained
+       _constraints = map cnstrw inpConstrained, _constants = pidConstants,
+       _sysinfodb = symbMap, _usedinfodb = usedDB, refdb = refDB}
 
 symbolsAll :: [QuantityDict]
 symbolsAll
@@ -140,7 +130,8 @@ symbolsAll
         osloSymbols ++
           apacheODESymbols ++
             odeintSymbols ++
-              map qw [arrayVecDepVar pidODEInfo] ++ map qw unconstrained
+              map qw [arrayVecDepVar pidODEInfo] ++
+                map qw pidDqdConstants ++ map qw pidConstants
 
 symbMap :: ChunkDB
 symbMap
@@ -187,7 +178,8 @@ stdFields
   = [DefiningEquation, Description Verbose IncludeUnits, Notes, Source, RefBy]
 
 pidODEOptions :: ODEOptions
-pidODEOptions = odeOptions RK45 (sy absTol) (sy relTol) (sy qdStepTime)
+pidODEOptions
+  = odeOptions RK45 (sy odeAbsTolConst) (sy odeRelTolConst) (sy qdStepTime)
 
 pidODEInfo :: ODEInfo
 pidODEInfo
