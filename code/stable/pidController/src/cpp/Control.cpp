@@ -1,5 +1,6 @@
 /** \file Control.cpp
-    \author Naveen Muralidharan
+    \author Naveen Ganesh Muralidharan
+    \date 2020-12-08
     \brief Controls the flow of the program
 */
 #include <string>
@@ -21,13 +22,12 @@ int main(int argc, const char *argv[]) {
     string filename = argv[1];
     double r_t;
     double K_d;
+    double K_p;
     double t_step;
     double t_sim;
-    double A_tol;
-    double R_tol;
-    get_input(filename, r_t, K_d, t_step, t_sim, A_tol, R_tol);
-    input_constraints(r_t, K_d, t_step, t_sim);
-    vector<double> y_t = func_y_t(r_t, K_d, t_sim, A_tol, R_tol, t_step);
+    get_input(filename, r_t, K_d, K_p, t_step, t_sim);
+    input_constraints(r_t, K_d, K_p, t_step, t_sim);
+    vector<double> y_t = func_y_t(r_t, K_p, K_d, t_sim, t_step);
     write_output(y_t);
     
     return 0;

@@ -12,7 +12,7 @@
     <div class="title">
       <h1>Software Requirements Specification for PD Controller</h1>
     </div>
-    <div class="author"><h2>Naveen Muralidharan</h2></div>
+    <div class="author"><h2>Naveen Ganesh Muralidharan</h2></div>
     <div id="Sec:RefMat">
       <div class="section">
         <h1>Reference Material</h1>
@@ -61,8 +61,8 @@
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>A<sub>tol</sub></em></td>
-                  <td>Absolute tolerance</td>
+                  <td><em>AbsTol</em></td>
+                  <td>Absolute Tolerance</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -106,8 +106,13 @@
                   <td>--</td>
                 </tr>
                 <tr>
+                  <td><em>K<sub>d</sub></em></td>
+                  <td>Derivative-Gain</td>
+                  <td>--</td>
+                </tr>
+                <tr>
                   <td><em>K<sub>p</sub></em></td>
-                  <td>Proportional Gain</td>
+                  <td>Proportional-Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -126,13 +131,13 @@
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>R<sub>tol</sub></em></td>
-                  <td>Relative tolerance</td>
+                  <td><em>r<sub>t</sub></em></td>
+                  <td>Set-Point</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>r<sub>t</sub></em></td>
-                  <td>Set-Point</td>
+                  <td><em>RelTol</em></td>
+                  <td>Relative Tolerance</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -375,10 +380,10 @@
                     Set-Point: The desired value that the control system must reach. This also knows as reference variable.
                   </li>
                   <li>
-                    Proportional Gain: Gain constant of the proportional controller.
+                    Proportional-Gain: Gain constant of the proportional controller.
                   </li>
                   <li>
-                    Derivative Gain: Gain constant of the derivative controller.
+                    Derivative-Gain: Gain constant of the derivative controller.
                   </li>
                   <li>
                     Frequency Domain: The analysis of mathematical functions with respect to frequency, instead of time.
@@ -390,6 +395,12 @@
                     Control Variable: The Control Variable is the output of the PD controller.
                   </li>
                   <li>Step time: Simulation step time.</li>
+                  <li>
+                    Absolute Tolerance: Absolute tolerance for the integrator..
+                  </li>
+                  <li>
+                    Relative Tolerance: Relative tolerance for the integrator..
+                  </li>
                 </ul>
               </div>
             </div>
@@ -416,7 +427,7 @@
               <div class="subsubsection">
                 <h3>Goal Statements</h3>
                 <p class="paragraph">
-                  Given Set-Point, Simulation time, Proportional Gain, Derivative Gain, and Step time, the goal statements are:
+                  Given Set-Point, Simulation time, Proportional-Gain, Derivative-Gain, and Step time, the goal statements are:
                 </p>
                 <div class="list">
                   <p>
@@ -690,7 +701,7 @@
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[{P_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}\]</td>
+                      <td>\[{P_{\text{s}}}={K_{\text{p}}}\cdot{}{E_{\text{s}}}\]</td>
                     </tr>
                     <tr>
                       <th>Description</th>
@@ -699,7 +710,7 @@
                           <li>
                             <em>P<sub>s</sub></em> is the Proportional Control in frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
+                          <li><em>K<sub>p</sub></em> is the Proportional-Gain (Unitless)</li>
                           <li>
                             <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
@@ -762,7 +773,7 @@
                           <li>
                             <em>D<sub>s</sub></em> is the Derivative Control in frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
+                          <li><em>K<sub>d</sub></em> is the Derivative-Gain (Unitless)</li>
                           <li>
                             <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
@@ -880,7 +891,7 @@
                     <tr>
                       <th>Equation</th>
                       <td>
-                        \[{C_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}+{K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s\]
+                        \[{C_{\text{s}}}={K_{\text{p}}}\cdot{}{E_{\text{s}}}+{K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s\]
                       </td>
                     </tr>
                     <tr>
@@ -890,10 +901,11 @@
                           <li>
                             <em>C<sub>s</sub></em> is the Control-Variable in frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
+                          <li><em>K<sub>p</sub></em> is the Proportional-Gain (Unitless)</li>
                           <li>
                             <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
                           </li>
+                          <li><em>K<sub>d</sub></em> is the Derivative-Gain (Unitless)</li>
                           <li>
                             <em>s</em> is the Complex frequency domain parameter (Unitless)
                           </li>
@@ -963,7 +975,7 @@
                       <th>Input Constraints</th>
                       <td>
                         \[{r_{\text{t}}}\gt{}0\]
-                        \[{K_{\text{d}}}\gt{}0\]
+                        \[{K_{\text{p}}}\gt{}0\]
                         \[{K_{\text{d}}}\gt{}0\]
                       </td>
                     </tr>
@@ -974,16 +986,17 @@
                     <tr>
                       <th>Equation</th>
                       <td>
-                        \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0\]
+                        \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{p}}}=0\]
                       </td>
                     </tr>
                     <tr>
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
-                          <li><em>K<sub>d</sub></em> is the Proportional Gain (Unitless)</li>
+                          <li><em>K<sub>d</sub></em> is the Derivative-Gain (Unitless)</li>
                           <li><em>t</em> is the time (<em>s</em>)</li>
                           <li><em>y<sub>t</sub></em> is the Process Variable (Unitless)</li>
+                          <li><em>K<sub>p</sub></em> is the Proportional-Gain (Unitless)</li>
                           <li><em>r<sub>t</sub></em> is the Set-Point (Unitless)</li>
                         </ul>
                       </td>
@@ -1012,17 +1025,17 @@
                     <p class="paragraph">
                       The Process Variable (Y(S)) in a PD Control Loop is the product of the Error signal ( from  <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a> ), Control Variable ( from <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>  ), and the Power-Plant ( from <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> ).
                     </p>
-                    \[{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{d}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}\]
+                    \[{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{p}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}\]
                     <p class="paragraph">Rearranging the equation.</p>
-                    \[\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{d}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{d}}}=0\]
+                    \[\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{p}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{p}}}=0\]
                     <p class="paragraph">
                       Computing the Inverse Laplace Transform of F(s) (from  <a href=#TM:invLaplaceTransform>TM: invLaplaceTransform</a> ) of the equation.
                     </p>
-                    \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{d}}}=0\]
+                    \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{p}}}=0\]
                     <p class="paragraph">
                       The Set point (r(t)) is a step function, and a constant  ( from  <a href=#setPoint>A: Set-Point</a> ). Therefore the  differential of the set point is zero. Hence the equation  reduces to,
                     </p>
-                    \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0\]
+                    \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{p}}}=0\]
                   </div>
                 </div>
               </div>
@@ -1048,8 +1061,8 @@
                       <td>10<em>%</em></td>
                     </tr>
                     <tr>
-                      <td><em>K<sub>d</sub></em></td>
-                      <td><em>K<sub>d</sub>&thinsp;&gt;&thinsp;0</em></td>
+                      <td><em>K<sub>p</sub></em></td>
+                      <td><em>K<sub>p</sub>&thinsp;&gt;&thinsp;0</em></td>
                       <td><em>100.0</em></td>
                       <td>10<em>%</em></td>
                     </tr>
@@ -1126,23 +1139,13 @@
                   <th>Units</th>
                 </tr>
                 <tr>
-                  <td><em>A<sub>tol</sub></em></td>
-                  <td>Absolute tolerance</td>
-                  <td>--</td>
-                </tr>
-                <tr>
                   <td><em>K<sub>d</sub></em></td>
-                  <td>Proportional Gain</td>
+                  <td>Derivative-Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>K<sub>d</sub></em></td>
-                  <td>Proportional Gain</td>
-                  <td>--</td>
-                </tr>
-                <tr>
-                  <td><em>R<sub>tol</sub></em></td>
-                  <td>Relative tolerance</td>
+                  <td><em>K<sub>p</sub></em></td>
+                  <td>Proportional-Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>

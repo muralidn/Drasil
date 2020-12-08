@@ -1,5 +1,6 @@
 ## \file Control.py
-# \author Naveen Muralidharan
+# \author Naveen Ganesh Muralidharan
+# \date 2020-12-08
 # \brief Controls the flow of the program
 import sys
 
@@ -8,7 +9,7 @@ import InputParameters
 import OutputFormat
 
 filename = sys.argv[1]
-r_t, K_d, t_step, t_sim, A_tol, R_tol = InputParameters.get_input(filename)
-InputParameters.input_constraints(r_t, K_d, t_step, t_sim)
-y_t = Calculations.func_y_t(r_t, K_d, t_sim, A_tol, R_tol, t_step)
+r_t, K_d, K_p, t_step, t_sim = InputParameters.get_input(filename)
+InputParameters.input_constraints(r_t, K_d, K_p, t_step, t_sim)
+y_t = Calculations.func_y_t(r_t, K_p, K_d, t_sim, t_step)
 OutputFormat.write_output(y_t)

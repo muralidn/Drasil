@@ -15,13 +15,13 @@ endif
 
 build: PD_Controller$(TARGET_EXTENSION)
 
-PD_Controller$(TARGET_EXTENSION): Control.cs InputParameters.cs Calculations.cs OutputFormat.cs
-	$(CSC) -out:PD_Controller$(TARGET_EXTENSION) -r:Microsoft.Research.Oslo.dll Control.cs InputParameters.cs Calculations.cs OutputFormat.cs
+PD_Controller$(TARGET_EXTENSION): Control.cs InputParameters.cs Constants.cs Calculations.cs OutputFormat.cs
+	$(CSC) -out:PD_Controller$(TARGET_EXTENSION) -r:Microsoft.Research.Oslo.dll Control.cs InputParameters.cs Constants.cs Calculations.cs OutputFormat.cs
 
 run: build
 	./PD_Controller$(TARGET_EXTENSION) $(RUNARGS)
 
-doc: doxConfig Control.cs InputParameters.cs Calculations.cs OutputFormat.cs
+doc: doxConfig Control.cs InputParameters.cs Constants.cs Calculations.cs OutputFormat.cs
 	doxygen doxConfig
 
 .PHONY: build run doc

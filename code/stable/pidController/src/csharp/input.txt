@@ -1,14 +1,10 @@
 # Set-Point
 1.0
-# Proportional Gain
-20.0
-# Proportional Gain
+# Derivative-Gain
 1.0
+# Proportional-Gain
+20.0
 # Step time (s)
 1.0e-2
 # Simulation time (s)
 10.0
-# absolute tolerance
-1.0e-10
-# relative tolerance
-1.0e-10

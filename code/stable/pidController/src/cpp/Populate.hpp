@@ -1,5 +1,6 @@
 /** \file Populate.hpp
-    \author Naveen Muralidharan
+    \author Naveen Ganesh Muralidharan
+    \date 2020-12-08
     \brief Class for populating a list during an ODE solution process
 */
 #ifndef Populate_h

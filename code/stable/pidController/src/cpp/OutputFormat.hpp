@@ -1,5 +1,6 @@
 /** \file OutputFormat.hpp
-    \author Naveen Muralidharan
+    \author Naveen Ganesh Muralidharan
+    \date 2020-12-08
     \brief Provides the function for writing outputs
 */
 #ifndef OutputFormat_h

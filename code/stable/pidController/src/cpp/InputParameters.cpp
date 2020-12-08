@@ -9,7 +9,7 @@
 using std::ifstream;
 using std::string;
 
-void get_input(string filename, double &r_t, double &K_d, double &t_step, double &t_sim, double &A_tol, double &R_tol) {
+void get_input(string filename, double &r_t, double &K_d, double &K_p, double &t_step, double &t_sim) {
     ifstream infile;
     infile.open(filename, std::fstream::in);
     infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -27,55 +27,58 @@ void get_input(string filename, double &r_t, double &K_d, double &t_step, double
     infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     infile >> t_sim;
     infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    infile >> A_tol;
-    infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    infile >> R_tol;
-    infile.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     infile.close();
 }
 
-void input_constraints(double r_t, double K_d, double t_step, double t_sim) {
+void input_constraints(double r_t, double K_d, double K_p, double t_step, double t_sim) {
     if (!(r_t > 0)) {
-        std::cout << "Warning: ";
         std::cout << "r_t has value ";
         std::cout << r_t;
-        std::cout << ", but is suggested to be ";
+        std::cout << ", but is expected to be ";
         std::cout << "above ";
         std::cout << 0;
         std::cout << "." << std::endl;
+        throw("InputError");
     }
     if (!(K_d > 0)) {
-        std::cout << "Warning: ";
         std::cout << "K_d has value ";
         std::cout << K_d;
-        std::cout << ", but is suggested to be ";
+        std::cout << ", but is expected to be ";
         std::cout << "above ";
         std::cout << 0;
         std::cout << "." << std::endl;
+        throw("InputError");
+    }
+    if (!(K_p > 0)) {
+        std::cout << "K_p has value ";
+        std::cout << K_p;
+        std::cout << ", but is expected to be ";
+        std::cout << "above ";
+        std::cout << 0;
+        std::cout << "." << std::endl;
+        throw("InputError");
     }
     if (!(1.0 / 100.0 <= t_step && t_step <= 1)) {
-        std::cout << "Warning: ";
         std::cout << "t_step has value ";
         std::cout << t_step;
-        std::cout << ", but is suggested to be ";
+        std::cout << ", but is expected to be ";
         std::cout << "between ";
         std::cout << (1.0 / 100.0);
         std::cout << " ((1)/(100))";
         std::cout << " and ";
         std::cout << 1;
         std::cout << "." << std::endl;
+        throw("InputError");
     }
     if (!(1 <= t_sim && t_sim <= 60)) {
-        std::cout << "Warning: ";
         std::cout << "t_sim has value ";
         std::cout << t_sim;
-        std::cout << ", but is suggested to be ";
+        std::cout << ", but is expected to be ";
         std::cout << "between ";
         std::cout << 1;
         std::cout << " and ";
         std::cout << 60;
         std::cout << "." << std::endl;
+        throw("InputError");
     }
 }

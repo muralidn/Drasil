@@ -1,5 +1,5 @@
 # PD_Controller 
-> Authors:  Naveen Muralidharan
+> Authors:  Naveen Ganesh Muralidharan
 ------------------------------------------------------------
 **Making Examples:** 
  How to Run the Program:

@@ -24,7 +24,7 @@
 \setlist[symbDescription]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
 \bibliography{bibfile}
 \title{Software Requirements Specification for PD Controller}
-\author{Naveen Muralidharan}
+\author{Naveen Ganesh Muralidharan}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -61,7 +61,7 @@ The symbols used in this document are summarized in \hyperref[Table:ToS]{Tab: To
 \endhead
 $-∞$ & Negative Infinity & --
 \\
-${A_{\text{tol}}}$ & Absolute tolerance & --
+$AbsTol$ & Absolute Tolerance & --
 \\
 ${C_{\text{s}}}$ & Control-Variable in frequency domain & --
 \\
@@ -79,7 +79,9 @@ ${f_{\text{t}}}$ & Function in the time domain & --
 \\
 ${H_{\text{s}}}$ & Transfer function of the Power-Plant in frequency domain & --
 \\
-${K_{\text{p}}}$ & Proportional Gain & --
+${K_{\text{d}}}$ & Derivative-Gain & --
+\\
+${K_{\text{p}}}$ & Proportional-Gain & --
 \\
 $L⁻¹{F(s)}$ & Inverse Laplace Transform of F(s) & --
 \\
@@ -87,9 +89,9 @@ ${P_{\text{s}}}$ & Proportional Control in frequency domain & --
 \\
 ${R_{\text{s}}}$ & Set Point in the frequency domain & --
 \\
-${R_{\text{tol}}}$ & Relative tolerance & --
-\\
 ${r_{\text{t}}}$ & Set-Point & --
+\\
+$RelTol$ & Relative Tolerance & --
 \\
 $s$ & Complex frequency domain parameter & --
 \\
@@ -224,12 +226,14 @@ This subsection provides a list of terms that are used in the subsequent section
 \item{Simulation time: Total execution time of the PD simulation.}
 \item{Process Variable: The output value from the power plant.}
 \item{Set-Point: The desired value that the control system must reach. This also knows as reference variable.}
-\item{Proportional Gain: Gain constant of the proportional controller.}
-\item{Derivative Gain: Gain constant of the derivative controller.}
+\item{Proportional-Gain: Gain constant of the proportional controller.}
+\item{Derivative-Gain: Gain constant of the derivative controller.}
 \item{Frequency Domain: The analysis of mathematical functions with respect to frequency, instead of time.}
 \item{Laplace transform: An integral transform that converts a function of a real variable t (often time) to a function of a complex variable s (complex frequency).}
 \item{Control Variable: The Control Variable is the output of the PD controller.}
 \item{Step time: Simulation step time.}
+\item{Absolute Tolerance: Absolute tolerance for the integrator..}
+\item{Relative Tolerance: Relative tolerance for the integrator..}
 \end{itemize}
 \subsubsection{Physical System Description}
 \label{Sec:PhysSyst}
@@ -249,7 +253,7 @@ The physical system of PD Controller, as shown in \hyperref[Figure:pidSysDiagram
 \end{figure}
 \subsubsection{Goal Statements}
 \label{Sec:GoalStmt}
-Given Set-Point, Simulation time, Proportional Gain, Derivative Gain, and Step time, the goal statements are:
+Given Set-Point, Simulation time, Proportional-Gain, Derivative-Gain, and Step time, the goal statements are:
 
 \begin{itemize}
 \item[Process-Variable:\phantomsection\label{processVariable}]{Calculate the output of the Power Plant ( Process Variable ) over time.}
@@ -403,12 +407,12 @@ Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           {P_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}
+           {P_{\text{s}}}={K_{\text{p}}}\cdot{}{E_{\text{s}}}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
               \item{${P_{\text{s}}}$ is the Proportional Control in frequency domain (Unitless)}
-              \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
+              \item{${K_{\text{p}}}$ is the Proportional-Gain (Unitless)}
               \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -447,7 +451,7 @@ Equation & \begin{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
               \item{${D_{\text{s}}}$ is the Derivative Control in frequency domain (Unitless)}
-              \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
+              \item{${K_{\text{d}}}$ is the Derivative-Gain (Unitless)}
               \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
               \item{$s$ is the Complex frequency domain parameter (Unitless)}
               \end{symbDescription}
@@ -520,13 +524,14 @@ Units & Unitless
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           {C_{\text{s}}}={K_{\text{d}}}\cdot{}{E_{\text{s}}}+{K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s
+           {C_{\text{s}}}={K_{\text{p}}}\cdot{}{E_{\text{s}}}+{K_{\text{d}}}\cdot{}{E_{\text{s}}}\cdot{}s
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
               \item{${C_{\text{s}}}$ is the Control-Variable in frequency domain (Unitless)}
-              \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
+              \item{${K_{\text{p}}}$ is the Proportional-Gain (Unitless)}
               \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${K_{\text{d}}}$ is the Derivative-Gain (Unitless)}
               \item{$s$ is the Complex frequency domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -567,7 +572,7 @@ Input Constraints & \begin{displaymath}
                     {r_{\text{t}}}\gt{}0
                     \end{displaymath}
                     \begin{displaymath}
-                    {K_{\text{d}}}\gt{}0
+                    {K_{\text{p}}}\gt{}0
                     \end{displaymath}
                     \begin{displaymath}
                     {K_{\text{d}}}\gt{}0
@@ -578,13 +583,14 @@ Output Constraints & \begin{displaymath}
                      \end{displaymath}
 \\ \midrule \\
 Equation & \begin{displaymath}
-           \left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0
+           \left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{p}}}=0
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${K_{\text{d}}}$ is the Proportional Gain (Unitless)}
+              \item{${K_{\text{d}}}$ is the Derivative-Gain (Unitless)}
               \item{$t$ is the time (${\text{s}}$)}
               \item{${y_{\text{t}}}$ is the Process Variable (Unitless)}
+              \item{${K_{\text{p}}}$ is the Proportional-Gain (Unitless)}
               \item{${r_{\text{t}}}$ is the Set-Point (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
@@ -601,22 +607,22 @@ RefBy & \hyperref[outputValues]{FR: Output-Values} and \hyperref[calculateValues
 The Process Variable (Y(S)) in a PD Control Loop is the product of the Error signal ( from  \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} ), Control Variable ( from \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}  ), and the Power-Plant ( from \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} ).
 
 \begin{displaymath}
-{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{d}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}
+{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{p}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}
 \end{displaymath}
 Rearranging the equation.
 
 \begin{displaymath}
-\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{d}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{d}}}=0
+\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{p}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{p}}}=0
 \end{displaymath}
 Computing the Inverse Laplace Transform of F(s) (from  \hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} ) of the equation.
 
 \begin{displaymath}
-\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{d}}}=0
+\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{p}}}=0
 \end{displaymath}
 The Set point (r(t)) is a step function, and a constant  ( from  \hyperref[setPoint]{A: Set-Point} ). Therefore the  differential of the set point is zero. Hence the equation  reduces to,
 
 \begin{displaymath}
-\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{d}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{d}}}=0
+\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{r_{\text{t}}} {K_{\text{p}}}=0
 \end{displaymath}
 \subsubsection{Data Constraints}
 \label{Sec:DataConstraints}
@@ -630,7 +636,7 @@ The Set point (r(t)) is a step function, and a constant  ( from  \hyperref[setPo
 \endhead
 ${K_{\text{d}}}$ & ${K_{\text{d}}}\gt{}0$ & $1.0$ & 10$\%$
 \\
-${K_{\text{d}}}$ & ${K_{\text{d}}}\gt{}0$ & $100.0$ & 10$\%$
+${K_{\text{p}}}$ & ${K_{\text{p}}}\gt{}0$ & $100.0$ & 10$\%$
 \\
 ${r_{\text{t}}}$ & ${r_{\text{t}}}\gt{}0$ & $1.0$ & 10$\%$
 \\
@@ -662,13 +668,9 @@ This section provides the functional requirements, the tasks and behaviours that
 \\
 \midrule
 \endhead
-${A_{\text{tol}}}$ & Absolute tolerance & --
+${K_{\text{d}}}$ & Derivative-Gain & --
 \\
-${K_{\text{d}}}$ & Proportional Gain & --
-\\
-${K_{\text{d}}}$ & Proportional Gain & --
-\\
-${R_{\text{tol}}}$ & Relative tolerance & --
+${K_{\text{p}}}$ & Proportional-Gain & --
 \\
 ${r_{\text{t}}}$ & Set-Point & --
 \\

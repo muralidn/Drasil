@@ -1,5 +1,6 @@
 /** \file OutputFormat.cs
-    \author Naveen Muralidharan
+    \author Naveen Ganesh Muralidharan
+    \date 2020-12-08
     \brief Provides the function for writing outputs
 */
 using System;
