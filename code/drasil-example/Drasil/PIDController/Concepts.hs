@@ -12,14 +12,26 @@ import Theory.Drasil (mkQuantDef)
 acronyms :: [CI]
 acronyms
   = [assumption, dataDefn, genDefn, goalStmt, inModel, physSyst, requirement,
-     srs, thModel, typUnc]
+     srs, thModel, typUnc, pdControllerCI, proportionalCI, derivativeCI,
+     integralCI, pidCI]
 
-pidControllerSystem, controlEngineering :: CI
+pidControllerSystem, pdControllerCI, proportionalCI, derivativeCI, integralCI,
+                     pidCI :: CI
+
 pidControllerSystem
   = commonIdeaWithDict "pdControllerApp" (pn "PD Controller") "PD Controller" []
 
-controlEngineering
-  = commonIdeaWithDict "ctrlEng" (cn' "control engineering") "N/A" []
+pdControllerCI
+  = commonIdeaWithDict "pdControllerCI" (pn "Proportional Derivative") "PD" []
+
+proportionalCI = commonIdeaWithDict "proportionalCI" (pn "Proportional") "P" []
+
+derivativeCI = commonIdeaWithDict "derivativeCI" (pn "Derivative") "D" []
+
+integralCI = commonIdeaWithDict "integralCI" (pn "Integral") "I" []
+
+pidCI
+  = commonIdeaWithDict "pidCI" (pn "Proportional Integral Derivative") "PID" []
 
 pidC, pidCL, summingPt, powerPlant, firstOrderSystem, errorValue,
       simulationTime, processVariable, setPoint, propGain, derGain, simulation,
@@ -35,7 +47,8 @@ pidC
 
 summingPt
   = dcc "summingPoint" (nounPhraseSP "Summing Point")
-      ("Control block where the difference between the Set-Point and the Process Variable is computed")
+      ("Control block where the difference between the Set-Point and the " ++
+         "Process Variable is computed")
 
 powerPlant
   = dcc "powerPlant" (nounPhraseSP "Power Plant")
@@ -43,16 +56,18 @@ powerPlant
 
 firstOrderSystem
   = dcc "firstOrderSystem" (nounPhraseSP "First Order System")
-      ("A system whose input-output relationship is denoted by a first order differential equation")
+      ("A system whose input-output relationship is denoted by a first order "
+         ++ "differential equation")
 
 errorValue
   = dcc "errorValue" (nounPhraseSP "Error Value")
-      ("Input to the PID controller. Error Value is the difference between the Set Point and the Process Variable")
+      ("Input to the PID controller. Error Value is the difference between the "
+         ++ "Set Point and the Process Variable")
 
-stepTime = dcc "stepTime" (nounPhraseSP "Step time") ("Simulation step time")
+stepTime = dcc "stepTime" (nounPhraseSP "Step Time") ("Simulation step time")
 
 simulationTime
-  = dcc "simulationTime" (nounPhraseSP "Simulation time")
+  = dcc "simulationTime" (nounPhraseSP "Simulation Time")
       ("Total execution time of the PD simulation")
 
 processVariable
@@ -64,15 +79,16 @@ controlVariable
       ("The Control Variable is the output of the PD controller")
 
 setPoint
-  = dcc "setPoint" (nounPhraseSP "Set-Point")
-      ("The desired value that the control system must reach. This also knows as reference variable")
+  = dcc "setPoint" (nounPhraseSP "Set Point")
+      ("The desired value that the control system must reach. This also knows "
+         ++ "as reference variable")
 
 propGain
-  = dcc "propGain" (nounPhraseSP "Proportional-Gain")
+  = dcc "propGain" (nounPhraseSP "Proportional Gain")
       ("Gain constant of the proportional controller")
 
 derGain
-  = dcc "derGain" (nounPhraseSP "Derivative-Gain")
+  = dcc "derGain" (nounPhraseSP "Derivative Gain")
       ("Gain constant of the derivative controller")
 
 simulation
@@ -113,8 +129,8 @@ sym_s, sym_f_S, sym_f_t, sym_negInf, sym_posInf, sym_invLaplace, sym_Kd, sym_Kp,
 
 sym_negInf = Variable "-∞"
 sym_posInf = Variable "∞"
-sym_invLaplace = Variable "L⁻¹{F(s)}"
 sym_f_S = sub (Variable "F") $ Label "s"
+sym_invLaplace = Variable "L⁻¹[F(s)]"
 sym_s = Variable "s"
 sym_f_t = sub (Variable "f") $ Label "t"
 sym_Kd = sub (Variable "K") $ Label "d"
@@ -232,48 +248,48 @@ qdProcessVariableFD
       Real
 
 qdErrorSignalTD
-  = vc "qdErrorSignalTD" (nounPhraseSent (S "Error Signal in the time domain"))
+  = vc "qdErrorSignalTD" (nounPhraseSent (S "Error Value in the time domain"))
       sym_ET
       Real
 
 qdErrorSignalFD
   = vc "qdErrorSignalFD"
-      (nounPhraseSent (S "Error Signal in the frequency domain"))
+      (nounPhraseSent (S "Error Value in the frequency domain"))
       sym_ES
       Real
 
 qdPropControlFD
   = vc "qdPropControlFD"
-      (nounPhraseSent (S "Proportional Control in frequency domain"))
+      (nounPhraseSent (S "Proportional control in the frequency domain"))
       sym_PS
       Real
 
 qdDerivativeControlFD
   = vc "qdDerivativeControlFD"
-      (nounPhraseSent (S "Derivative Control in frequency domain"))
+      (nounPhraseSent (S "Derivative control in the frequency domain"))
       sym_DS
       Real
 
 qdTransferFunctionFD
   = vc "qdTransferFunctionFD"
-      (nounPhraseSent
-         (S "Transfer function of the Power-Plant in frequency domain"))
+      (nounPhraseSent (S "Transfer function in the frequency domain"))
       sym_HS
       Real
 
 qdCtrlVarTD
-  = vc "qdCtrlVarTD" (nounPhraseSent (S "Control-Variable in time domain"))
+  = vc "qdCtrlVarTD" (nounPhraseSent (S "Control Variable in the time domain"))
       sym_CT
       Real
 
 qdCtrlVarFD
-  = vc "qdCtrlVarFD" (nounPhraseSent (S "Control-Variable in frequency domain"))
+  = vc "qdCtrlVarFD"
+      (nounPhraseSent (S "Control Variable in the frequency domain"))
       sym_CS
       Real
 
 qdLaplaceTransform
   = vc "qLaplaceTransform"
-      (nounPhraseSent (S "Laplace Transform of a function f(t)"))
+      (nounPhraseSent (S "Laplace Transform of a function"))
       sym_f_S
       Real
 qdFreqDomain
@@ -285,12 +301,13 @@ qdFxnTDomain
       Real
 
 qdNegInf
-  = vc "qdNegInf" (nounPhraseSent (S "Negative Infinity")) sym_negInf Real
+  = vc "qdNegInf" (nounPhraseSent (S "Negative infinity")) sym_negInf Real
 
 qdPosInf = vc "qdPosInf" (nounPhraseSent (S "Infinity")) sym_posInf Real
 
 qdInvLaplaceTransform
   = vc "qInvLaplaceTransform"
-      (nounPhraseSent (S "Inverse Laplace Transform of F(s)"))
+      (nounPhraseSent (S "Inverse Laplace Transform of a function"))
       sym_invLaplace
       Real
+
