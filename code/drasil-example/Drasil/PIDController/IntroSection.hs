@@ -19,12 +19,17 @@ introPara
          +:+ S "is created in this project that can be "
          +:+ S "used to tune the gain constants"]
 
+-- Using phrase function introduces another whitespace which is an issue 
+-- when listing multiple 'phrases". For example A , B , C. This is likely a bug
+-- in Drasil.
 introscopeOfReq
   = foldlSent_
       [S "a", phrase pidCL, S " with three subsystems namely a ", phrase pidC,
-       S ", a", phrase summingPt, S ", and a", phrase powerPlant, S ". This ",
-       S "software is intended to aid with the manual tuning of the",
-       phrase pidC]
+       S ", a", phrase summingPt, S ", and a", phrase powerPlant, S ". Only " +:+
+       S "the Proportional and Derivative controllers are used here;"
+       +:+ S " the Integral controller is beyond the scope of this software."
+       +:+ S "Additionally, this software is intended to aid with the manual "
+       +:+ S "tuning of the", phrase pidC]
 
 introPurposeOfDoc
   = foldlSent
