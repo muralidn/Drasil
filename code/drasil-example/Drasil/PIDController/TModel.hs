@@ -29,7 +29,7 @@ tmLaplace
       [laplaceDesc]
 
 laplaceRC :: RelationConcept
-laplaceRC = makeRC "laplaceRC" (cn' "laplace transform") EmptyS laplaceRel
+laplaceRC = makeRC "laplaceRC" (cn' "Laplace Transform") EmptyS laplaceRel
 
 laplaceRel :: Relation
 laplaceRel
@@ -43,9 +43,8 @@ laplaceDesc
   = foldlSent
       [S "Bilateral Laplace Transform.",
        S "The Laplace transforms are " +:+
-         S "usually inferred from the Laplace Transform table in "
-         +:+ S " section 4 of the "
-         +:+ makeCiteS laplaceWiki]
+         S "typically inferred from a pre-computed table of Laplace Transforms"
+          +:+ S " (" +:+ makeCiteS laplaceWiki +:+ S ")" ]
 
 --------
 
@@ -64,7 +63,7 @@ tmInvLaplace
 
 invlaplaceRC :: RelationConcept
 invlaplaceRC
-  = makeRC "invLaplaceRC" (cn' "inverse laplace transform") EmptyS invLaplaceRel
+  = makeRC "invLaplaceRC" (cn' "Inverse Laplace Transform") EmptyS invLaplaceRel
 
 invLaplaceRel :: Relation
 invLaplaceRel = sy qdFxnTDomain $= sy qdInvLaplaceTransform
@@ -74,6 +73,5 @@ invLaplaceDesc
   = foldlSent
       [S "Inverse Laplace Transform of F(S).",
        S "The Inverse Laplace transforms are " +:+
-         S "usually inferred from the Laplace Transform table in "
-         +:+ S " section 4 of the "
-         +:+ makeCiteS laplaceWiki]
+         S "typically inferred from a pre-computed table of Laplace Transforms"
+         +:+ S " (" +:+ makeCiteS laplaceWiki +:+ S ")" ]

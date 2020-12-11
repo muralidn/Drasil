@@ -9,7 +9,7 @@ import Utils.Drasil
 sysProblemDesc :: Sentence
 sysProblemDesc
   = foldlSent_
-      [S "This program intends to provide a model of a" +:+ phrase pidC +:+
+      [S "provide a model of a" +:+ phrase pidC +:+
          S " that can be used for the tuning of the gain constants before"
          +:+ S " the deployment of the controller"]
 

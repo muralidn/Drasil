@@ -26,7 +26,7 @@ pwrPlantDesc, aDecoupledDesc, aSPDesc, aExtDisturbDesc, aManualTuningDesc,
 pwrPlantDesc
   = foldlSent
       [S "The" +:+ phrase powerPlant +:+ S "and the sensor are coupled" +:+
-         S " a single unit with transfer function, 1/(2s + 1)"]
+         S "as a single unit with transfer function, 1/(2s + 1)"]
 
 aDecoupledDesc
   = foldlSent
