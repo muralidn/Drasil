@@ -21,7 +21,7 @@ gsdSysContextP1
          phrase software
          `sC` S "the",
        phrase user, S "in this case. The rectangle represents the",
-       phrase softwareSys, S "itself", (phrase pidC) +:+ S "in this case.",
+       phrase softwareSys, S "itself,", (phrase pidC) +:+ S "in this case.",
        S "Arrows are used to show the data flow between the" +:+ phrase system,
        S "and its" +:+ phrase environment]
 
@@ -30,9 +30,9 @@ gsdSysContextP2
       [phrase pidC +:+ S " is self-contained. The only external interaction is "
          +:+ S " with the "
          +:+ phrase user,
-       S "The responsibilities of the " +:+ phrase user +:+ S " and the " +:+
+       S ".The responsibilities of the " +:+ phrase user +:+ S " and the " +:+
          phrase system
-         +:+ S " are as follows,"]
+         +:+ S " are as follows"]
 
 gsdTitle :: [Sentence]
 gsdTitle
@@ -43,11 +43,12 @@ gsdUsrResp :: [Sentence]
 gsdUsrResp
   = [S "Feed inputs to the model",
      S "Review the response of the " +:+ phrase powerPlant,
-     S "Tune the controller gains."]
+     S "Tune the controller gains"]
 
 gsdSysResp :: [Sentence]
 gsdSysResp
-  = [S "Calculate the outputs of the " +:+ phrase pidC +:+ S " and " +:+
+  = [S "Check the validity of the inputs",
+    S "Calculate the outputs of the " +:+ phrase pidC +:+ S " and " +:+
        phrase powerPlant]
 
 gsdSysContextList :: Contents
