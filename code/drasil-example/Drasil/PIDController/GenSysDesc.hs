@@ -62,5 +62,5 @@ gsduserCharacteristics :: Contents
 gsduserCharacteristics
   = foldlSP
       [S "The end user of " +:+ phrase pidC +:+
-         S " is expected to have completed at least the",
-       S "equivalent of the second year of an undergraduate degree in electrical engineering"]
+         S " is expected to have taken a course on Control Systems at an " +:+
+         S "undergraduate level"]
