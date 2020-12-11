@@ -87,7 +87,7 @@ quality
          [S "The code shall be written with high-quality standards. The code"
             +:+
             S "should adhere to good coding standards and should not contain"
-            +:+ S "any dead, or unreachable statements."])
+            +:+ S "any dead, or unreachable statements"])
       "Quality"
       nonFuncReqDom
 

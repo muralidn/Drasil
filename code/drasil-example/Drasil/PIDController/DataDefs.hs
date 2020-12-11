@@ -44,7 +44,7 @@ ddErrSigNote
        S "The initial value of the Process Variable if assumed" +:+
          S "to be zero ( from "
          +:+ makeRef2S aInitialValue
-         +:+ S ")."]
+         +:+ S ")"]
 
 ----------------------------------------------
 
