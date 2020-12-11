@@ -1,6 +1,5 @@
 /** \file Constants.cs
     \author Naveen Ganesh Muralidharan
-    \date 2020-12-07
     \brief Provides the structure for holding constant values
 */
 /** \brief Structure for holding the constant values

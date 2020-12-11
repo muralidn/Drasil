@@ -1,6 +1,5 @@
 /** \file Constants.hpp
     \author Naveen Ganesh Muralidharan
-    \date 2020-12-07
     \brief Provides the structure for holding constant values
 */
 #ifndef Constants_h

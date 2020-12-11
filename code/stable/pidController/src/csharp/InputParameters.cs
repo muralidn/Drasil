@@ -1,6 +1,5 @@
 /** \file InputParameters.cs
     \author Naveen Ganesh Muralidharan
-    \date 2020-12-07
     \brief Provides the function for reading inputs and the function for checking the physical constraints on the input
 */
 using System;
@@ -10,11 +9,11 @@ public class InputParameters {
     
     /** \brief Reads input from a file with the given file name
         \param filename name of the input file
-        \param r_t Set-Point: The desired value that the control system must reach. This also knows as reference variable
-        \param K_d Derivative-Gain: Gain constant of the derivative controller
-        \param K_p Proportional-Gain: Gain constant of the proportional controller
-        \param t_step Step time: Simulation step time (s)
-        \param t_sim Simulation time: Total execution time of the PD simulation (s)
+        \param r_t Set Point: The desired value that the control system must reach. This also knows as reference variable
+        \param K_d Derivative Gain: Gain constant of the derivative controller
+        \param K_p Proportional Gain: Gain constant of the proportional controller
+        \param t_step Step Time: Simulation step time (s)
+        \param t_sim Simulation Time: Total execution time of the PD simulation (s)
     */
     public static void get_input(string filename, out double r_t, out double K_d, out double K_p, out double t_step, out double t_sim) {
         StreamReader infile;
@@ -33,11 +32,11 @@ public class InputParameters {
     }
     
     /** \brief Verifies that input values satisfy the physical constraints
-        \param r_t Set-Point: The desired value that the control system must reach. This also knows as reference variable
-        \param K_d Derivative-Gain: Gain constant of the derivative controller
-        \param K_p Proportional-Gain: Gain constant of the proportional controller
-        \param t_step Step time: Simulation step time (s)
-        \param t_sim Simulation time: Total execution time of the PD simulation (s)
+        \param r_t Set Point: The desired value that the control system must reach. This also knows as reference variable
+        \param K_d Derivative Gain: Gain constant of the derivative controller
+        \param K_p Proportional Gain: Gain constant of the proportional controller
+        \param t_step Step Time: Simulation step time (s)
+        \param t_sim Simulation Time: Total execution time of the PD simulation (s)
     */
     public static void input_constraints(double r_t, double K_d, double K_p, double t_step, double t_sim) {
         if (!(r_t > 0)) {

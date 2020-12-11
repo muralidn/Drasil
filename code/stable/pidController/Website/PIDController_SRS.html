@@ -67,32 +67,32 @@
                 </tr>
                 <tr>
                   <td><em>C<sub>s</sub></em></td>
-                  <td>Control-Variable in frequency domain</td>
+                  <td>Control Variable in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>c<sub>t</sub></em></td>
-                  <td>Control-Variable in time domain</td>
+                  <td>Control Variable in the time domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>D<sub>s</sub></em></td>
-                  <td>Derivative Control in frequency domain</td>
+                  <td>Derivative control in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>E<sub>s</sub></em></td>
-                  <td>Error Signal in the frequency domain</td>
+                  <td>Process Error in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>e<sub>t</sub></em></td>
-                  <td>Error Signal in the time domain</td>
+                  <td>Process Error in the time domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>F<sub>s</sub></em></td>
-                  <td>Laplace Transform of a function f(t)</td>
+                  <td>Laplace Transform of a function</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -102,27 +102,27 @@
                 </tr>
                 <tr>
                   <td><em>H<sub>s</sub></em></td>
-                  <td>Transfer function of the Power-Plant in frequency domain</td>
+                  <td>Transfer Function in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>K<sub>d</sub></em></td>
-                  <td>Derivative-Gain</td>
+                  <td>Derivative Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>K<sub>p</sub></em></td>
-                  <td>Proportional-Gain</td>
+                  <td>Proportional Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>
-                  <td><em>L⁻¹{F(s)}</em></td>
-                  <td>Inverse Laplace Transform of F(s)</td>
+                  <td><em>L⁻¹[F(s)]</em></td>
+                  <td>Inverse Laplace Transform of a function</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>P<sub>s</sub></em></td>
-                  <td>Proportional Control in frequency domain</td>
+                  <td>Proportional control in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -132,7 +132,7 @@
                 </tr>
                 <tr>
                   <td><em>r<sub>t</sub></em></td>
-                  <td>Set-Point</td>
+                  <td>Set Point</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -142,7 +142,7 @@
                 </tr>
                 <tr>
                   <td><em>s</em></td>
-                  <td>Complex frequency domain parameter</td>
+                  <td>Complex frequency-domain parameter</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -152,12 +152,12 @@
                 </tr>
                 <tr>
                   <td><em>t<sub>sim</sub></em></td>
-                  <td>Simulation time</td>
+                  <td>Simulation Time</td>
                   <td><em>s</em></td>
                 </tr>
                 <tr>
                   <td><em>t<sub>step</sub></em></td>
-                  <td>Step time</td>
+                  <td>Step Time</td>
                   <td><em>s</em></td>
                 </tr>
                 <tr>
@@ -194,6 +194,10 @@
                   <td>Assumption</td>
                 </tr>
                 <tr>
+                  <td>D</td>
+                  <td>Derivative</td>
+                </tr>
+                <tr>
                   <td>DD</td>
                   <td>Data Definition</td>
                 </tr>
@@ -206,8 +210,24 @@
                   <td>Goal Statement</td>
                 </tr>
                 <tr>
+                  <td>I</td>
+                  <td>Integral</td>
+                </tr>
+                <tr>
                   <td>IM</td>
                   <td>Instance Model</td>
+                </tr>
+                <tr>
+                  <td>P</td>
+                  <td>Proportional</td>
+                </tr>
+                <tr>
+                  <td>PD</td>
+                  <td>Proportional Derivative</td>
+                </tr>
+                <tr>
+                  <td>PID</td>
+                  <td>Proportional Integral Derivative</td>
                 </tr>
                 <tr>
                   <td>PS</td>
@@ -257,7 +277,7 @@
           <div class="subsection">
             <h2>Scope of Requirements</h2>
             <p class="paragraph">
-              The scope of the requirements includes a PD Control Loop  with three subsystems namely a  PD Controller , a Summing Point , and a Power Plant . This  software is intended to aid with the manual tuning of the PD Controller.
+              The scope of the requirements includes a PD Control Loop  with three subsystems namely a  PD Controller , a Summing Point , and a Power Plant . Only  the Proportional and Derivative controllers are used here;  the Integral controller is beyond the scope of this software. Additionally, this software is intended to aid with the manual  tuning of the PD Controller.
             </p>
           </div>
         </div>
@@ -276,7 +296,7 @@
               The sections in this document are based on  <a href=#smithLai2005>smithLai2005</a>. The presentation follows the standard pattern of presenting goals, theories, definitions, and assumptions. For readers that would like a more bottom up approach, they can start reading the data definitions in <a href=#Sec:IMs>Section: Instance Models</a> and trace back to find any additional information they require.
             </p>
             <p class="paragraph">
-              The goal statements (<a href=#Sec:GoalStmt>Section: Goal Statements</a>) are refined to the theoretical models and the theoretical models (<a href=#Sec:TMs>Section: Theoretical Models</a>) to the instance models (<a href=#Sec:IMs>Section: Instance Models</a>). .
+              The goal statements (<a href=#Sec:GoalStmt>Section: Goal Statements</a>) are refined to the theoretical models and the theoretical models (<a href=#Sec:TMs>Section: Theoretical Models</a>) to the instance models (<a href=#Sec:IMs>Section: Instance Models</a>). The instance model referred as <a href=#IM:pdEquationIM>IM: pdEquationIM</a>  provides an Ordinary Differential Equation (ODE) that   models the PD Controller.
             </p>
           </div>
         </div>
@@ -292,7 +312,7 @@
           <div class="subsection">
             <h2>System Context</h2>
             <p class="paragraph">
-              <a href=#Figure:systemContextDiag>Fig:systemContextDiag</a> shows the system context. The circle represents an external entity outside the software, the user in this case. The rectangle represents the software system itself PD Controller in this case. Arrows are used to show the data flow between the system and its environment.
+              <a href=#Figure:systemContextDiag>Fig:systemContextDiag</a> shows the system context. The circle represents an external entity outside the software, the user in this case. The rectangle represents the software system itself, PD Controller in this case. Arrows are used to show the data flow between the system and its environment.
             </p>
             <div id="Figure:systemContextDiag">
               <figure>
@@ -301,7 +321,7 @@
               </figure>
             </div>
             <p class="paragraph">
-              PD Controller  is self-contained. The only external interaction is   with the  user The responsibilities of the  user  and the  system  are as follows,:
+              PD Controller  is self-contained. The only external interaction is   with the  user .The responsibilities of the  user  and the  system  are as follows:
             </p>
             <ul class="list">
               <li>
@@ -309,12 +329,13 @@
                 <ul class="list">
                   <li>Feed inputs to the model</li>
                   <li>Review the response of the  Power Plant</li>
-                  <li>Tune the controller gains.</li>
+                  <li>Tune the controller gains</li>
                 </ul>
               </li>
               <li>
                 PD Controller Responsibilities
                 <ul class="list">
+                  <li>Check the validity of the inputs</li>
                   <li>
                     Calculate the outputs of the  PD Controller  and  Power Plant
                   </li>
@@ -327,7 +348,7 @@
           <div class="subsection">
             <h2>User Characteristics</h2>
             <p class="paragraph">
-              The end user of  PD Controller  is expected to have completed at least the equivalent of the second year of an undergraduate degree in electrical engineering.
+              The end user of  PD Controller  is expected to have taken a course on Control Systems at an  undergraduate level.
             </p>
           </div>
         </div>
@@ -349,7 +370,7 @@
           <div class="subsection">
             <h2>Problem Description</h2>
             <p class="paragraph">
-              A system is needed to This program intends to provide a model of a PD Controller  that can be used for the tuning of the gain constants before  the deployment of the controller.
+              A system is needed to provide a model of a PD Controller  that can be used for the tuning of the gain constants before  the deployment of the controller.
             </p>
             <div id="Sec:TermDefs">
               <div class="subsubsection">
@@ -370,20 +391,20 @@
                     First Order System: A system whose input-output relationship is denoted by a first order differential equation.
                   </li>
                   <li>
-                    Error Value: Input to the PID controller. Error Value is the difference between the Set Point and the Process Variable.
+                    Process Error: Input to the PID controller. Process Error is the difference between the Set Point and the Process Variable.
                   </li>
                   <li>
-                    Simulation time: Total execution time of the PD simulation.
+                    Simulation Time: Total execution time of the PD simulation.
                   </li>
                   <li>Process Variable: The output value from the power plant.</li>
                   <li>
-                    Set-Point: The desired value that the control system must reach. This also knows as reference variable.
+                    Set Point: The desired value that the control system must reach. This also knows as reference variable.
                   </li>
                   <li>
-                    Proportional-Gain: Gain constant of the proportional controller.
+                    Proportional Gain: Gain constant of the proportional controller.
                   </li>
                   <li>
-                    Derivative-Gain: Gain constant of the derivative controller.
+                    Derivative Gain: Gain constant of the derivative controller.
                   </li>
                   <li>
                     Frequency Domain: The analysis of mathematical functions with respect to frequency, instead of time.
@@ -394,7 +415,7 @@
                   <li>
                     Control Variable: The Control Variable is the output of the PD controller.
                   </li>
-                  <li>Step time: Simulation step time.</li>
+                  <li>Step Time: Simulation step time.</li>
                   <li>
                     Absolute Tolerance: Absolute tolerance for the integrator..
                   </li>
@@ -427,7 +448,7 @@
               <div class="subsubsection">
                 <h3>Goal Statements</h3>
                 <p class="paragraph">
-                  Given Set-Point, Simulation time, Proportional-Gain, Derivative-Gain, and Step time, the goal statements are:
+                  Given Set Point, Simulation Time, Proportional Gain, Derivative Gain, and Step Time, the goal statements are:
                 </p>
                 <div class="list">
                   <p>
@@ -455,7 +476,7 @@
                 <div class="list">
                   <p>
                     <div id="pwrPlant">
-                      Power plant: The Power Plant and the sensor are coupled  a single unit with transfer function, 1/(2s + 1). (RefBy: <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> and <a href=#likeChgIC>LC: Second Order Power Plant</a>.)
+                      Power plant: The Power Plant and the sensor are coupled as a single unit with transfer function, 1/(2s + 1). (RefBy: <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> and <a href=#likeChgIC>LC: Second Order Power Plant</a>.)
                     </div>
                   </p>
                   <p>
@@ -465,7 +486,7 @@
                   </p>
                   <p>
                     <div id="setPoint">
-                      Set-Point: The Set-Point is a constant throughout the simulation. (RefBy: <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a> and <a href=#IM:pdEquationIM>IM: pdEquationIM</a>.)
+                      Set-Point: The Set Point is a constant throughout the simulation. (RefBy: <a href=#DD:ddProcessError>DD: ddProcessError</a> and <a href=#IM:pdEquationIM>IM: pdEquationIM</a>.)
                     </div>
                   </p>
                   <p>
@@ -475,7 +496,7 @@
                   </p>
                   <p>
                     <div id="initialValue">
-                      Initial value: The initial value of the Process Variable is assumed to be zero. (RefBy: <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a>.)
+                      Initial value: The initial value of the Process Variable is assumed to be zero. (RefBy: <a href=#DD:ddProcessError>DD: ddProcessError</a>.)
                     </div>
                   </p>
                   <p>
@@ -500,7 +521,7 @@
                     </tr>
                     <tr>
                       <th>Label</th>
-                      <td><p class="paragraph">Laplace transform</p></td>
+                      <td><p class="paragraph">Laplace Transform</p></td>
                     </tr>
                     <tr>
                       <th>Equation</th>
@@ -513,13 +534,13 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>F<sub>s</sub></em> is the Laplace Transform of a function f(t) (Unitless)
+                            <em>F<sub>s</sub></em> is the Laplace Transform of a function (Unitless)
                           </li>
                           <li>
                             <em>f<sub>t</sub></em> is the Function in the time domain (Unitless)
                           </li>
                           <li>
-                            <em>s</em> is the Complex frequency domain parameter (Unitless)
+                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
                           </li>
                           <li><em>t</em> is the time (<em>s</em>)</li>
                         </ul>
@@ -529,7 +550,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Bilateral Laplace Transform. The Laplace transforms are  usually inferred from the Laplace Transform table in   section 4 of the  <a href=#laplaceWiki>laplaceWiki</a>.
+                          Bilateral Laplace Transform. The Laplace transforms are  typically inferred from a pre-computed table of Laplace Transforms  ( <a href=#laplaceWiki>laplaceWiki</a> ).
                         </p>
                       </td>
                     </tr>
@@ -543,7 +564,7 @@
                       <th>RefBy</th>
                       <td>
                         <p class="paragraph">
-                          <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a>, <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a>, <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a>, and <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a>
+                          <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a>, <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a>, <a href=#DD:ddProcessError>DD: ddProcessError</a>, and <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a>
                         </p>
                       </td>
                     </tr>
@@ -557,11 +578,11 @@
                     </tr>
                     <tr>
                       <th>Label</th>
-                      <td><p class="paragraph">Inverse laplace transform</p></td>
+                      <td><p class="paragraph">Inverse Laplace Transform</p></td>
                     </tr>
                     <tr>
                       <th>Equation</th>
-                      <td>\[{f_{\text{t}}}=L⁻¹{F(s)}\]</td>
+                      <td>\[{f_{\text{t}}}=L⁻¹[F(s)]\]</td>
                     </tr>
                     <tr>
                       <th>Description</th>
@@ -571,7 +592,7 @@
                             <em>f<sub>t</sub></em> is the Function in the time domain (Unitless)
                           </li>
                           <li>
-                            <em>L⁻¹{F(s)}</em> is the Inverse Laplace Transform of F(s) (Unitless)
+                            <em>L⁻¹[F(s)]</em> is the Inverse Laplace Transform of a function (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -580,7 +601,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Inverse Laplace Transform of F(S). The Inverse Laplace transforms are  usually inferred from the Laplace Transform table in   section 4 of the  <a href=#laplaceWiki>laplaceWiki</a>.
+                          Inverse Laplace Transform of F(S). The Inverse Laplace transforms are  typically inferred from a pre-computed table of Laplace Transforms  ( <a href=#laplaceWiki>laplaceWiki</a> ).
                         </p>
                       </td>
                     </tr>
@@ -614,16 +635,16 @@
                 <p class="paragraph">
                   This section collects and defines all the data needed to build the instance models.
                 </p>
-                <div id="DD:ddErrorSignal">
+                <div id="DD:ddProcessError">
                   <table class="ddefn">
                     <tr>
                       <th>Refname</th>
-                      <td><b>DD:ddErrorSignal</b></td>
+                      <td><b>DD:ddProcessError</b></td>
                     </tr>
                     <tr>
                       <th>Label</th>
                       <td>
-                        <p class="paragraph">Error Signal in the frequency domain</p>
+                        <p class="paragraph">Process Error in the frequency domain</p>
                       </td>
                     </tr>
                     <tr>
@@ -643,7 +664,7 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Process Error in the frequency domain (Unitless)
                           </li>
                           <li>
                             <em>R<sub>s</sub></em> is the Set Point in the frequency domain (Unitless)
@@ -658,7 +679,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Error Signal is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). The Set-Point is assumed to be constant throughout the simulation ( from  <a href=#setPoint>A: Set-Point</a> ). The initial value of the Process Variable if assumed to be zero ( from  <a href=#initialValue>A: Initial value</a> )..
+                          Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). The Set-Point is assumed to be constant throughout the simulation ( from  <a href=#setPoint>A: Set-Point</a> ). The initial value of the Process Variable if assumed to be zero ( from  <a href=#initialValue>A: Initial value</a> ).
                         </p>
                       </td>
                     </tr>
@@ -688,7 +709,9 @@
                     <tr>
                       <th>Label</th>
                       <td>
-                        <p class="paragraph">Proportional Control in frequency domain</p>
+                        <p class="paragraph">
+                          Proportional control in the frequency domain
+                        </p>
                       </td>
                     </tr>
                     <tr>
@@ -708,11 +731,11 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>P<sub>s</sub></em> is the Proportional Control in frequency domain (Unitless)
+                            <em>P<sub>s</sub></em> is the Proportional control in the frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>p</sub></em> is the Proportional-Gain (Unitless)</li>
+                          <li><em>K<sub>p</sub></em> is the Proportional Gain (Unitless)</li>
                           <li>
-                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Process Error in the frequency domain (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -721,7 +744,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Proportional controller is the product of the Proportional Gain and the Error Signal ( from  <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
+                          Proportional controller is the product of the Proportional Gain and the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
                         </p>
                       </td>
                     </tr>
@@ -749,7 +772,7 @@
                     <tr>
                       <th>Label</th>
                       <td>
-                        <p class="paragraph">Derivative Control in frequency domain</p>
+                        <p class="paragraph">Derivative control in the frequency domain</p>
                       </td>
                     </tr>
                     <tr>
@@ -771,14 +794,14 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>D<sub>s</sub></em> is the Derivative Control in frequency domain (Unitless)
+                            <em>D<sub>s</sub></em> is the Derivative control in the frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>d</sub></em> is the Derivative-Gain (Unitless)</li>
+                          <li><em>K<sub>d</sub></em> is the Derivative Gain (Unitless)</li>
                           <li>
-                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Process Error in the frequency domain (Unitless)
                           </li>
                           <li>
-                            <em>s</em> is the Complex frequency domain parameter (Unitless)
+                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -787,7 +810,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Derivative controller is the product of the Derivative Gain and the differential of the Error Signal ( from  <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
+                          Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
                         </p>
                       </td>
                     </tr>
@@ -815,9 +838,7 @@
                     <tr>
                       <th>Label</th>
                       <td>
-                        <p class="paragraph">
-                          Transfer function of the Power-Plant in frequency domain
-                        </p>
+                        <p class="paragraph">Transfer Function in the frequency domain</p>
                       </td>
                     </tr>
                     <tr>
@@ -837,10 +858,10 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>H<sub>s</sub></em> is the Transfer function of the Power-Plant in frequency domain (Unitless)
+                            <em>H<sub>s</sub></em> is the Transfer Function in the frequency domain (Unitless)
                           </li>
                           <li>
-                            <em>s</em> is the Complex frequency domain parameter (Unitless)
+                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -877,7 +898,7 @@
                     <tr>
                       <th>Label</th>
                       <td>
-                        <p class="paragraph">Control-Variable in frequency domain</p>
+                        <p class="paragraph">Control Variable in the frequency domain</p>
                       </td>
                     </tr>
                     <tr>
@@ -899,15 +920,15 @@
                       <td>
                         <ul class="hide-list-style-no-indent">
                           <li>
-                            <em>C<sub>s</sub></em> is the Control-Variable in frequency domain (Unitless)
+                            <em>C<sub>s</sub></em> is the Control Variable in the frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>p</sub></em> is the Proportional-Gain (Unitless)</li>
+                          <li><em>K<sub>p</sub></em> is the Proportional Gain (Unitless)</li>
                           <li>
-                            <em>E<sub>s</sub></em> is the Error Signal in the frequency domain (Unitless)
+                            <em>E<sub>s</sub></em> is the Process Error in the frequency domain (Unitless)
                           </li>
-                          <li><em>K<sub>d</sub></em> is the Derivative-Gain (Unitless)</li>
+                          <li><em>K<sub>d</sub></em> is the Derivative Gain (Unitless)</li>
                           <li>
-                            <em>s</em> is the Complex frequency domain parameter (Unitless)
+                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
                           </li>
                         </ul>
                       </td>
@@ -993,11 +1014,11 @@
                       <th>Description</th>
                       <td>
                         <ul class="hide-list-style-no-indent">
-                          <li><em>K<sub>d</sub></em> is the Derivative-Gain (Unitless)</li>
+                          <li><em>K<sub>d</sub></em> is the Derivative Gain (Unitless)</li>
                           <li><em>t</em> is the time (<em>s</em>)</li>
                           <li><em>y<sub>t</sub></em> is the Process Variable (Unitless)</li>
-                          <li><em>K<sub>p</sub></em> is the Proportional-Gain (Unitless)</li>
-                          <li><em>r<sub>t</sub></em> is the Set-Point (Unitless)</li>
+                          <li><em>K<sub>p</sub></em> is the Proportional Gain (Unitless)</li>
+                          <li><em>r<sub>t</sub></em> is the Set Point (Unitless)</li>
                         </ul>
                       </td>
                     </tr>
@@ -1023,13 +1044,13 @@
                   <div class="subsubsubsection">
                     <h4>Detailed derivation of Process Variable:</h4>
                     <p class="paragraph">
-                      The Process Variable (Y(S)) in a PD Control Loop is the product of the Error signal ( from  <a href=#DD:ddErrorSignal>DD: ddErrorSignal</a> ), Control Variable ( from <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>  ), and the Power-Plant ( from <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> ).
+                      The Process Variable (Y(S)) in a PD Control Loop is the product of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ), Control Variable ( from <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>  ), and the Power-Plant ( from <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> ).
                     </p>
                     \[{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{p}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}\]
                     <p class="paragraph">Rearranging the equation.</p>
                     \[\left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{p}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{p}}}=0\]
                     <p class="paragraph">
-                      Computing the Inverse Laplace Transform of F(s) (from  <a href=#TM:invLaplaceTransform>TM: invLaplaceTransform</a> ) of the equation.
+                      Computing the Inverse Laplace Transform of a function (from  <a href=#TM:invLaplaceTransform>TM: invLaplaceTransform</a> ) of the equation.
                     </p>
                     \[\left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{p}}}=0\]
                     <p class="paragraph">
@@ -1140,27 +1161,27 @@
                 </tr>
                 <tr>
                   <td><em>K<sub>d</sub></em></td>
-                  <td>Derivative-Gain</td>
+                  <td>Derivative Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>K<sub>p</sub></em></td>
-                  <td>Proportional-Gain</td>
+                  <td>Proportional Gain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>r<sub>t</sub></em></td>
-                  <td>Set-Point</td>
+                  <td>Set Point</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>t<sub>sim</sub></em></td>
-                  <td>Simulation time</td>
+                  <td>Simulation Time</td>
                   <td><em>s</em></td>
                 </tr>
                 <tr>
                   <td><em>t<sub>step</sub></em></td>
-                  <td>Step time</td>
+                  <td>Step Time</td>
                   <td><em>s</em></td>
                 </tr>
               </table>
@@ -1189,17 +1210,12 @@
               </p>
               <p>
                 <div id="maintainability">
-                  Maintainable: The code shall be thoroughly documented with appropriate User Guides.
+                  Maintainable: The dependencies among the instance models, requirements, likely changes, assumptions and all other relevant sections of this document shall be traceable to each other in the trace matrix.
                 </div>
               </p>
               <p>
                 <div id="verifiability">
                   Verifiable: The code shall be verifiable against a Verification and Validation plan.
-                </div>
-              </p>
-              <p>
-                <div id="quality">
-                  Quality: The code shall be written with high-quality standards. The code should adhere to good coding standards and should not contain any dead, or unreachable statements..
                 </div>
               </p>
             </div>
@@ -1310,7 +1326,7 @@
               <th><a href=#parallelEq>A: Parallel equation</a></th>
             </tr>
             <tr>
-              <td><a href=#DD:ddErrorSignal>DD: ddErrorSignal</a></td>
+              <td><a href=#DD:ddProcessError>DD: ddProcessError</a></td>
               <td></td>
               <td></td>
               <td>X</td>
@@ -1456,15 +1472,6 @@
               <td></td>
             </tr>
             <tr>
-              <td><a href=#quality>NFR: Quality</a></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
               <td><a href=#likeChgIC>LC: Second Order Power Plant</a></td>
               <td>X</td>
               <td></td>
@@ -1482,7 +1489,7 @@
           <table class="table">
             <tr>
               <th></th>
-              <th><a href=#DD:ddErrorSignal>DD: ddErrorSignal</a></th>
+              <th><a href=#DD:ddProcessError>DD: ddProcessError</a></th>
               <th><a href=#DD:ddPropCtrl>DD: ddPropCtrl</a></th>
               <th><a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a></th>
               <th><a href=#DD:ddPowerPlant>DD: ddPowerPlant</a></th>
@@ -1494,7 +1501,7 @@
               <th><a href=#IM:pdEquationIM>IM: pdEquationIM</a></th>
             </tr>
             <tr>
-              <td><a href=#DD:ddErrorSignal>DD: ddErrorSignal</a></td>
+              <td><a href=#DD:ddProcessError>DD: ddProcessError</a></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1592,7 +1599,7 @@
           <table class="table">
             <tr>
               <th></th>
-              <th><a href=#DD:ddErrorSignal>DD: ddErrorSignal</a></th>
+              <th><a href=#DD:ddProcessError>DD: ddProcessError</a></th>
               <th><a href=#DD:ddPropCtrl>DD: ddPropCtrl</a></th>
               <th><a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a></th>
               <th><a href=#DD:ddPowerPlant>DD: ddPowerPlant</a></th>
@@ -1610,11 +1617,9 @@
               <th><a href=#security>NFR: Secure</a></th>
               <th><a href=#maintainability>NFR: Maintainable</a></th>
               <th><a href=#verifiability>NFR: Verifiable</a></th>
-              <th><a href=#quality>NFR: Quality</a></th>
             </tr>
             <tr>
               <td><a href=#processVariable>GS: Process-Variable</a></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1650,11 +1655,9 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
             <tr>
               <td><a href=#verifyInputs>FR: Verify-Input-Values</a></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1690,7 +1693,6 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
             <tr>
               <td><a href=#outputValues>FR: Output-Values</a></td>
@@ -1710,11 +1712,9 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
             <tr>
               <td><a href=#portability>NFR: Portable</a></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1750,7 +1750,6 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
             <tr>
               <td><a href=#maintainability>NFR: Maintainable</a></td>
@@ -1770,31 +1769,9 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
             <tr>
               <td><a href=#verifiability>NFR: Verifiable</a></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href=#quality>NFR: Quality</a></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1834,13 +1811,18 @@
             </div>
           </li>
           <li>
+            <div id="smithLai2005">
+              [3]: Smith, W. Spencer and Lai, Lei. "A new requirements template for scientific computing." <em>Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05</em>. Edited by PJ Agerfalk, N. Kraiem, and J. Ralyte, Paris, France: 2005. pp. 107&ndash;121. In conjunction with 13th IEEE International Requirements Engineering Conference,
+            </div>
+          </li>
+          <li>
             <div id="laplaceWiki">
-              [3]: Wikipedia Contributors. <em>Laplace transform</em>. November, 2020. <a href="https://en.wikipedia.org/wiki/Laplace_transform">https://en.wikipedia.org/wiki/Laplace_transform</a>.
+              [4]: Wikipedia Contributors. <em>Laplace transform</em>. November, 2020. <a href="https://en.wikipedia.org/wiki/Laplace_transform">https://en.wikipedia.org/wiki/Laplace_transform</a>.
             </div>
           </li>
           <li>
             <div id="pidWiki">
-              [4]: Wikipedia Contributors. <em>PID controller</em>. October, 2020. <a href="https://en.wikipedia.org/wiki/PID_controller">https://en.wikipedia.org/wiki/PID_controller</a>.
+              [5]: Wikipedia Contributors. <em>PID controller</em>. October, 2020. <a href="https://en.wikipedia.org/wiki/PID_controller">https://en.wikipedia.org/wiki/PID_controller</a>.
             </div>
           </li>
         </ul>

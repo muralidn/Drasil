@@ -1,6 +1,5 @@
 /** \file Control.cpp
     \author Naveen Ganesh Muralidharan
-    \date 2020-12-07
     \brief Controls the flow of the program
 */
 #include <string>

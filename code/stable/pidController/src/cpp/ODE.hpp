@@ -1,6 +1,5 @@
 /** \file ODE.hpp
     \author Naveen Ganesh Muralidharan
-    \date 2020-12-07
     \brief Class representing an ODE system
 */
 #ifndef ODE_h
@@ -15,9 +14,9 @@ using std::vector;
 class ODE {
     public:
         /** \brief Constructor for ODE objects
-            \param K_p Proportional-Gain: Gain constant of the proportional controller
-            \param K_d Derivative-Gain: Gain constant of the derivative controller
-            \param r_t Set-Point: The desired value that the control system must reach. This also knows as reference variable
+            \param K_p Proportional Gain: Gain constant of the proportional controller
+            \param K_d Derivative Gain: Gain constant of the derivative controller
+            \param r_t Set Point: The desired value that the control system must reach. This also knows as reference variable
         */
         ODE(double K_p, double K_d, double r_t);
         /** \brief function representation of ODE system

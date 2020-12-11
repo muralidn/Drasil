@@ -53,7 +53,7 @@ ${\text{s}}$ & time & second
 \label{Sec:ToS}
 The symbols used in this document are summarized in \hyperref[Table:ToS]{Tab: ToS} along with their units. The symbols are listed in alphabetical order.
 
-\begin{longtabu}{l X[l] l}
+\begin{longtable}{l l l}
 \toprule
 \textbf{Symbol} & \textbf{Description} & \textbf{Units}
 \\
@@ -63,43 +63,43 @@ $-∞$ & Negative Infinity & --
 \\
 $AbsTol$ & Absolute Tolerance & --
 \\
-${C_{\text{s}}}$ & Control-Variable in frequency domain & --
+${C_{\text{s}}}$ & Control Variable in the frequency domain & --
 \\
-${c_{\text{t}}}$ & Control-Variable in time domain & --
+${c_{\text{t}}}$ & Control Variable in the time domain & --
 \\
-${D_{\text{s}}}$ & Derivative Control in frequency domain & --
+${D_{\text{s}}}$ & Derivative control in the frequency domain & --
 \\
-${E_{\text{s}}}$ & Error Signal in the frequency domain & --
+${E_{\text{s}}}$ & Process Error in the frequency domain & --
 \\
-${e_{\text{t}}}$ & Error Signal in the time domain & --
+${e_{\text{t}}}$ & Process Error in the time domain & --
 \\
-${F_{\text{s}}}$ & Laplace Transform of a function f(t) & --
+${F_{\text{s}}}$ & Laplace Transform of a function & --
 \\
 ${f_{\text{t}}}$ & Function in the time domain & --
 \\
-${H_{\text{s}}}$ & Transfer function of the Power-Plant in frequency domain & --
+${H_{\text{s}}}$ & Transfer Function in the frequency domain & --
 \\
-${K_{\text{d}}}$ & Derivative-Gain & --
+${K_{\text{d}}}$ & Derivative Gain & --
 \\
-${K_{\text{p}}}$ & Proportional-Gain & --
+${K_{\text{p}}}$ & Proportional Gain & --
 \\
-$L⁻¹{F(s)}$ & Inverse Laplace Transform of F(s) & --
+$L⁻¹[F(s)]$ & Inverse Laplace Transform of a function & --
 \\
-${P_{\text{s}}}$ & Proportional Control in frequency domain & --
+${P_{\text{s}}}$ & Proportional control in the frequency domain & --
 \\
 ${R_{\text{s}}}$ & Set Point in the frequency domain & --
 \\
-${r_{\text{t}}}$ & Set-Point & --
+${r_{\text{t}}}$ & Set Point & --
 \\
 $RelTol$ & Relative Tolerance & --
 \\
-$s$ & Complex frequency domain parameter & --
+$s$ & Complex frequency-domain parameter & --
 \\
 $t$ & Time & ${\text{s}}$
 \\
-${t_{\text{sim}}}$ & Simulation time & ${\text{s}}$
+${t_{\text{sim}}}$ & Simulation Time & ${\text{s}}$
 \\
-${t_{\text{step}}}$ & Step time & ${\text{s}}$
+${t_{\text{step}}}$ & Step Time & ${\text{s}}$
 \\
 ${Y_{\text{s}}}$ & Process Variable in the frequency domain & --
 \\
@@ -110,7 +110,7 @@ $∞$ & Infinity & --
 \bottomrule
 \caption{Table of Symbols}
 \label{Table:ToS}
-\end{longtabu}
+\end{longtable}
 \subsection{Abbreviations and Acronyms}
 \label{Sec:TAbbAcc}
 \begin{longtable}{l l}
@@ -121,13 +121,23 @@ $∞$ & Infinity & --
 \endhead
 A & Assumption
 \\
+D & Derivative
+\\
 DD & Data Definition
 \\
 GD & General Definition
 \\
 GS & Goal Statement
 \\
+I & Integral
+\\
 IM & Instance Model
+\\
+P & Proportional
+\\
+PD & Proportional Derivative
+\\
+PID & Proportional Integral Derivative
 \\
 PS & Physical System Description
 \\
@@ -155,7 +165,7 @@ The purpose of this document is to capture all the necessary  information includ
 
 \subsection{Scope of Requirements}
 \label{Sec:ReqsScope}
-The scope of the requirements includes a PD Control Loop  with three subsystems namely a  PD Controller , a Summing Point , and a Power Plant . This  software is intended to aid with the manual tuning of the PD Controller.
+The scope of the requirements includes a PD Control Loop  with three subsystems namely a  PD Controller , a Summing Point , and a Power Plant . Only  the Proportional and Derivative controllers are used here;  the Integral controller is beyond the scope of this software. Additionally, this software is intended to aid with the manual  tuning of the PD Controller.
 
 \subsection{Characteristics of Intended Reader}
 \label{Sec:ReaderChars}
@@ -165,7 +175,7 @@ Reviewers of this documentation should have an understanding of control systems 
 \label{Sec:DocOrg}
 The sections in this document are based on  \cite{smithLai2005}. The presentation follows the standard pattern of presenting goals, theories, definitions, and assumptions. For readers that would like a more bottom up approach, they can start reading the data definitions in \hyperref[Sec:IMs]{Section: Instance Models} and trace back to find any additional information they require.
 
-The goal statements (\hyperref[Sec:GoalStmt]{Section: Goal Statements}) are refined to the theoretical models and the theoretical models (\hyperref[Sec:TMs]{Section: Theoretical Models}) to the instance models (\hyperref[Sec:IMs]{Section: Instance Models}). .
+The goal statements (\hyperref[Sec:GoalStmt]{Section: Goal Statements}) are refined to the theoretical models and the theoretical models (\hyperref[Sec:TMs]{Section: Theoretical Models}) to the instance models (\hyperref[Sec:IMs]{Section: Instance Models}). The instance model referred as \hyperref[IM:pdEquationIM]{IM: pdEquationIM}  provides an Ordinary Differential Equation (ODE) that   models the PD Controller.
 
 \section{General System Description}
 \label{Sec:GenSysDesc}
@@ -173,7 +183,7 @@ This section provides general information about the system. It identifies the in
 
 \subsection{System Context}
 \label{Sec:SysContext}
-\hyperref[Figure:systemContextDiag]{Fig:systemContextDiag} shows the system context. The circle represents an external entity outside the software, the user in this case. The rectangle represents the software system itself PD Controller in this case. Arrows are used to show the data flow between the system and its environment.
+\hyperref[Figure:systemContextDiag]{Fig:systemContextDiag} shows the system context. The circle represents an external entity outside the software, the user in this case. The rectangle represents the software system itself, PD Controller in this case. Arrows are used to show the data flow between the system and its environment.
 
 \begin{figure}
 \begin{center}
@@ -182,23 +192,24 @@ This section provides general information about the system. It identifies the in
 \label{Figure:systemContextDiag}
 \end{center}
 \end{figure}
-PD Controller  is self-contained. The only external interaction is   with the  user The responsibilities of the  user  and the  system  are as follows,:
+PD Controller  is self-contained. The only external interaction is   with the  user .The responsibilities of the  user  and the  system  are as follows:
 
 \begin{itemize}
 \item{User Responsibilities}
 \begin{itemize}
 \item{Feed inputs to the model}
 \item{Review the response of the  Power Plant}
-\item{Tune the controller gains.}
+\item{Tune the controller gains}
 \end{itemize}
 \item{PD Controller Responsibilities}
 \begin{itemize}
+\item{Check the validity of the inputs}
 \item{Calculate the outputs of the  PD Controller  and  Power Plant}
 \end{itemize}
 \end{itemize}
 \subsection{User Characteristics}
 \label{Sec:UserChars}
-The end user of  PD Controller  is expected to have completed at least the equivalent of the second year of an undergraduate degree in electrical engineering.
+The end user of  PD Controller  is expected to have taken a course on Control Systems at an  undergraduate level.
 
 \subsection{System Constraints}
 \label{Sec:SysConstraints}
@@ -210,7 +221,7 @@ This section first presents the problem description, which gives a high-level vi
 
 \subsection{Problem Description}
 \label{Sec:ProbDesc}
-A system is needed to This program intends to provide a model of a PD Controller  that can be used for the tuning of the gain constants before  the deployment of the controller.
+A system is needed to provide a model of a PD Controller  that can be used for the tuning of the gain constants before  the deployment of the controller.
 
 \subsubsection{Terminology and Definitions}
 \label{Sec:TermDefs}
@@ -222,16 +233,16 @@ This subsection provides a list of terms that are used in the subsequent section
 \item{Summing Point: Control block where the difference between the Set-Point and the Process Variable is computed.}
 \item{Power Plant: A first order system to be controlled.}
 \item{First Order System: A system whose input-output relationship is denoted by a first order differential equation.}
-\item{Error Value: Input to the PID controller. Error Value is the difference between the Set Point and the Process Variable.}
-\item{Simulation time: Total execution time of the PD simulation.}
+\item{Process Error: Input to the PID controller. Process Error is the difference between the Set Point and the Process Variable.}
+\item{Simulation Time: Total execution time of the PD simulation.}
 \item{Process Variable: The output value from the power plant.}
-\item{Set-Point: The desired value that the control system must reach. This also knows as reference variable.}
-\item{Proportional-Gain: Gain constant of the proportional controller.}
-\item{Derivative-Gain: Gain constant of the derivative controller.}
+\item{Set Point: The desired value that the control system must reach. This also knows as reference variable.}
+\item{Proportional Gain: Gain constant of the proportional controller.}
+\item{Derivative Gain: Gain constant of the derivative controller.}
 \item{Frequency Domain: The analysis of mathematical functions with respect to frequency, instead of time.}
 \item{Laplace transform: An integral transform that converts a function of a real variable t (often time) to a function of a complex variable s (complex frequency).}
 \item{Control Variable: The Control Variable is the output of the PD controller.}
-\item{Step time: Simulation step time.}
+\item{Step Time: Simulation step time.}
 \item{Absolute Tolerance: Absolute tolerance for the integrator..}
 \item{Relative Tolerance: Relative tolerance for the integrator..}
 \end{itemize}
@@ -253,7 +264,7 @@ The physical system of PD Controller, as shown in \hyperref[Figure:pidSysDiagram
 \end{figure}
 \subsubsection{Goal Statements}
 \label{Sec:GoalStmt}
-Given Set-Point, Simulation time, Proportional-Gain, Derivative-Gain, and Step time, the goal statements are:
+Given Set Point, Simulation Time, Proportional Gain, Derivative Gain, and Step Time, the goal statements are:
 
 \begin{itemize}
 \item[Process-Variable:\phantomsection\label{processVariable}]{Calculate the output of the Power Plant ( Process Variable ) over time.}
@@ -267,11 +278,11 @@ The instance models that govern PD Controller are presented in \hyperref[Sec:IMs
 This section simplifies the original problem and helps in developing the theoretical models by filling in the missing information for the physical system. The assumptions refine the scope by providing more detail.
 
 \begin{itemize}
-\item[Power plant:\phantomsection\label{pwrPlant}]{The Power Plant and the sensor are coupled  a single unit with transfer function, 1/(2s + 1). (RefBy: \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} and \hyperref[likeChgIC]{LC: Second Order Power Plant}.)}
+\item[Power plant:\phantomsection\label{pwrPlant}]{The Power Plant and the sensor are coupled as a single unit with transfer function, 1/(2s + 1). (RefBy: \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} and \hyperref[likeChgIC]{LC: Second Order Power Plant}.)}
 \item[Decoupled equation:\phantomsection\label{decoupled}]{The decoupled form of the PD Controller equation used in this simulation. (RefBy: \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}.)}
-\item[Set-Point:\phantomsection\label{setPoint}]{The Set-Point is a constant throughout the simulation. (RefBy: \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} and \hyperref[IM:pdEquationIM]{IM: pdEquationIM}.)}
+\item[Set-Point:\phantomsection\label{setPoint}]{The Set Point is a constant throughout the simulation. (RefBy: \hyperref[DD:ddProcessError]{DD: ddProcessError} and \hyperref[IM:pdEquationIM]{IM: pdEquationIM}.)}
 \item[External disturbance:\phantomsection\label{externalDistub}]{There are no external disturbances to the Power Plant during the simulation. (RefBy: \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}.)}
-\item[Initial value:\phantomsection\label{initialValue}]{The initial value of the Process Variable is assumed to be zero. (RefBy: \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal}.)}
+\item[Initial value:\phantomsection\label{initialValue}]{The initial value of the Process Variable is assumed to be zero. (RefBy: \hyperref[DD:ddProcessError]{DD: ddProcessError}.)}
 \item[Parallel equation:\phantomsection\label{parallelEq}]{The Parallel form of the equation is used for the PD Controller. (RefBy: \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}.)}
 \end{itemize}
 \subsubsection{Theoretical Models}
@@ -286,7 +297,7 @@ This section focuses on the general equations and laws that PD Controller is bas
 \phantomsection 
 \label{TM:laplaceTransform}
 \\ \midrule \\
-Label & Laplace transform
+Label & Laplace Transform
         
 \\ \midrule \\
 Equation & \begin{displaymath}
@@ -294,19 +305,19 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${F_{\text{s}}}$ is the Laplace Transform of a function f(t) (Unitless)}
+              \item{${F_{\text{s}}}$ is the Laplace Transform of a function (Unitless)}
               \item{${f_{\text{t}}}$ is the Function in the time domain (Unitless)}
-              \item{$s$ is the Complex frequency domain parameter (Unitless)}
+              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
               \item{$t$ is the time (${\text{s}}$)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Bilateral Laplace Transform. The Laplace transforms are  usually inferred from the Laplace Transform table in   section 4 of the  \cite{laplaceWiki}.
+Notes & Bilateral Laplace Transform. The Laplace transforms are  typically inferred from a pre-computed table of Laplace Transforms  ( \cite{laplaceWiki} ).
         
 \\ \midrule \\
 Source & \cite{laplaceWiki}
          
 \\ \midrule \\
-RefBy & \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}, \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}, \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal}, and \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}
+RefBy & \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}, \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}, \hyperref[DD:ddProcessError]{DD: ddProcessError}, and \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}
         
 \\ \bottomrule
 \end{tabular}
@@ -319,19 +330,19 @@ RefBy & \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}, \hyperref[DD:ddPropCtrl]{D
 \phantomsection 
 \label{TM:invLaplaceTransform}
 \\ \midrule \\
-Label & Inverse laplace transform
+Label & Inverse Laplace Transform
         
 \\ \midrule \\
 Equation & \begin{displaymath}
-           {f_{\text{t}}}=L⁻¹{F(s)}
+           {f_{\text{t}}}=L⁻¹[F(s)]
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
               \item{${f_{\text{t}}}$ is the Function in the time domain (Unitless)}
-              \item{$L⁻¹{F(s)}$ is the Inverse Laplace Transform of F(s) (Unitless)}
+              \item{$L⁻¹[F(s)]$ is the Inverse Laplace Transform of a function (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Inverse Laplace Transform of F(S). The Inverse Laplace transforms are  usually inferred from the Laplace Transform table in   section 4 of the  \cite{laplaceWiki}.
+Notes & Inverse Laplace Transform of F(S). The Inverse Laplace transforms are  typically inferred from a pre-computed table of Laplace Transforms  ( \cite{laplaceWiki} ).
         
 \\ \midrule \\
 Source & \cite{laplaceWiki}
@@ -354,11 +365,11 @@ This section collects and defines all the data needed to build the instance mode
 \noindent
 \begin{minipage}{\textwidth}
 \begin{tabular}{>{\raggedright}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.82\textwidth}}
-\toprule \textbf{Refname} & \textbf{DD:ddErrorSignal}
+\toprule \textbf{Refname} & \textbf{DD:ddProcessError}
 \phantomsection 
-\label{DD:ddErrorSignal}
+\label{DD:ddProcessError}
 \\ \midrule \\
-Label & Error Signal in the frequency domain
+Label & Process Error in the frequency domain
         
 \\ \midrule \\
 Symbol & ${E_{\text{s}}}$
@@ -372,12 +383,12 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Process Error in the frequency domain (Unitless)}
               \item{${R_{\text{s}}}$ is the Set Point in the frequency domain (Unitless)}
               \item{${Y_{\text{s}}}$ is the Process Variable in the frequency domain (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Error Signal is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ). The Set-Point is assumed to be constant throughout the simulation ( from  \hyperref[setPoint]{A: Set-Point} ). The initial value of the Process Variable if assumed to be zero ( from  \hyperref[initialValue]{A: Initial value} )..
+Notes & Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ). The Set-Point is assumed to be constant throughout the simulation ( from  \hyperref[setPoint]{A: Set-Point} ). The initial value of the Process Variable if assumed to be zero ( from  \hyperref[initialValue]{A: Initial value} ).
         
 \\ \midrule \\
 Source & \cite{johnson2008}
@@ -397,7 +408,7 @@ RefBy & \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}, \hyperref[DD:ddDerivCtrl]{DD: 
 \phantomsection 
 \label{DD:ddPropCtrl}
 \\ \midrule \\
-Label & Proportional Control in frequency domain
+Label & Proportional control in the frequency domain
         
 \\ \midrule \\
 Symbol & ${P_{\text{s}}}$
@@ -411,12 +422,12 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${P_{\text{s}}}$ is the Proportional Control in frequency domain (Unitless)}
-              \item{${K_{\text{p}}}$ is the Proportional-Gain (Unitless)}
-              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
+              \item{${P_{\text{s}}}$ is the Proportional control in the frequency domain (Unitless)}
+              \item{${K_{\text{p}}}$ is the Proportional Gain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Process Error in the frequency domain (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Proportional controller is the product of the Proportional Gain and the Error Signal ( from  \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ).
+Notes & Proportional controller is the product of the Proportional Gain and the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ).
         
 \\ \midrule \\
 Source & \cite{johnson2008}
@@ -436,7 +447,7 @@ RefBy & \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}
 \phantomsection 
 \label{DD:ddDerivCtrl}
 \\ \midrule \\
-Label & Derivative Control in frequency domain
+Label & Derivative control in the frequency domain
         
 \\ \midrule \\
 Symbol & ${D_{\text{s}}}$
@@ -450,13 +461,13 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${D_{\text{s}}}$ is the Derivative Control in frequency domain (Unitless)}
-              \item{${K_{\text{d}}}$ is the Derivative-Gain (Unitless)}
-              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
-              \item{$s$ is the Complex frequency domain parameter (Unitless)}
+              \item{${D_{\text{s}}}$ is the Derivative control in the frequency domain (Unitless)}
+              \item{${K_{\text{d}}}$ is the Derivative Gain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Process Error in the frequency domain (Unitless)}
+              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Derivative controller is the product of the Derivative Gain and the differential of the Error Signal ( from  \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ).
+Notes & Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ).
         
 \\ \midrule \\
 Source & \cite{johnson2008}
@@ -476,7 +487,7 @@ RefBy & \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}
 \phantomsection 
 \label{DD:ddPowerPlant}
 \\ \midrule \\
-Label & Transfer function of the Power-Plant in frequency domain
+Label & Transfer Function in the frequency domain
         
 \\ \midrule \\
 Symbol & ${H_{\text{s}}}$
@@ -490,8 +501,8 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${H_{\text{s}}}$ is the Transfer function of the Power-Plant in frequency domain (Unitless)}
-              \item{$s$ is the Complex frequency domain parameter (Unitless)}
+              \item{${H_{\text{s}}}$ is the Transfer Function in the frequency domain (Unitless)}
+              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
 Notes & The power plant is represented by a first order system ( from  \hyperref[pwrPlant]{A: Power plant} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ) Additionally there are no external disturbances to the power plant ( from  \hyperref[externalDistub]{A: External disturbance} ).
@@ -514,7 +525,7 @@ RefBy & \hyperref[IM:pdEquationIM]{IM: pdEquationIM}
 \phantomsection 
 \label{DD:ddCtrlVar}
 \\ \midrule \\
-Label & Control-Variable in frequency domain
+Label & Control Variable in the frequency domain
         
 \\ \midrule \\
 Symbol & ${C_{\text{s}}}$
@@ -528,11 +539,11 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${C_{\text{s}}}$ is the Control-Variable in frequency domain (Unitless)}
-              \item{${K_{\text{p}}}$ is the Proportional-Gain (Unitless)}
-              \item{${E_{\text{s}}}$ is the Error Signal in the frequency domain (Unitless)}
-              \item{${K_{\text{d}}}$ is the Derivative-Gain (Unitless)}
-              \item{$s$ is the Complex frequency domain parameter (Unitless)}
+              \item{${C_{\text{s}}}$ is the Control Variable in the frequency domain (Unitless)}
+              \item{${K_{\text{p}}}$ is the Proportional Gain (Unitless)}
+              \item{${E_{\text{s}}}$ is the Process Error in the frequency domain (Unitless)}
+              \item{${K_{\text{d}}}$ is the Derivative Gain (Unitless)}
+              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
 Notes & The control variable is the output of the controller. In this case, it is the sum of the Proportional ( from \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} ) and Derivative ( from  \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} ) controllers The parallel ( from \hyperref[parallelEq]{A: Parallel equation} ) and de-coupled ( from \hyperref[decoupled]{A: Decoupled equation} ) form of the PD equation is used in this document.
@@ -587,11 +598,11 @@ Equation & \begin{displaymath}
            \end{displaymath}
 \\ \midrule \\
 Description & \begin{symbDescription}
-              \item{${K_{\text{d}}}$ is the Derivative-Gain (Unitless)}
+              \item{${K_{\text{d}}}$ is the Derivative Gain (Unitless)}
               \item{$t$ is the time (${\text{s}}$)}
               \item{${y_{\text{t}}}$ is the Process Variable (Unitless)}
-              \item{${K_{\text{p}}}$ is the Proportional-Gain (Unitless)}
-              \item{${r_{\text{t}}}$ is the Set-Point (Unitless)}
+              \item{${K_{\text{p}}}$ is the Proportional Gain (Unitless)}
+              \item{${r_{\text{t}}}$ is the Set Point (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
 Source & \cite{abbasi2015} and \cite{johnson2008}
@@ -604,7 +615,7 @@ RefBy & \hyperref[outputValues]{FR: Output-Values} and \hyperref[calculateValues
 \end{minipage}
 \paragraph{Detailed derivation of Process Variable:}
 \label{IM:pdEquationIMDeriv}
-The Process Variable (Y(S)) in a PD Control Loop is the product of the Error signal ( from  \hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} ), Control Variable ( from \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}  ), and the Power-Plant ( from \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} ).
+The Process Variable (Y(S)) in a PD Control Loop is the product of the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ), Control Variable ( from \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}  ), and the Power-Plant ( from \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} ).
 
 \begin{displaymath}
 {Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{p}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}
@@ -614,7 +625,7 @@ Rearranging the equation.
 \begin{displaymath}
 \left(2+{K_{\text{d}}}\right) {Y_{\text{s}}} s+\left(1+{K_{\text{p}}}\right) {Y_{\text{s}}}-{R_{\text{s}}} s {K_{\text{d}}}-{R_{\text{s}}} {K_{\text{p}}}=0
 \end{displaymath}
-Computing the Inverse Laplace Transform of F(s) (from  \hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} ) of the equation.
+Computing the Inverse Laplace Transform of a function (from  \hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} ) of the equation.
 
 \begin{displaymath}
 \left(2+{K_{\text{d}}}\right) \frac{\,d{y_{\text{t}}}}{\,dt}+\left(1+{K_{\text{p}}}\right) {y_{\text{t}}}-{K_{\text{d}}} \frac{\,d{r_{\text{t}}}}{\,dt}-{r_{\text{t}}} {K_{\text{p}}}=0
@@ -668,15 +679,15 @@ This section provides the functional requirements, the tasks and behaviours that
 \\
 \midrule
 \endhead
-${K_{\text{d}}}$ & Derivative-Gain & --
+${K_{\text{d}}}$ & Derivative Gain & --
 \\
-${K_{\text{p}}}$ & Proportional-Gain & --
+${K_{\text{p}}}$ & Proportional Gain & --
 \\
-${r_{\text{t}}}$ & Set-Point & --
+${r_{\text{t}}}$ & Set Point & --
 \\
-${t_{\text{sim}}}$ & Simulation time & ${\text{s}}$
+${t_{\text{sim}}}$ & Simulation Time & ${\text{s}}$
 \\
-${t_{\text{step}}}$ & Step time & ${\text{s}}$
+${t_{\text{step}}}$ & Step Time & ${\text{s}}$
 \\
 \bottomrule
 \caption{Required Inputs following \hyperref[inputValues]{FR: Input-Values}}
@@ -689,9 +700,8 @@ This section provides the non-functional requirements, the qualities that the so
 \begin{itemize}
 \item[Portable:\phantomsection\label{portability}]{The code shall be portable to multiple Operating Systems.}
 \item[Secure:\phantomsection\label{security}]{The code shall be immune to common security problems such as memory leaks, divide by zero errors, and the square root of negative numbers.}
-\item[Maintainable:\phantomsection\label{maintainability}]{The code shall be thoroughly documented with appropriate User Guides.}
+\item[Maintainable:\phantomsection\label{maintainability}]{The dependencies among the instance models, requirements, likely changes, assumptions and all other relevant sections of this document shall be traceable to each other in the trace matrix.}
 \item[Verifiable:\phantomsection\label{verifiability}]{The code shall be verifiable against a Verification and Validation plan.}
-\item[Quality:\phantomsection\label{quality}]{The code shall be written with high-quality standards. The code should adhere to good coding standards and should not contain any dead, or unreachable statements..}
 \end{itemize}
 \section{Likely Changes}
 \label{Sec:LCs}
@@ -732,7 +742,7 @@ The purpose of the traceability matrices is to provide easy references on what h
 \\
 \midrule
 \endhead
-\hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} &  &  & X &  & X & 
+\hyperref[DD:ddProcessError]{DD: ddProcessError} &  &  & X &  & X & 
 \\
 \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} &  &  &  &  &  & 
 \\
@@ -764,8 +774,6 @@ The purpose of the traceability matrices is to provide easy references on what h
 \\
 \hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  & 
 \\
-\hyperref[quality]{NFR: Quality} &  &  &  &  &  & 
-\\
 \hyperref[likeChgIC]{LC: Second Order Power Plant} & X &  &  &  &  & 
 \\
 \bottomrule
@@ -774,11 +782,11 @@ The purpose of the traceability matrices is to provide easy references on what h
 \end{longtable}
 \begin{longtable}{l l l l l l l l l}
 \toprule
-\textbf{} & \textbf{\hyperref[DD:ddErrorSignal]{DD: ddErrorSignal}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}}
+\textbf{} & \textbf{\hyperref[DD:ddProcessError]{DD: ddProcessError}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}}
 \\
 \midrule
 \endhead
-\hyperref[DD:ddErrorSignal]{DD: ddErrorSignal} &  &  &  &  &  & X &  & 
+\hyperref[DD:ddProcessError]{DD: ddProcessError} &  &  &  &  &  & X &  & 
 \\
 \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} & X &  &  &  &  & X &  & 
 \\
@@ -798,31 +806,29 @@ The purpose of the traceability matrices is to provide easy references on what h
 \caption{Traceability Matrix Showing the Connections Between Items and Other Sections}
 \label{Table:TraceMatRefvsRef}
 \end{longtable}
-\begin{longtable}{l l l l l l l l l l l l l l l l l l}
+\begin{longtable}{l l l l l l l l l l l l l l l l l}
 \toprule
-\textbf{} & \textbf{\hyperref[DD:ddErrorSignal]{DD: ddErrorSignal}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}} & \textbf{\hyperref[inputValues]{FR: Input-Values}} & \textbf{\hyperref[verifyInputs]{FR: Verify-Input-Values}} & \textbf{\hyperref[calculateValues]{FR: Calculate-Values}} & \textbf{\hyperref[outputValues]{FR: Output-Values}} & \textbf{\hyperref[portability]{NFR: Portable}} & \textbf{\hyperref[security]{NFR: Secure}} & \textbf{\hyperref[maintainability]{NFR: Maintainable}} & \textbf{\hyperref[verifiability]{NFR: Verifiable}} & \textbf{\hyperref[quality]{NFR: Quality}}
+\textbf{} & \textbf{\hyperref[DD:ddProcessError]{DD: ddProcessError}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}} & \textbf{\hyperref[inputValues]{FR: Input-Values}} & \textbf{\hyperref[verifyInputs]{FR: Verify-Input-Values}} & \textbf{\hyperref[calculateValues]{FR: Calculate-Values}} & \textbf{\hyperref[outputValues]{FR: Output-Values}} & \textbf{\hyperref[portability]{NFR: Portable}} & \textbf{\hyperref[security]{NFR: Secure}} & \textbf{\hyperref[maintainability]{NFR: Maintainable}} & \textbf{\hyperref[verifiability]{NFR: Verifiable}}
 \\
 \midrule
 \endhead
-\hyperref[processVariable]{GS: Process-Variable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[processVariable]{GS: Process-Variable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[inputValues]{FR: Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[inputValues]{FR: Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[verifyInputs]{FR: Verify-Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[verifyInputs]{FR: Verify-Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[calculateValues]{FR: Calculate-Values} &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  & 
+\hyperref[calculateValues]{FR: Calculate-Values} &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & 
 \\
-\hyperref[outputValues]{FR: Output-Values} &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  &  & 
+\hyperref[outputValues]{FR: Output-Values} &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & 
 \\
-\hyperref[portability]{NFR: Portable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[portability]{NFR: Portable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[security]{NFR: Secure} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[security]{NFR: Secure} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[maintainability]{NFR: Maintainable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[maintainability]{NFR: Maintainable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
-\\
-\hyperref[quality]{NFR: Quality} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
 \bottomrule
 \caption{Traceability Matrix Showing the Connections Between Requirements, Goal Statements and Other Items}
@@ -842,6 +848,15 @@ title={A diﬀerential equation view of closed loop control systems},
 howpublished={\url{https://www.12000.org/my\_notes/connecting\_systems/report.htm}},
 month=nov,
 year={2020}}
+@inproceedings{smithLai2005,
+author={Smith, W. Spencer and Lai, Lei},
+title={A new requirements template for scientific computing},
+booktitle={Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05},
+year={2005},
+editor={Agerfalk, PJ and Kraiem, N. and Ralyte, J.},
+address={Paris, France},
+pages={107--121},
+note={In conjunction with 13th IEEE International Requirements Engineering Conference,}}
 @misc{laplaceWiki,
 author={Wikipedia Contributors},
 title={Laplace transform},
