@@ -25,11 +25,13 @@ introPara
 introscopeOfReq
   = foldlSent_
       [S "a", phrase pidCL, S " with three subsystems namely a ", phrase pidC,
-       S ", a", phrase summingPt, S ", and a", phrase powerPlant, S ". Only " +:+
-       S "the Proportional and Derivative controllers are used here;"
-       +:+ S " the Integral controller is beyond the scope of this software."
-       +:+ S "Additionally, this software is intended to aid with the manual "
-       +:+ S "tuning of the", phrase pidC]
+       S ", a", phrase summingPt, S ", and a", phrase powerPlant,
+       S ". Only " +:+
+         S "the Proportional and Derivative controllers are used here;"
+         +:+ S " the Integral controller is beyond the scope of this software."
+         +:+ S "Additionally, this software is intended to aid with the manual "
+         +:+ S "tuning of the",
+       phrase pidC]
 
 introPurposeOfDoc
   = foldlSent

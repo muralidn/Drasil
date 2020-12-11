@@ -22,7 +22,7 @@ codeChoices
   = defaultChoices{lang = [Python, Cpp, CSharp], modularity = Modular Combined,
                    impType = Program, logFile = "log.txt", logging = [],
                    comments = [CommentFunc, CommentClass, CommentMod],
-                   doxVerbosity = Verbose, dates = Show,
+                   doxVerbosity = Verbose, dates = Hide,
                    onSfwrConstraint = Exception, onPhysConstraint = Exception,
                    inputStructure = Unbundled, constStructure = Store Bundled,
                    constRepr = Const,

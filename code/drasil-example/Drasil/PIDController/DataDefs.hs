@@ -19,11 +19,11 @@ dataDefinitions = [ddErrSig, ddPropCtrl, ddDerivCtrl, ddPowerPlant, ddCtrlVar]
 
 ddErrSig :: DataDefinition
 ddErrSig
-  = dd ddErrSigDefn [makeCite johnson2008] Nothing "ddErrorSignal"
+  = dd ddErrSigDefn [makeCite johnson2008] Nothing "ddProcessError"
       [ddErrSigNote]
 
 ddErrSigDefn :: QDefinition
-ddErrSigDefn = mkQuantDef qdErrorSignalFD ddErrSigEqn
+ddErrSigDefn = mkQuantDef qdProcessErrorFD ddErrSigEqn
 
 ddErrSigEqn :: Expr
 ddErrSigEqn = (sy qdSetPointFD) - (sy qdProcessVariableFD)
@@ -31,7 +31,7 @@ ddErrSigEqn = (sy qdSetPointFD) - (sy qdProcessVariableFD)
 ddErrSigNote :: Sentence
 ddErrSigNote
   = foldlSent
-      [S "Error Signal is the difference between the Set-Point and " +:+
+      [S "Process Error is the difference between the Set-Point and " +:+
          S "Process Variable.",
        S "The equation is converted to frequency" +:+
          S "domain by applying the Laplace transform ( from"
@@ -57,13 +57,13 @@ ddPropCtrlDefn :: QDefinition
 ddPropCtrlDefn = mkQuantDef qdPropControlFD ddPropCtrlEqn
 
 ddPropCtrlEqn :: Expr
-ddPropCtrlEqn = ($.) (sy qdPropGain) (sy qdErrorSignalFD)
+ddPropCtrlEqn = ($.) (sy qdPropGain) (sy qdProcessErrorFD)
 
 ddPropCtrlNote :: Sentence
 ddPropCtrlNote
   = foldlSent
       [S "Proportional controller is the product of the Proportional Gain" +:+
-         S "and the Error Signal ( from "
+         S "and the Process Error ( from "
          +:+ makeRef2S ddErrSig
          +:+ S ")",
        S "The equation is converted to frequency" +:+
@@ -83,13 +83,13 @@ ddDerivCtrlDefn = mkQuantDef qdDerivativeControlFD ddDerivCtrlEqn
 
 ddDerivCtrlEqn :: Expr
 ddDerivCtrlEqn
-  = ($.) (($.) (sy qdDerivGain) (sy qdErrorSignalFD)) (sy qdFreqDomain)
+  = ($.) (($.) (sy qdDerivGain) (sy qdProcessErrorFD)) (sy qdFreqDomain)
 
 ddDerivCtrlNote :: Sentence
 ddDerivCtrlNote
   = foldlSent
       [S "Derivative controller is the product of the Derivative Gain" +:+
-         S "and the differential of the Error Signal ( from "
+         S "and the differential of the Process Error ( from "
          +:+ makeRef2S ddErrSig
          +:+ S ")",
        S "The equation is" +:+ S "converted to frequency" +:+
@@ -138,8 +138,8 @@ ddCtrlVarDefn = mkQuantDef qdCtrlVarFD ddCtrlEqn
 
 ddCtrlEqn :: Expr
 ddCtrlEqn
-  = (($.) (sy qdPropGain) (sy qdErrorSignalFD)) +
-      (($.) (($.) (sy qdDerivGain) (sy qdErrorSignalFD)) (sy qdFreqDomain))
+  = (($.) (sy qdPropGain) (sy qdProcessErrorFD)) +
+      (($.) (($.) (sy qdDerivGain) (sy qdProcessErrorFD)) (sy qdFreqDomain))
 
 ddCtrlNote :: Sentence
 ddCtrlNote

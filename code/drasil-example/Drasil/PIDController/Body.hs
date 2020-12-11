@@ -83,7 +83,12 @@ mkSRS
        IntroProg introPara (phrase pidControllerSystem)
          [IPurpose [introPurposeOfDoc], IScope introscopeOfReq,
           IChar introUserChar1 introUserChar2 [],
-          IOrgSec introDocOrg IDict.dataDefn (SRS.inModel [] []) (S "")],
+          IOrgSec introDocOrg IDict.dataDefn (SRS.inModel [] [])
+            (S "The instance model referred as" +:+ makeRef2S imPD +:+
+               S " provides an"
+               +:+ S "Ordinary Differential Equation (ODE) that "
+               +:+ S " models the"
+               +:+ phrase pidC)],
      GSDSec $
        GSDProg
          [SysCntxt

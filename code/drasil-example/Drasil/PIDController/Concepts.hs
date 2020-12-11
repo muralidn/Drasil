@@ -33,7 +33,7 @@ integralCI = commonIdeaWithDict "integralCI" (pn "Integral") "I" []
 pidCI
   = commonIdeaWithDict "pidCI" (pn "Proportional Integral Derivative") "PID" []
 
-pidC, pidCL, summingPt, powerPlant, firstOrderSystem, errorValue,
+pidC, pidCL, summingPt, powerPlant, firstOrderSystem, processError,
       simulationTime, processVariable, setPoint, propGain, derGain, simulation,
       ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime,
       ccAbsTolerance, ccRelTolerance :: ConceptChunk
@@ -59,9 +59,9 @@ firstOrderSystem
       ("A system whose input-output relationship is denoted by a first order "
          ++ "differential equation")
 
-errorValue
-  = dcc "errorValue" (nounPhraseSP "Error Value")
-      ("Input to the PID controller. Error Value is the difference between the "
+processError
+  = dcc "processError" (nounPhraseSP "Process Error")
+      ("Input to the PID controller. Process Error is the difference between the "
          ++ "Set Point and the Process Variable")
 
 stepTime = dcc "stepTime" (nounPhraseSP "Step Time") ("Simulation step time")
@@ -118,7 +118,7 @@ concepts = map nw defs
 
 defs :: [ConceptChunk]
 defs
-  = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, errorValue,
+  = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, processError,
      simulationTime, processVariable, setPoint, propGain, derGain,
      ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime,
      ccAbsTolerance, ccRelTolerance]
@@ -155,14 +155,14 @@ symbols :: [QuantityDict]
 symbols
   = [qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
      qdInvLaplaceTransform, qdPropGain, qdDerivGain, qdSetPointTD, qdSetPointFD,
-     qdProcessVariableTD, qdProcessVariableFD, qdErrorSignalTD, qdErrorSignalFD,
+     qdProcessVariableTD, qdProcessVariableFD, qdProcessErrorTD, qdProcessErrorFD,
      qdDerivativeControlFD, qdPropControlFD, qdTransferFunctionFD, qdCtrlVarTD,
      qdCtrlVarFD, qdStepTime, qdSimTime]
 
 qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
                     qdInvLaplaceTransform, qdPropGain, qdDerivGain,
                     qdSetPointTD, qdSetPointFD, qdProcessVariableTD,
-                    qdProcessVariableFD, qdErrorSignalTD, qdErrorSignalFD,
+                    qdProcessVariableFD, qdProcessErrorTD, qdProcessErrorFD,
                     qdPropControlFD, qdDerivativeControlFD,
                     qdTransferFunctionFD, qdCtrlVarFD, qdCtrlVarTD, qdStepTime,
                     qdSimTime :: QuantityDict
@@ -247,14 +247,14 @@ qdProcessVariableFD
       sym_YS
       Real
 
-qdErrorSignalTD
-  = vc "qdErrorSignalTD" (nounPhraseSent (S "Error Value in the time domain"))
+qdProcessErrorTD
+  = vc "qdProcessErrorTD" (nounPhraseSent (S "Process Error in the time domain"))
       sym_ET
       Real
 
-qdErrorSignalFD
-  = vc "qdErrorSignalFD"
-      (nounPhraseSent (S "Error Value in the frequency domain"))
+qdProcessErrorFD
+  = vc "qdProcessErrorFD"
+      (nounPhraseSent (S "Process Error in the frequency domain"))
       sym_ES
       Real
 

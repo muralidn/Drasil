@@ -57,7 +57,7 @@ derivStmt1 :: Sentence
 derivStmt1
   = foldlSent
       [S "The Process Variable (Y(S)) in a" +:+ phrase pidCL +:+
-         S "is the product of the Error signal ( from "
+         S "is the product of the Process Error ( from "
          +:+ makeRef2S ddErrSig
          +:+ S "), Control Variable ( from"
          +:+ makeRef2S ddCtrlVar
