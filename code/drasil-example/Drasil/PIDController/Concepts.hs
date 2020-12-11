@@ -272,7 +272,7 @@ qdDerivativeControlFD
 
 qdTransferFunctionFD
   = vc "qdTransferFunctionFD"
-      (nounPhraseSent (S "Transfer function in the frequency domain"))
+      (nounPhraseSent (S "Transfer Function in the frequency domain"))
       sym_HS
       Real
 
@@ -293,7 +293,7 @@ qdLaplaceTransform
       sym_f_S
       Real
 qdFreqDomain
-  = vc "qFreqDomain" (nounPhraseSent (S "Complex frequency domain parameter"))
+  = vc "qFreqDomain" (nounPhraseSent (S "Complex frequency-domain parameter"))
       sym_s
       Real
 qdFxnTDomain
@@ -301,7 +301,7 @@ qdFxnTDomain
       Real
 
 qdNegInf
-  = vc "qdNegInf" (nounPhraseSent (S "Negative infinity")) sym_negInf Real
+  = vc "qdNegInf" (nounPhraseSent (S "Negative Infinity")) sym_negInf Real
 
 qdPosInf = vc "qdPosInf" (nounPhraseSent (S "Infinity")) sym_posInf Real
 
