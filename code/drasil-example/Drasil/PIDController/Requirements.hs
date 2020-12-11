@@ -45,7 +45,7 @@ outputValuesDesc
 -----------------------------------------------------------------------------
 
 nonfuncReqs :: [ConceptInstance]
-nonfuncReqs = [portability, security, maintainability, verifiability, quality]
+nonfuncReqs = [portability, security, maintainability, verifiability]
 
 portability :: ConceptInstance
 portability
@@ -68,7 +68,9 @@ maintainability :: ConceptInstance
 maintainability
   = cic "maintainability"
       (foldlSent
-         [S "The code shall be thoroughly documented with appropriate User Guides"])
+         [S "The dependencies among the instance models, requirements,"
+          +:+ S "likely changes, assumptions and all other relevant sections of"
+          +:+ S "this document shall be traceable to each other in the trace matrix"])
       "Maintainable"
       nonFuncReqDom
 
@@ -80,14 +82,4 @@ verifiability
       "Verifiable"
       nonFuncReqDom
 
-quality :: ConceptInstance
-quality
-  = cic "quality"
-      (foldlSent
-         [S "The code shall be written with high-quality standards. The code"
-            +:+
-            S "should adhere to good coding standards and should not contain"
-            +:+ S "any dead, or unreachable statements"])
-      "Quality"
-      nonFuncReqDom
 
