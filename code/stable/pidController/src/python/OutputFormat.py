@@ -1,6 +1,6 @@
 ## \file OutputFormat.py
 # \author Naveen Ganesh Muralidharan
-# \date 2020-12-08
+# \date 2020-12-07
 # \brief Provides the function for writing outputs
 ## \brief Writes the output values to output.txt
 # \param y_t Process Variable: The output value from the power plant
