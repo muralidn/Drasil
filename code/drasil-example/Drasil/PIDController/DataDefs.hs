@@ -13,7 +13,7 @@ import Theory.Drasil (DataDefinition, dd, mkQuantDef)
 import Utils.Drasil
 
 dataDefinitions :: [DataDefinition]
-dataDefinitions = [ddErrSig, ddPropCtrl, ddDerivCtrl, ddPowerPlant, ddCtrlVar]
+dataDefinitions = [ddErrSig, ddPropCtrl, ddDerivCtrl, ddCtrlVar]
 
 ----------------------------------------------
 
@@ -100,39 +100,6 @@ ddDerivCtrlNote
        S "A pure form of the Derivative controller is used in this" +:+
          S "application ( from"
          +:+ makeRef2S aUnfilteredDerivative
-         +:+ S ")"]
-
-----------------------------------------------
-
-ddPowerPlant :: DataDefinition
-ddPowerPlant
-  = dd ddPowerPlantDefn [makeCite pidWiki] Nothing "ddPowerPlant"
-      [ddPowerPlantNote]
-
-ddPowerPlantDefn :: QDefinition
-ddPowerPlantDefn = mkQuantDef qdTransferFunctionFD ddPowerPlantEqn
-
-ddPowerPlantEqn :: Expr
-ddPowerPlantEqn = 1 / ((2 * (sy qdFreqDomain)) + 1)
-
-ddPowerPlantNote :: Sentence
-ddPowerPlantNote
-  = foldlSent
-      [S "The " +:+ phrase ccTransferFxn +:+ S "of the" +:+
-         phrase firstOrderSystem
-         +:+ S "is reduced to this equation (from"
-         +:+ makeRef2S tmFOSystem
-         +:+ S "and"
-         +:+ makeRef2S aDCGain
-         +:+ S ").",
-       S "The equation is" +:+ S "converted to frequency" +:+
-         S "domain by applying the Laplace"
-         +:+ S "transform ( from"
-         +:+ makeRef2S tmLaplace
-         +:+ S ").",
-       S "Additionally, there are no external disturbances to the power plant"
-         +:+ S "( from "
-         +:+ makeRef2S aExtDisturb
          +:+ S ")"]
 
 ----------------------------------------------

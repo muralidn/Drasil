@@ -40,6 +40,8 @@ import Drasil.PIDController.Changes
 import Drasil.PIDController.Concepts
 import Drasil.PIDController.DataDefs (dataDefinitions)
 
+import Drasil.PIDController.GenDefs
+
 import Drasil.PIDController.GenSysDesc
        (gsdSysContextFig, gsdSysContextList, gsdSysContextP1, gsdSysContextP2,
         gsduserCharacteristics)
@@ -105,8 +107,7 @@ mkSRS
           SSDSolChSpec $
             SCSProg
               [Assumptions, TMs [] (Label : stdFields),
-               GDs [S "No general definitions for this project"] []
-                 HideDerivation,
+               GDs []  (Label : stdFields) HideDerivation,
                DDs [] ([Label, Symbol, Units] ++ stdFields) ShowDerivation,
                IMs []
                  ([Label, Input, Output, InConstraints, OutConstraints] ++
@@ -153,7 +154,7 @@ symbMap
       (map unitWrapper [second])
       (dataDefinitions)
       (instanceModels)
-      ([] :: [GenDefn])
+      (genDefns)
       (theoreticalModels)
       (conceptInstances)
       ([] :: [Section])

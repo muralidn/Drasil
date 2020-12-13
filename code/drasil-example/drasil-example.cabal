@@ -325,6 +325,7 @@ executable pidController
       Drasil.PIDController.Changes
       Drasil.PIDController.Concepts
       Drasil.PIDController.DataDefs
+      Drasil.PIDController.GenDefs
       Drasil.PIDController.IModel
       Drasil.PIDController.IntroSection
       Drasil.PIDController.GenSysDesc

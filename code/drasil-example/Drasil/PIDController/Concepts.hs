@@ -167,7 +167,7 @@ sym_TSim = sub (Variable "t") $ Label "sim"
 sym_AbsTol = Variable "AbsTol"
 sym_RelTol = Variable "RelTol"
 sym_KDC = sub (Variable "K") $ Label "DC"
-sym_TConst = Variable "𝜏"
+sym_TConst = Variable "𝛕"
 
 symbols :: [QuantityDict]
 symbols

@@ -4,6 +4,7 @@ import Data.Drasil.Quantities.Physics (time)
 import Drasil.PIDController.Assumptions
 import Drasil.PIDController.Concepts
 import Drasil.PIDController.DataDefs
+import Drasil.PIDController.GenDefs
 import Drasil.PIDController.References
 import Drasil.PIDController.TModel
 
@@ -62,7 +63,7 @@ derivStmt1
          +:+ S "), Control Variable ( from"
          +:+ makeRef2S ddCtrlVar
          +:+ S " ), and the Power-Plant ( from"
-         +:+ makeRef2S ddPowerPlant
+         +:+ makeRef2S gdPowerPlant
          +:+ S ")"]
 
 derivEqn1 :: Expr
