@@ -18,4 +18,4 @@ likeChgSODesc
   = foldlSent
       [S "The", phrase powerPlant,
        S "maybe changed into a second order system ( from ",
-       makeRef2S aPwrPlant, S ")"]
+       makeRef2S apwrPlantTxFnx, S ")"]

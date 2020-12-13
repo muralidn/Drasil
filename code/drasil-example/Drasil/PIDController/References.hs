@@ -4,9 +4,10 @@ import Language.Drasil
 import Data.Drasil.Citations (smithLai2005)
 
 citations :: BibRef
-citations = [pidWiki, laplaceWiki, johnson2008, abbasi2015, smithLai2005]
+citations = [pidWiki, laplaceWiki, johnson2008, abbasi2015, smithLai2005,
+                electrical4U]
 
-pidWiki, johnson2008, abbasi2015, laplaceWiki :: Citation
+pidWiki, johnson2008, abbasi2015, laplaceWiki,electrical4U :: Citation
 
 laplaceWiki
   = cMisc
@@ -42,4 +43,11 @@ abbasi2015
          "https://www.12000.org/my_notes/connecting_systems/report.htm",
        month Nov, year 2020]
       "abbasi2015"
+
+electrical4U 
+  = cMisc
+      [author [mononym "Electical4U team"], title "First Order Systems",
+       howPublishedU "https://www.electrical4u.com/first-order-control-system",
+       month Nov, year 2020]
+      "electrical4UWiki"
 

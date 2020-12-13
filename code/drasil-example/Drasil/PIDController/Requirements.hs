@@ -23,7 +23,7 @@ outputValues = cic "outputValues" outputValuesDesc "Output-Values" funcReqDom
 verifyInputsDesc, calculateValuesDesc, outputValuesDesc :: Sentence
 
 verifyInputsDesc
-  = foldlSent
+  = foldlSent_
       [S "Ensure that the input values are within the" +:+
          S "limits specified in"
          +:+. makeRef2S (datCon ([] :: [Contents]) ([] :: [Section]))]
@@ -68,9 +68,10 @@ maintainability :: ConceptInstance
 maintainability
   = cic "maintainability"
       (foldlSent
-         [S "The dependencies among the instance models, requirements,"
-          +:+ S "likely changes, assumptions and all other relevant sections of"
-          +:+ S "this document shall be traceable to each other in the trace matrix"])
+         [S "The dependencies among the instance models, requirements," +:+
+            S "likely changes, assumptions and all other relevant sections of"
+            +:+
+            S "this document shall be traceable to each other in the trace matrix"])
       "Maintainable"
       nonFuncReqDom
 
@@ -81,5 +82,4 @@ verifiability
          [S "The code shall be verifiable against a Verification and Validation plan"])
       "Verifiable"
       nonFuncReqDom
-
 

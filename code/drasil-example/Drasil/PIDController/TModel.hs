@@ -1,6 +1,7 @@
 module Drasil.PIDController.TModel where
 
 import Data.Drasil.Quantities.Physics (time)
+import Drasil.PIDController.Assumptions
 import Drasil.PIDController.Concepts
 
 import Drasil.PIDController.References
@@ -13,7 +14,7 @@ import Theory.Drasil (TheoryModel, tm)
 import Utils.Drasil
 
 theoreticalModels :: [TheoryModel]
-theoreticalModels = [tmLaplace, tmInvLaplace]
+theoreticalModels = [tmLaplace, tmInvLaplace, tmFOSystem]
 
 tmLaplace :: TheoryModel
 tmLaplace
@@ -44,7 +45,9 @@ laplaceDesc
       [S "Bilateral Laplace Transform.",
        S "The Laplace transforms are " +:+
          S "typically inferred from a pre-computed table of Laplace Transforms"
-          +:+ S " (" +:+ makeCiteS laplaceWiki +:+ S ")" ]
+         +:+ S " ("
+         +:+ makeCiteS laplaceWiki
+         +:+ S ")"]
 
 --------
 
@@ -74,4 +77,35 @@ invLaplaceDesc
       [S "Inverse Laplace Transform of F(S).",
        S "The Inverse Laplace transforms are " +:+
          S "typically inferred from a pre-computed table of Laplace Transforms"
-         +:+ S " (" +:+ makeCiteS laplaceWiki +:+ S ")" ]
+         +:+ S " ("
+         +:+ makeCiteS laplaceWiki
+         +:+ S ")"]
+
+--------
+
+tmFOSystem :: TheoryModel
+tmFOSystem
+  = tm (cw tmFOSystemRC) [qw qdDCGain, qw qdTimeConst, qw qdFreqDomain]
+      ([] :: [ConceptChunk])
+      []
+      [foSystemRel]
+      []
+      [makeCite electrical4U]
+      "tmFOSystem"
+      [foSystemDesc]
+
+tmFOSystemRC :: RelationConcept
+tmFOSystemRC
+  = makeRC "tmFOSystemRC" (cn' "First Order System") EmptyS foSystemRel
+
+foSystemRel :: Relation
+foSystemRel = (sy qdDCGain) * (1 / ((sy qdTimeConst) * (sy qdFreqDomain) + 1))
+
+foSystemDesc :: Sentence
+foSystemDesc
+  = foldlSent
+      [S "The ", phrase ccTransferFxn, S " of a ", phrase firstOrderSystem,
+       S "is characterised by this equation ( from", makeRef2S apwrPlantTxFnx,
+       S ")"]
+
+       --------

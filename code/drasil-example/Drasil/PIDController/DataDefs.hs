@@ -96,6 +96,10 @@ ddDerivCtrlNote
          S "domain by applying the Laplace"
          +:+ S "transform ( from"
          +:+ makeRef2S tmLaplace
+         +:+ S ")",
+       S "A pure form of the Derivative controller is used in this" +:+
+         S "application ( from"
+         +:+ makeRef2S aUnfilteredDerivative
          +:+ S ")"]
 
 ----------------------------------------------
@@ -114,15 +118,19 @@ ddPowerPlantEqn = 1 / ((2 * (sy qdFreqDomain)) + 1)
 ddPowerPlantNote :: Sentence
 ddPowerPlantNote
   = foldlSent
-      [S "The power plant is represented by a first order system ( from " +:+
-         makeRef2S aPwrPlant
-         +:+ S ")",
+      [S "The " +:+ phrase ccTransferFxn +:+ S "of the" +:+
+         phrase firstOrderSystem
+         +:+ S "is reduced to this equation (from"
+         +:+ makeRef2S tmFOSystem
+         +:+ S "and"
+         +:+ makeRef2S aDCGain
+         +:+ S ").",
        S "The equation is" +:+ S "converted to frequency" +:+
          S "domain by applying the Laplace"
          +:+ S "transform ( from"
          +:+ makeRef2S tmLaplace
-         +:+ S ")",
-       S "Additionally there are no external disturbances to the power plant"
+         +:+ S ").",
+       S "Additionally, there are no external disturbances to the power plant"
          +:+ S "( from "
          +:+ makeRef2S aExtDisturb
          +:+ S ")"]

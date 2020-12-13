@@ -36,7 +36,8 @@ pidCI
 pidC, pidCL, summingPt, powerPlant, firstOrderSystem, processError,
       simulationTime, processVariable, setPoint, propGain, derGain, simulation,
       ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime,
-      ccAbsTolerance, ccRelTolerance :: ConceptChunk
+      ccAbsTolerance, ccRelTolerance, ccDcGain, ccTimeConst, ccTransferFxn ::
+      ConceptChunk
 pidCL
   = dcc "pdCtrlLoop" (nounPhraseSP "PD Control Loop")
       ("Closed loop control system with PD Controller, Summing Point and Power Plant")
@@ -107,11 +108,25 @@ ccLaplaceTransform
 
 ccAbsTolerance
   = dcc "absoluteTolerance" (nounPhraseSP "Absolute Tolerance")
-      ("Absolute tolerance for the integrator.")
+      ("Absolute tolerance for the integrator")
 
 ccRelTolerance
   = dcc "relativeTolerance" (nounPhraseSP "Relative Tolerance")
-      ("Relative tolerance for the integrator.")
+      ("Relative tolerance for the integrator")
+
+ccDcGain
+  = dcc "dcGain" (nounPhraseSP "DC Gain")
+      ("DC Gain is the ratio of the steady state output to the input signal")
+
+ccTimeConst
+  = dcc "timeConst" (nounPhraseSP "Time Constant")
+      ("Time Constant is a measure of the response of a First Order System"
+          ++ " to a step input")
+ 
+ccTransferFxn
+  = dcc "transferFxn" (nounPhraseSP "Transfer Function")
+      ("Transfer Function of a system is the ratio of the output to the input"
+         ++ "functions in the Frequency Domain")
 
 concepts :: [IdeaDict]
 concepts = map nw defs
@@ -121,11 +136,12 @@ defs
   = [pidCL, pidC, summingPt, powerPlant, firstOrderSystem, processError,
      simulationTime, processVariable, setPoint, propGain, derGain,
      ccFrequencyDomain, ccLaplaceTransform, controlVariable, stepTime,
-     ccAbsTolerance, ccRelTolerance]
+     ccAbsTolerance, ccRelTolerance, ccDcGain, ccTimeConst, ccTransferFxn]
 
 sym_s, sym_f_S, sym_f_t, sym_negInf, sym_posInf, sym_invLaplace, sym_Kd, sym_Kp,
        sym_YT, sym_YS, sym_YrT, sym_YrS, sym_ET, sym_ES, sym_PS, sym_DS, sym_HS,
-       sym_CT, sym_CS, sym_TStep, sym_TSim, sym_AbsTol, sym_RelTol :: Symbol
+       sym_CT, sym_CS, sym_TStep, sym_TSim, sym_AbsTol, sym_RelTol, sym_KDC,
+       sym_TConst :: Symbol
 
 sym_negInf = Variable "-∞"
 sym_posInf = Variable "∞"
@@ -150,14 +166,17 @@ sym_TStep = sub (Variable "t") $ Label "step"
 sym_TSim = sub (Variable "t") $ Label "sim"
 sym_AbsTol = Variable "AbsTol"
 sym_RelTol = Variable "RelTol"
+sym_KDC = sub (Variable "K") $ Label "DC"
+sym_TConst = Variable "𝜏"
 
 symbols :: [QuantityDict]
 symbols
   = [qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
      qdInvLaplaceTransform, qdPropGain, qdDerivGain, qdSetPointTD, qdSetPointFD,
-     qdProcessVariableTD, qdProcessVariableFD, qdProcessErrorTD, qdProcessErrorFD,
-     qdDerivativeControlFD, qdPropControlFD, qdTransferFunctionFD, qdCtrlVarTD,
-     qdCtrlVarFD, qdStepTime, qdSimTime]
+     qdProcessVariableTD, qdProcessVariableFD, qdProcessErrorTD,
+     qdProcessErrorFD, qdDerivativeControlFD, qdPropControlFD,
+     qdTransferFunctionFD, qdCtrlVarTD, qdCtrlVarFD, qdStepTime, qdSimTime,
+     qdDCGain, qdTimeConst]
 
 qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
                     qdInvLaplaceTransform, qdPropGain, qdDerivGain,
@@ -165,7 +184,7 @@ qdLaplaceTransform, qdFreqDomain, qdFxnTDomain, qdNegInf, qdPosInf,
                     qdProcessVariableFD, qdProcessErrorTD, qdProcessErrorFD,
                     qdPropControlFD, qdDerivativeControlFD,
                     qdTransferFunctionFD, qdCtrlVarFD, qdCtrlVarTD, qdStepTime,
-                    qdSimTime :: QuantityDict
+                    qdSimTime, qdDCGain, qdTimeConst :: QuantityDict
 
 inputs :: [QuantityDict]
 inputs = [qdSetPointTD, qdDerivGain, qdPropGain, qdStepTime, qdSimTime]
@@ -192,7 +211,8 @@ ipPropGainUnc = uq ipPropGain defaultUncrt
 qdPropGain = qw ipPropGain
 
 ipDerivGain
-  = constrained' (dqdNoUnit derGain sym_Kd Real) [physc $ UpFrom  (Inc, 0)] (dbl 1)
+  = constrained' (dqdNoUnit derGain sym_Kd Real) [physc $ UpFrom (Inc, 0)]
+      (dbl 1)
 ipDerGainUnc = uq ipDerivGain defaultUncrt
 qdDerivGain = qw ipDerivGain
 
@@ -202,7 +222,7 @@ qdSetPointTD = qw ipSetPt
 
 ipStepTime
   = constrained' (dqd stepTime sym_TStep Real second)
-      [physc $ Bounded (Inc, 0.01  ) (Inc, 1)]
+      [physc $ Bounded (Inc, 0.01  ) (Exc, (sy ipSimTime))]
       (dbl 0.01  )
 ipStepTimeUnc = uq ipStepTime defaultUncrt
 qdStepTime = qw ipStepTime
@@ -248,7 +268,8 @@ qdProcessVariableFD
       Real
 
 qdProcessErrorTD
-  = vc "qdProcessErrorTD" (nounPhraseSent (S "Process Error in the time domain"))
+  = vc "qdProcessErrorTD"
+      (nounPhraseSent (S "Process Error in the time domain"))
       sym_ET
       Real
 
@@ -310,4 +331,18 @@ qdInvLaplaceTransform
       (nounPhraseSent (S "Inverse Laplace Transform of a function"))
       sym_invLaplace
       Real
+
+qdDCGain
+  = vc "qdDCGain" (nounPhraseSent (S "DC gain of the First Order system."))
+      sym_KDC
+      Real
+
+qdTimeConst
+  = mkQuant "qdTimeConst" 
+      (nounPhraseSent (S "Time Constant of the First Order system."))
+      sym_TConst
+      Real 
+      (Just second)
+      Nothing
+      
 

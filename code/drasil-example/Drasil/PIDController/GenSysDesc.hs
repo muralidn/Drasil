@@ -28,9 +28,8 @@ gsdSysContextP1
 gsdSysContextP2
   = foldlSPCol
       [phrase pidC +:+ S " is self-contained. The only external interaction is "
-         +:+ S " with the "
-         +:+ phrase user,
-       S ".The responsibilities of the " +:+ phrase user +:+ S " and the " +:+
+         +:+ S " with the user.",
+       S "The responsibilities of the " +:+ phrase user +:+ S " and the " +:+
          phrase system
          +:+ S " are as follows"]
 
@@ -48,7 +47,7 @@ gsdUsrResp
 gsdSysResp :: [Sentence]
 gsdSysResp
   = [S "Check the validity of the inputs",
-    S "Calculate the outputs of the " +:+ phrase pidC +:+ S " and " +:+
+     S "Calculate the outputs of the " +:+ phrase pidC +:+ S " and " +:+
        phrase powerPlant]
 
 gsdSysContextList :: Contents
@@ -62,5 +61,5 @@ gsduserCharacteristics :: Contents
 gsduserCharacteristics
   = foldlSP
       [S "The end user of " +:+ phrase pidC +:+
-         S " is expected to have taken a course on Control Systems at an " +:+
-         S "undergraduate level"]
+         S " is expected to have taken a course on Control Systems at an "
+         +:+ S "undergraduate level"]
