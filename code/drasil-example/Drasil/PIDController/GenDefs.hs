@@ -19,19 +19,15 @@ genDefns = [gdPowerPlant]
 
 gdPowerPlant :: GenDefn
 gdPowerPlant
-  = gd gdPowerPlantRC 
-       (Nothing :: Maybe UnitDefn) 
-       Nothing 
-       [makeCite pidWiki, makeCite electrical4U] 
-       "gdPowerPlant"
+  = gd gdPowerPlantRC (Nothing :: Maybe UnitDefn) Nothing
+      [makeCite pidWiki, makeCite electrical4U]
+      "gdPowerPlant"
       [gdPowerPlantNote]
 
-
 gdPowerPlantRC :: RelationConcept
-gdPowerPlantRC 
+gdPowerPlantRC
   = makeRC "gdPowerPlantRC"
-      (nounPhraseSP
-         "Transfer function of the Power Plant.")
+      (nounPhraseSP "Transfer function of the Power Plant.")
       EmptyS
       gdPowerPlantEqn
 
@@ -44,8 +40,15 @@ gdPowerPlantNote
       [S "The " +:+ phrase ccTransferFxn +:+ S "of the" +:+
          phrase firstOrderSystem
          +:+ S "is reduced to this equation by substituting the"
-         +:+ phrase ccDcGain +:+ S "(" +:+ P sym_KDC +:+ S ")" +:+ S "to 1, and the"
-         +:+ phrase ccTimeConst +:+ S "(" +:+ P sym_TConst +:+ S ")"
+         +:+ phrase ccDcGain
+         +:+ S "("
+         +:+ P sym_KDC
+         +:+ S ")"
+         +:+ S "to 1, and the"
+         +:+ phrase ccTimeConst
+         +:+ S "("
+         +:+ P sym_TConst
+         +:+ S ")"
          +:+ S "to 2 seconds ( from "
          +:+ makeRef2S tmFOSystem
          +:+ S "and"

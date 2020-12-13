@@ -107,7 +107,7 @@ mkSRS
           SSDSolChSpec $
             SCSProg
               [Assumptions, TMs [] (Label : stdFields),
-               GDs []  (Label : stdFields) HideDerivation,
+               GDs [] (Label : stdFields) HideDerivation,
                DDs [] ([Label, Symbol, Units] ++ stdFields) ShowDerivation,
                IMs []
                  ([Label, Input, Output, InConstraints, OutConstraints] ++

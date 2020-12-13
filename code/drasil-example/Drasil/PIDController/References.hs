@@ -1,13 +1,13 @@
 module Drasil.PIDController.References where
-
-import Language.Drasil
 import Data.Drasil.Citations (smithLai2005)
 
-citations :: BibRef
-citations = [pidWiki, laplaceWiki, johnson2008, abbasi2015, smithLai2005,
-                electrical4U]
+import Language.Drasil
 
-pidWiki, johnson2008, abbasi2015, laplaceWiki,electrical4U :: Citation
+citations :: BibRef
+citations
+  = [pidWiki, laplaceWiki, johnson2008, abbasi2015, smithLai2005, electrical4U]
+
+pidWiki, johnson2008, abbasi2015, laplaceWiki, electrical4U :: Citation
 
 laplaceWiki
   = cMisc
@@ -44,7 +44,7 @@ abbasi2015
        month Nov, year 2020]
       "abbasi2015"
 
-electrical4U 
+electrical4U
   = cMisc
       [author [mononym "Electical4U team"], title "First Order Systems",
        howPublishedU "https://www.electrical4u.com/first-order-control-system",

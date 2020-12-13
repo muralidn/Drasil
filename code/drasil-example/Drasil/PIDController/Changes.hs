@@ -27,5 +27,5 @@ likeChgPPDesc :: Sentence
 likeChgPPDesc
   = foldlSent
       [S "The", phrase ccDcGain, S "and", phrase ccTimeConst,
-       S "maybe changed to be supplied by the User ( from ",
-       makeRef2S aDCGain, S ")"]
+       S "maybe changed to be supplied by the User ( from ", makeRef2S aDCGain,
+       S ")"]

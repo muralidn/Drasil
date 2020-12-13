@@ -120,9 +120,9 @@ ccDcGain
 
 ccTimeConst
   = dcc "timeConst" (nounPhraseSP "Time Constant")
-      ("Time Constant is a measure of the response of a First Order System"
-          ++ " to a step input")
- 
+      ("Time Constant is a measure of the response of a First Order System" ++
+         " to a step input")
+
 ccTransferFxn
   = dcc "transferFxn" (nounPhraseSP "Transfer Function")
       ("Transfer Function of a system is the ratio of the output to the input"
@@ -338,11 +338,10 @@ qdDCGain
       Real
 
 qdTimeConst
-  = mkQuant "qdTimeConst" 
+  = mkQuant "qdTimeConst"
       (nounPhraseSent (S "Time Constant of the First Order system."))
       sym_TConst
-      Real 
+      Real
       (Just second)
       Nothing
-      
 
