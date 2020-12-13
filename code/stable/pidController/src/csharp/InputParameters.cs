@@ -66,7 +66,7 @@ public class InputParameters {
             Console.WriteLine(".");
             throw new Exception("InputError");
         }
-        if (!(1.0 / 100.0 <= t_step && t_step <= 1)) {
+        if (!(1.0 / 100.0 <= t_step && t_step < t_sim)) {
             Console.Write("t_step has value ");
             Console.Write(t_step);
             Console.Write(", but is expected to be ");
@@ -74,7 +74,8 @@ public class InputParameters {
             Console.Write(1.0 / 100.0);
             Console.Write(" ((1)/(100))");
             Console.Write(" and ");
-            Console.Write(1);
+            Console.Write(t_sim);
+            Console.Write(" (t_sim)");
             Console.WriteLine(".");
             throw new Exception("InputError");
         }

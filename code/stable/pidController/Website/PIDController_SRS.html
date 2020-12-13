@@ -111,6 +111,11 @@
                   <td>--</td>
                 </tr>
                 <tr>
+                  <td><em>K<sub>DC</sub></em></td>
+                  <td>DC gain of the First Order system.</td>
+                  <td>--</td>
+                </tr>
+                <tr>
                   <td><em>K<sub>p</sub></em></td>
                   <td>Proportional Gain</td>
                   <td>--</td>
@@ -174,6 +179,11 @@
                   <td><em>∞</em></td>
                   <td>Infinity</td>
                   <td>--</td>
+                </tr>
+                <tr>
+                  <td><em>𝛕</em></td>
+                  <td>Time Constant of the First Order system.</td>
+                  <td><em>s</em></td>
                 </tr>
               </table>
               <p class="caption">Table of Symbols</p>
@@ -321,7 +331,7 @@
               </figure>
             </div>
             <p class="paragraph">
-              PD Controller  is self-contained. The only external interaction is   with the  user .The responsibilities of the  user  and the  system  are as follows:
+              PD Controller  is self-contained. The only external interaction is   with the user. The responsibilities of the  user  and the  system  are as follows:
             </p>
             <ul class="list">
               <li>
@@ -416,11 +426,16 @@
                     Control Variable: The Control Variable is the output of the PD controller.
                   </li>
                   <li>Step Time: Simulation step time.</li>
+                  <li>Absolute Tolerance: Absolute tolerance for the integrator.</li>
+                  <li>Relative Tolerance: Relative tolerance for the integrator.</li>
                   <li>
-                    Absolute Tolerance: Absolute tolerance for the integrator..
+                    DC Gain: DC Gain is the ratio of the steady state output to the input signal.
                   </li>
                   <li>
-                    Relative Tolerance: Relative tolerance for the integrator..
+                    Time Constant: Time Constant is a measure of the response of a First Order System to a step input.
+                  </li>
+                  <li>
+                    Transfer Function: Transfer Function of a system is the ratio of the output to the inputfunctions in the Frequency Domain.
                   </li>
                 </ul>
               </div>
@@ -476,7 +491,7 @@
                 <div class="list">
                   <p>
                     <div id="pwrPlant">
-                      Power plant: The Power Plant and the sensor are coupled as a single unit with transfer function, 1/(2s + 1). (RefBy: <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> and <a href=#likeChgIC>LC: Second Order Power Plant</a>.)
+                      Power plant: The Power Plant and the Sensor are coupled as a single unit. (RefBy: <a href=#pwrPlantTxFnx>A: Transfer Function</a> and <a href=#dcGainTimeConst>A: Power Plant Parameters</a>.)
                     </div>
                   </p>
                   <p>
@@ -491,17 +506,32 @@
                   </p>
                   <p>
                     <div id="externalDistub">
-                      External disturbance: There are no external disturbances to the Power Plant during the simulation. (RefBy: <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a>.)
+                      External disturbance: There are no external disturbances to the Power Plant during the simulation. (RefBy: <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a>.)
                     </div>
                   </p>
                   <p>
                     <div id="initialValue">
-                      Initial value: The initial value of the Process Variable is assumed to be zero. (RefBy: <a href=#DD:ddProcessError>DD: ddProcessError</a>.)
+                      Initial Value: The initial value of the Process Variable is assumed to be zero. (RefBy: <a href=#DD:ddProcessError>DD: ddProcessError</a>.)
                     </div>
                   </p>
                   <p>
                     <div id="parallelEq">
-                      Parallel equation: The Parallel form of the equation is used for the PD Controller. (RefBy: <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>.)
+                      Parallel Equation: The Parallel form of the equation is used for the PD Controller. (RefBy: <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>.)
+                    </div>
+                  </p>
+                  <p>
+                    <div id="unfilteredDerivative">
+                      Unfiltered Derivative: A pure derivative function is used for this simulation; there are no filters applied. (RefBy: <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a>.)
+                    </div>
+                  </p>
+                  <p>
+                    <div id="pwrPlantTxFnx">
+                      Transfer Function: The combined Power Plant and Sensor ( from  <a href=#pwrPlant>A: Power plant</a>  ) are characterized by a First Order  System. (RefBy: <a href=#TM:tmFOSystem>TM: tmFOSystem</a>, <a href=#likeChgIC>LC: Second Order Power Plant</a>, and <a href=#dcGainTimeConst>A: Power Plant Parameters</a>.)
+                    </div>
+                  </p>
+                  <p>
+                    <div id="dcGainTimeConst">
+                      Power Plant Parameters: The DC Gain and Time Constant of the First Order System ( from <a href=#pwrPlant>A: Power plant</a> and <a href=#pwrPlantTxFnx>A: Transfer Function</a> ) are assumed to be 1, and 2 seconds respectively. There are no physical signifiance to the values chosen. (RefBy: <a href=#likeChgPP>LC: DC Gain and Time Constant</a> and <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a>.)
                     </div>
                   </p>
                 </div>
@@ -564,7 +594,7 @@
                       <th>RefBy</th>
                       <td>
                         <p class="paragraph">
-                          <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a>, <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a>, <a href=#DD:ddProcessError>DD: ddProcessError</a>, and <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a>
+                          <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a>, <a href=#DD:ddProcessError>DD: ddProcessError</a>, <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a>, and <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a>
                         </p>
                       </td>
                     </tr>
@@ -621,12 +651,122 @@
                     </tr>
                   </table>
                 </div>
+                <div id="TM:tmFOSystem">
+                  <table class="tdefn">
+                    <tr>
+                      <th>Refname</th>
+                      <td><b>TM:tmFOSystem</b></td>
+                    </tr>
+                    <tr>
+                      <th>Label</th>
+                      <td><p class="paragraph">First Order System</p></td>
+                    </tr>
+                    <tr>
+                      <th>Equation</th>
+                      <td>\[{K_{\text{DC}}} \frac{1}{𝛕 s+1}\]</td>
+                    </tr>
+                    <tr>
+                      <th>Description</th>
+                      <td>
+                        <ul class="hide-list-style-no-indent">
+                          <li>
+                            <em>K<sub>DC</sub></em> is the DC gain of the First Order system. (Unitless)
+                          </li>
+                          <li>
+                            <em>𝛕</em> is the Time Constant of the First Order system. (<em>s</em>)
+                          </li>
+                          <li>
+                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Notes</th>
+                      <td>
+                        <p class="paragraph">
+                          The  Transfer Function  of a  First Order System is characterised by this equation ( from <a href=#pwrPlantTxFnx>A: Transfer Function</a> ).
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Source</th>
+                      <td>
+                        <p class="paragraph">
+                          <a href=#electrical4UWiki>electrical4UWiki</a>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>RefBy</th>
+                      <td>
+                        <p class="paragraph">
+                          <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </div>
             <div id="Sec:GDs">
               <div class="subsubsection">
                 <h3>General Definitions</h3>
-                <p class="paragraph">There are no general definitions.</p>
+                <p class="paragraph">
+                  This section collects the laws and equations that will be used to build the instance models.
+                </p>
+                <div id="GD:gdPowerPlant">
+                  <table class="gdefn">
+                    <tr>
+                      <th>Refname</th>
+                      <td><b>GD:gdPowerPlant</b></td>
+                    </tr>
+                    <tr>
+                      <th>Label</th>
+                      <td>
+                        <p class="paragraph">Transfer function of the Power Plant.</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Equation</th>
+                      <td>\[\frac{1}{2 s+1}\]</td>
+                    </tr>
+                    <tr>
+                      <th>Description</th>
+                      <td>
+                        <ul class="hide-list-style-no-indent">
+                          <li>
+                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Notes</th>
+                      <td>
+                        <p class="paragraph">
+                          The  Transfer Function of the First Order System is reduced to this equation by substituting the DC Gain ( <em>K<sub>DC</sub></em> ) to 1, and the Time Constant ( <em>𝛕</em> ) to 2 seconds ( from  <a href=#TM:tmFOSystem>TM: tmFOSystem</a> and <a href=#dcGainTimeConst>A: Power Plant Parameters</a> ). The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). Additionally, there are no external disturbances to the power plant ( from  <a href=#externalDistub>A: External disturbance</a> ).
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Source</th>
+                      <td>
+                        <p class="paragraph">
+                          <a href=#pidWiki>pidWiki</a> and <a href=#electrical4UWiki>electrical4UWiki</a>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>RefBy</th>
+                      <td>
+                        <p class="paragraph">
+                          <a href=#IM:pdEquationIM>IM: pdEquationIM</a>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </div>
             </div>
             <div id="Sec:DDs">
@@ -679,7 +819,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). The Set-Point is assumed to be constant throughout the simulation ( from  <a href=#setPoint>A: Set-Point</a> ). The initial value of the Process Variable if assumed to be zero ( from  <a href=#initialValue>A: Initial value</a> ).
+                          Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). The Set-Point is assumed to be constant throughout the simulation ( from  <a href=#setPoint>A: Set-Point</a> ). The initial value of the Process Variable if assumed to be zero ( from  <a href=#initialValue>A: Initial Value</a> ).
                         </p>
                       </td>
                     </tr>
@@ -810,7 +950,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
+                          Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ) A pure form of the Derivative controller is used in this application ( from <a href=#unfilteredDerivative>A: Unfiltered Derivative</a> ).
                         </p>
                       </td>
                     </tr>
@@ -824,66 +964,6 @@
                       <th>RefBy</th>
                       <td>
                         <p class="paragraph"><a href=#DD:ddCtrlVar>DD: ddCtrlVar</a></p>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <p class="paragraph"></p>
-                <div id="DD:ddPowerPlant">
-                  <table class="ddefn">
-                    <tr>
-                      <th>Refname</th>
-                      <td><b>DD:ddPowerPlant</b></td>
-                    </tr>
-                    <tr>
-                      <th>Label</th>
-                      <td>
-                        <p class="paragraph">Transfer Function in the frequency domain</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Symbol</th>
-                      <td><p class="paragraph"><em>H<sub>s</sub></em></p></td>
-                    </tr>
-                    <tr>
-                      <th>Units</th>
-                      <td><p class="paragraph">Unitless</p></td>
-                    </tr>
-                    <tr>
-                      <th>Equation</th>
-                      <td>\[{H_{\text{s}}}=\frac{1}{2 s+1}\]</td>
-                    </tr>
-                    <tr>
-                      <th>Description</th>
-                      <td>
-                        <ul class="hide-list-style-no-indent">
-                          <li>
-                            <em>H<sub>s</sub></em> is the Transfer Function in the frequency domain (Unitless)
-                          </li>
-                          <li>
-                            <em>s</em> is the Complex frequency-domain parameter (Unitless)
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Notes</th>
-                      <td>
-                        <p class="paragraph">
-                          The power plant is represented by a first order system ( from  <a href=#pwrPlant>A: Power plant</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ) Additionally there are no external disturbances to the power plant ( from  <a href=#externalDistub>A: External disturbance</a> ).
-                        </p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Source</th>
-                      <td><p class="paragraph"><a href=#pidWiki>pidWiki</a></p></td>
-                    </tr>
-                    <tr>
-                      <th>RefBy</th>
-                      <td>
-                        <p class="paragraph">
-                          <a href=#IM:pdEquationIM>IM: pdEquationIM</a>
-                        </p>
                       </td>
                     </tr>
                   </table>
@@ -937,7 +1017,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          The control variable is the output of the controller. In this case, it is the sum of the Proportional ( from <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a> ) and Derivative ( from  <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a> ) controllers The parallel ( from <a href=#parallelEq>A: Parallel equation</a> ) and de-coupled ( from <a href=#decoupled>A: Decoupled equation</a> ) form of the PD equation is used in this document.
+                          The control variable is the output of the controller. In this case, it is the sum of the Proportional ( from <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a> ) and Derivative ( from  <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a> ) controllers The parallel ( from <a href=#parallelEq>A: Parallel Equation</a> ) and de-coupled ( from <a href=#decoupled>A: Decoupled equation</a> ) form of the PD equation is used in this document.
                         </p>
                       </td>
                     </tr>
@@ -1044,7 +1124,7 @@
                   <div class="subsubsubsection">
                     <h4>Detailed derivation of Process Variable:</h4>
                     <p class="paragraph">
-                      The Process Variable (Y(S)) in a PD Control Loop is the product of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ), Control Variable ( from <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>  ), and the Power-Plant ( from <a href=#DD:ddPowerPlant>DD: ddPowerPlant</a> ).
+                      The Process Variable (Y(S)) in a PD Control Loop is the product of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ), Control Variable ( from <a href=#DD:ddCtrlVar>DD: ddCtrlVar</a>  ), and the Power-Plant ( from <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a> ).
                     </p>
                     \[{Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{p}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}\]
                     <p class="paragraph">Rearranging the equation.</p>
@@ -1104,7 +1184,7 @@
                     <tr>
                       <td><em>t<sub>step</sub></em></td>
                       <td>
-                        <em>\(\frac{1}{100}\)&thinsp;&le;&thinsp;t<sub>step</sub>&thinsp;&le;&thinsp;1</em>
+                        <em>\(\frac{1}{100}\)&thinsp;&le;&thinsp;t<sub>step</sub>&thinsp;&lt;&thinsp;t<sub>sim</sub></em>
                       </td>
                       <td><em>0.01</em> <em>s</em></td>
                       <td>10<em>%</em></td>
@@ -1138,7 +1218,7 @@
               </p>
               <p>
                 <div id="verifyInputs">
-                  Verify-Input-Values: Ensure that the input values are within the limits specified in <a href=#Sec:DataConstraints>Section: Data Constraints</a>..
+                  Verify-Input-Values: Ensure that the input values are within the limits specified in <a href=#Sec:DataConstraints>Section: Data Constraints</a>.
                 </div>
               </p>
               <p>
@@ -1232,7 +1312,12 @@
         <div class="list">
           <p>
             <div id="likeChgIC">
-              Second Order Power Plant: The Power Plant maybe changed into a second order system ( from  <a href=#pwrPlant>A: Power plant</a> ).
+              Second Order Power Plant: The Power Plant maybe changed into a second order system ( from  <a href=#pwrPlantTxFnx>A: Transfer Function</a> ).
+            </div>
+          </p>
+          <p>
+            <div id="likeChgPP">
+              DC Gain and Time Constant: The DC Gain and Time Constant maybe changed to be supplied by the User ( from  <a href=#dcGainTimeConst>A: Power Plant Parameters</a> ).
             </div>
           </p>
         </div>
@@ -1252,11 +1337,17 @@
               <th><a href=#decoupled>A: Decoupled equation</a></th>
               <th><a href=#setPoint>A: Set-Point</a></th>
               <th><a href=#externalDistub>A: External disturbance</a></th>
-              <th><a href=#initialValue>A: Initial value</a></th>
-              <th><a href=#parallelEq>A: Parallel equation</a></th>
+              <th><a href=#initialValue>A: Initial Value</a></th>
+              <th><a href=#parallelEq>A: Parallel Equation</a></th>
+              <th><a href=#unfilteredDerivative>A: Unfiltered Derivative</a></th>
+              <th><a href=#pwrPlantTxFnx>A: Transfer Function</a></th>
+              <th><a href=#dcGainTimeConst>A: Power Plant Parameters</a></th>
             </tr>
             <tr>
               <td><a href=#pwrPlant>A: Power plant</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1272,9 +1363,15 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#setPoint>A: Set-Point</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1290,23 +1387,68 @@
               <td></td>
               <td></td>
               <td></td>
-            </tr>
-            <tr>
-              <td><a href=#initialValue>A: Initial value</a></td>
-              <td></td>
-              <td></td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>
             </tr>
             <tr>
-              <td><a href=#parallelEq>A: Parallel equation</a></td>
+              <td><a href=#initialValue>A: Initial Value</a></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#parallelEq>A: Parallel Equation</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#unfilteredDerivative>A: Unfiltered Derivative</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#pwrPlantTxFnx>A: Transfer Function</a></td>
+              <td>X</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#dcGainTimeConst>A: Power Plant Parameters</a></td>
+              <td>X</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>X</td>
               <td></td>
             </tr>
           </table>
@@ -1322,8 +1464,11 @@
               <th><a href=#decoupled>A: Decoupled equation</a></th>
               <th><a href=#setPoint>A: Set-Point</a></th>
               <th><a href=#externalDistub>A: External disturbance</a></th>
-              <th><a href=#initialValue>A: Initial value</a></th>
-              <th><a href=#parallelEq>A: Parallel equation</a></th>
+              <th><a href=#initialValue>A: Initial Value</a></th>
+              <th><a href=#parallelEq>A: Parallel Equation</a></th>
+              <th><a href=#unfilteredDerivative>A: Unfiltered Derivative</a></th>
+              <th><a href=#pwrPlantTxFnx>A: Transfer Function</a></th>
+              <th><a href=#dcGainTimeConst>A: Power Plant Parameters</a></th>
             </tr>
             <tr>
               <td><a href=#DD:ddProcessError>DD: ddProcessError</a></td>
@@ -1333,9 +1478,15 @@
               <td></td>
               <td>X</td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#DD:ddPropCtrl>DD: ddPropCtrl</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1351,12 +1502,6 @@
               <td></td>
               <td></td>
               <td></td>
-            </tr>
-            <tr>
-              <td><a href=#DD:ddPowerPlant>DD: ddPowerPlant</a></td>
-              <td>X</td>
-              <td></td>
-              <td></td>
               <td>X</td>
               <td></td>
               <td></td>
@@ -1369,9 +1514,15 @@
               <td></td>
               <td></td>
               <td>X</td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#TM:laplaceTransform>TM: laplaceTransform</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1389,6 +1540,33 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#TM:tmFOSystem>TM: tmFOSystem</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>X</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#GD:gdPowerPlant>GD: gdPowerPlant</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>X</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>X</td>
             </tr>
             <tr>
               <td><a href=#IM:pdEquationIM>IM: pdEquationIM</a></td>
@@ -1398,9 +1576,15 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#inputValues>FR: Input-Values</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1416,9 +1600,15 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#calculateValues>FR: Calculate-Values</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1434,9 +1624,15 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#portability>NFR: Portable</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1452,9 +1648,15 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#maintainability>NFR: Maintainable</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1470,15 +1672,33 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#likeChgIC>LC: Second Order Power Plant</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
               <td>X</td>
               <td></td>
+            </tr>
+            <tr>
+              <td><a href=#likeChgPP>LC: DC Gain and Time Constant</a></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>X</td>
             </tr>
           </table>
           <p class="caption">
@@ -1492,12 +1712,13 @@
               <th><a href=#DD:ddProcessError>DD: ddProcessError</a></th>
               <th><a href=#DD:ddPropCtrl>DD: ddPropCtrl</a></th>
               <th><a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a></th>
-              <th><a href=#DD:ddPowerPlant>DD: ddPowerPlant</a></th>
               <th><a href=#DD:ddCtrlVar>DD: ddCtrlVar</a></th>
               <th><a href=#TM:laplaceTransform>TM: laplaceTransform</a></th>
               <th>
                 <a href=#TM:invLaplaceTransform>TM: invLaplaceTransform</a>
               </th>
+              <th><a href=#TM:tmFOSystem>TM: tmFOSystem</a></th>
+              <th><a href=#GD:gdPowerPlant>GD: gdPowerPlant</a></th>
               <th><a href=#IM:pdEquationIM>IM: pdEquationIM</a></th>
             </tr>
             <tr>
@@ -1506,8 +1727,9 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
               <td>X</td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
             </tr>
@@ -1517,8 +1739,9 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
               <td>X</td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
             </tr>
@@ -1528,19 +1751,9 @@
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
               <td>X</td>
               <td></td>
               <td></td>
-            </tr>
-            <tr>
-              <td><a href=#DD:ddPowerPlant>DD: ddPowerPlant</a></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>X</td>
               <td></td>
               <td></td>
             </tr>
@@ -1554,9 +1767,11 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#TM:laplaceTransform>TM: laplaceTransform</a></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1578,6 +1793,31 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#TM:tmFOSystem>TM: tmFOSystem</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href=#GD:gdPowerPlant>GD: gdPowerPlant</a></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>X</td>
+              <td></td>
+              <td>X</td>
+              <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#IM:pdEquationIM>IM: pdEquationIM</a></td>
@@ -1585,6 +1825,7 @@
               <td></td>
               <td></td>
               <td>X</td>
+              <td></td>
               <td>X</td>
               <td></td>
               <td>X</td>
@@ -1602,12 +1843,13 @@
               <th><a href=#DD:ddProcessError>DD: ddProcessError</a></th>
               <th><a href=#DD:ddPropCtrl>DD: ddPropCtrl</a></th>
               <th><a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a></th>
-              <th><a href=#DD:ddPowerPlant>DD: ddPowerPlant</a></th>
               <th><a href=#DD:ddCtrlVar>DD: ddCtrlVar</a></th>
               <th><a href=#TM:laplaceTransform>TM: laplaceTransform</a></th>
               <th>
                 <a href=#TM:invLaplaceTransform>TM: invLaplaceTransform</a>
               </th>
+              <th><a href=#TM:tmFOSystem>TM: tmFOSystem</a></th>
+              <th><a href=#GD:gdPowerPlant>GD: gdPowerPlant</a></th>
               <th><a href=#IM:pdEquationIM>IM: pdEquationIM</a></th>
               <th><a href=#inputValues>FR: Input-Values</a></th>
               <th><a href=#verifyInputs>FR: Verify-Input-Values</a></th>
@@ -1636,9 +1878,11 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#inputValues>FR: Input-Values</a></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1674,9 +1918,11 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#calculateValues>FR: Calculate-Values</a></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1696,6 +1942,7 @@
             </tr>
             <tr>
               <td><a href=#outputValues>FR: Output-Values</a></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1731,9 +1978,11 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#security>NFR: Secure</a></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1769,9 +2018,11 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
             <tr>
               <td><a href=#verifiability>NFR: Verifiable</a></td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -1801,28 +2052,33 @@
         <h1>References</h1>
         <ul class="hide-list-style">
           <li>
+            <div id="electrical4UWiki">
+              [1]: Electical4U team. <em>First Order Systems</em>. November, 2020. <a href="https://www.electrical4u.com/first-order-control-system">https://www.electrical4u.com/first-order-control-system</a>.
+            </div>
+          </li>
+          <li>
             <div id="johnson2008">
-              [1]: Johnson, Michael A. and Moradi, Mohammad H. <em>PID Control: New Identification and Design Methods, Chapter 1</em>. Springer Science and Business Media, 2006. Print.
+              [2]: Johnson, Michael A. and Moradi, Mohammad H. <em>PID Control: New Identification and Design Methods, Chapter 1</em>. Springer Science and Business Media, 2006. Print.
             </div>
           </li>
           <li>
             <div id="abbasi2015">
-              [2]: Nasser M. Abbasi. <em>A diﬀerential equation view of closed loop control systems</em>. November, 2020. <a href="https://www.12000.org/my_notes/connecting_systems/report.htm">https://www.12000.org/my_notes/connecting_systems/report.htm</a>.
+              [3]: Nasser M. Abbasi. <em>A diﬀerential equation view of closed loop control systems</em>. November, 2020. <a href="https://www.12000.org/my_notes/connecting_systems/report.htm">https://www.12000.org/my_notes/connecting_systems/report.htm</a>.
             </div>
           </li>
           <li>
             <div id="smithLai2005">
-              [3]: Smith, W. Spencer and Lai, Lei. "A new requirements template for scientific computing." <em>Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05</em>. Edited by PJ Agerfalk, N. Kraiem, and J. Ralyte, Paris, France: 2005. pp. 107&ndash;121. In conjunction with 13th IEEE International Requirements Engineering Conference,
+              [4]: Smith, W. Spencer and Lai, Lei. "A new requirements template for scientific computing." <em>Proceedings of the First International Workshop on Situational Requirements Engineering Processes - Methods, Techniques and Tools to Support Situation-Specific Requirements Engineering Processes, SREP'05</em>. Edited by PJ Agerfalk, N. Kraiem, and J. Ralyte, Paris, France: 2005. pp. 107&ndash;121. In conjunction with 13th IEEE International Requirements Engineering Conference,
             </div>
           </li>
           <li>
             <div id="laplaceWiki">
-              [4]: Wikipedia Contributors. <em>Laplace transform</em>. November, 2020. <a href="https://en.wikipedia.org/wiki/Laplace_transform">https://en.wikipedia.org/wiki/Laplace_transform</a>.
+              [5]: Wikipedia Contributors. <em>Laplace transform</em>. November, 2020. <a href="https://en.wikipedia.org/wiki/Laplace_transform">https://en.wikipedia.org/wiki/Laplace_transform</a>.
             </div>
           </li>
           <li>
             <div id="pidWiki">
-              [5]: Wikipedia Contributors. <em>PID controller</em>. October, 2020. <a href="https://en.wikipedia.org/wiki/PID_controller">https://en.wikipedia.org/wiki/PID_controller</a>.
+              [6]: Wikipedia Contributors. <em>PID controller</em>. October, 2020. <a href="https://en.wikipedia.org/wiki/PID_controller">https://en.wikipedia.org/wiki/PID_controller</a>.
             </div>
           </li>
         </ul>

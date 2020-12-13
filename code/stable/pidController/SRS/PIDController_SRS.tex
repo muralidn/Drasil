@@ -81,6 +81,8 @@ ${H_{\text{s}}}$ & Transfer Function in the frequency domain & --
 \\
 ${K_{\text{d}}}$ & Derivative Gain & --
 \\
+${K_{\text{DC}}}$ & DC gain of the First Order system. & --
+\\
 ${K_{\text{p}}}$ & Proportional Gain & --
 \\
 $L⁻¹[F(s)]$ & Inverse Laplace Transform of a function & --
@@ -106,6 +108,8 @@ ${Y_{\text{s}}}$ & Process Variable in the frequency domain & --
 ${y_{\text{t}}}$ & Process Variable & --
 \\
 $∞$ & Infinity & --
+\\
+$𝛕$ & Time Constant of the First Order system. & ${\text{s}}$
 \\
 \bottomrule
 \caption{Table of Symbols}
@@ -192,7 +196,7 @@ This section provides general information about the system. It identifies the in
 \label{Figure:systemContextDiag}
 \end{center}
 \end{figure}
-PD Controller  is self-contained. The only external interaction is   with the  user .The responsibilities of the  user  and the  system  are as follows:
+PD Controller  is self-contained. The only external interaction is   with the user. The responsibilities of the  user  and the  system  are as follows:
 
 \begin{itemize}
 \item{User Responsibilities}
@@ -243,8 +247,11 @@ This subsection provides a list of terms that are used in the subsequent section
 \item{Laplace transform: An integral transform that converts a function of a real variable t (often time) to a function of a complex variable s (complex frequency).}
 \item{Control Variable: The Control Variable is the output of the PD controller.}
 \item{Step Time: Simulation step time.}
-\item{Absolute Tolerance: Absolute tolerance for the integrator..}
-\item{Relative Tolerance: Relative tolerance for the integrator..}
+\item{Absolute Tolerance: Absolute tolerance for the integrator.}
+\item{Relative Tolerance: Relative tolerance for the integrator.}
+\item{DC Gain: DC Gain is the ratio of the steady state output to the input signal.}
+\item{Time Constant: Time Constant is a measure of the response of a First Order System to a step input.}
+\item{Transfer Function: Transfer Function of a system is the ratio of the output to the inputfunctions in the Frequency Domain.}
 \end{itemize}
 \subsubsection{Physical System Description}
 \label{Sec:PhysSyst}
@@ -278,12 +285,15 @@ The instance models that govern PD Controller are presented in \hyperref[Sec:IMs
 This section simplifies the original problem and helps in developing the theoretical models by filling in the missing information for the physical system. The assumptions refine the scope by providing more detail.
 
 \begin{itemize}
-\item[Power plant:\phantomsection\label{pwrPlant}]{The Power Plant and the sensor are coupled as a single unit with transfer function, 1/(2s + 1). (RefBy: \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} and \hyperref[likeChgIC]{LC: Second Order Power Plant}.)}
+\item[Power plant:\phantomsection\label{pwrPlant}]{The Power Plant and the Sensor are coupled as a single unit. (RefBy: \hyperref[pwrPlantTxFnx]{A: Transfer Function} and \hyperref[dcGainTimeConst]{A: Power Plant Parameters}.)}
 \item[Decoupled equation:\phantomsection\label{decoupled}]{The decoupled form of the PD Controller equation used in this simulation. (RefBy: \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}.)}
 \item[Set-Point:\phantomsection\label{setPoint}]{The Set Point is a constant throughout the simulation. (RefBy: \hyperref[DD:ddProcessError]{DD: ddProcessError} and \hyperref[IM:pdEquationIM]{IM: pdEquationIM}.)}
-\item[External disturbance:\phantomsection\label{externalDistub}]{There are no external disturbances to the Power Plant during the simulation. (RefBy: \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}.)}
-\item[Initial value:\phantomsection\label{initialValue}]{The initial value of the Process Variable is assumed to be zero. (RefBy: \hyperref[DD:ddProcessError]{DD: ddProcessError}.)}
-\item[Parallel equation:\phantomsection\label{parallelEq}]{The Parallel form of the equation is used for the PD Controller. (RefBy: \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}.)}
+\item[External disturbance:\phantomsection\label{externalDistub}]{There are no external disturbances to the Power Plant during the simulation. (RefBy: \hyperref[GD:gdPowerPlant]{GD: gdPowerPlant}.)}
+\item[Initial Value:\phantomsection\label{initialValue}]{The initial value of the Process Variable is assumed to be zero. (RefBy: \hyperref[DD:ddProcessError]{DD: ddProcessError}.)}
+\item[Parallel Equation:\phantomsection\label{parallelEq}]{The Parallel form of the equation is used for the PD Controller. (RefBy: \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}.)}
+\item[Unfiltered Derivative:\phantomsection\label{unfilteredDerivative}]{A pure derivative function is used for this simulation; there are no filters applied. (RefBy: \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}.)}
+\item[Transfer Function:\phantomsection\label{pwrPlantTxFnx}]{The combined Power Plant and Sensor ( from  \hyperref[pwrPlant]{A: Power plant}  ) are characterized by a First Order  System. (RefBy: \hyperref[TM:tmFOSystem]{TM: tmFOSystem}, \hyperref[likeChgIC]{LC: Second Order Power Plant}, and \hyperref[dcGainTimeConst]{A: Power Plant Parameters}.)}
+\item[Power Plant Parameters:\phantomsection\label{dcGainTimeConst}]{The DC Gain and Time Constant of the First Order System ( from \hyperref[pwrPlant]{A: Power plant} and \hyperref[pwrPlantTxFnx]{A: Transfer Function} ) are assumed to be 1, and 2 seconds respectively. There are no physical signifiance to the values chosen. (RefBy: \hyperref[likeChgPP]{LC: DC Gain and Time Constant} and \hyperref[GD:gdPowerPlant]{GD: gdPowerPlant}.)}
 \end{itemize}
 \subsubsection{Theoretical Models}
 \label{Sec:TMs}
@@ -317,7 +327,7 @@ Notes & Bilateral Laplace Transform. The Laplace transforms are  typically infer
 Source & \cite{laplaceWiki}
          
 \\ \midrule \\
-RefBy & \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}, \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}, \hyperref[DD:ddProcessError]{DD: ddProcessError}, and \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}
+RefBy & \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}, \hyperref[DD:ddProcessError]{DD: ddProcessError}, \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}, and \hyperref[GD:gdPowerPlant]{GD: gdPowerPlant}
         
 \\ \bottomrule
 \end{tabular}
@@ -353,10 +363,72 @@ RefBy & \hyperref[IM:pdEquationIM]{IM: pdEquationIM}
 \\ \bottomrule
 \end{tabular}
 \end{minipage}
+\vspace{\baselineskip}
+\noindent
+\begin{minipage}{\textwidth}
+\begin{tabular}{>{\raggedright}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.82\textwidth}}
+\toprule \textbf{Refname} & \textbf{TM:tmFOSystem}
+\phantomsection 
+\label{TM:tmFOSystem}
+\\ \midrule \\
+Label & First Order System
+        
+\\ \midrule \\
+Equation & \begin{displaymath}
+           {K_{\text{DC}}} \frac{1}{𝛕 s+1}
+           \end{displaymath}
+\\ \midrule \\
+Description & \begin{symbDescription}
+              \item{${K_{\text{DC}}}$ is the DC gain of the First Order system. (Unitless)}
+              \item{$𝛕$ is the Time Constant of the First Order system. (${\text{s}}$)}
+              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
+              \end{symbDescription}
+\\ \midrule \\
+Notes & The  Transfer Function  of a  First Order System is characterised by this equation ( from \hyperref[pwrPlantTxFnx]{A: Transfer Function} ).
+        
+\\ \midrule \\
+Source & \cite{electrical4UWiki}
+         
+\\ \midrule \\
+RefBy & \hyperref[GD:gdPowerPlant]{GD: gdPowerPlant}
+        
+\\ \bottomrule
+\end{tabular}
+\end{minipage}
 \subsubsection{General Definitions}
 \label{Sec:GDs}
-There are no general definitions.
+This section collects the laws and equations that will be used to build the instance models.
 
+\vspace{\baselineskip}
+\noindent
+\begin{minipage}{\textwidth}
+\begin{tabular}{>{\raggedright}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.82\textwidth}}
+\toprule \textbf{Refname} & \textbf{GD:gdPowerPlant}
+\phantomsection 
+\label{GD:gdPowerPlant}
+\\ \midrule \\
+Label & Transfer function of the Power Plant.
+        
+\\ \midrule \\
+Equation & \begin{displaymath}
+           \frac{1}{2 s+1}
+           \end{displaymath}
+\\ \midrule \\
+Description & \begin{symbDescription}
+              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
+              \end{symbDescription}
+\\ \midrule \\
+Notes & The  Transfer Function of the First Order System is reduced to this equation by substituting the DC Gain ( ${K_{\text{DC}}}$ ) to 1, and the Time Constant ( $𝛕$ ) to 2 seconds ( from  \hyperref[TM:tmFOSystem]{TM: tmFOSystem} and \hyperref[dcGainTimeConst]{A: Power Plant Parameters} ). The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ). Additionally, there are no external disturbances to the power plant ( from  \hyperref[externalDistub]{A: External disturbance} ).
+        
+\\ \midrule \\
+Source & \cite{pidWiki} and \cite{electrical4UWiki}
+         
+\\ \midrule \\
+RefBy & \hyperref[IM:pdEquationIM]{IM: pdEquationIM}
+        
+\\ \bottomrule
+\end{tabular}
+\end{minipage}
 \subsubsection{Data Definitions}
 \label{Sec:DDs}
 This section collects and defines all the data needed to build the instance models.
@@ -388,7 +460,7 @@ Description & \begin{symbDescription}
               \item{${Y_{\text{s}}}$ is the Process Variable in the frequency domain (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ). The Set-Point is assumed to be constant throughout the simulation ( from  \hyperref[setPoint]{A: Set-Point} ). The initial value of the Process Variable if assumed to be zero ( from  \hyperref[initialValue]{A: Initial value} ).
+Notes & Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ). The Set-Point is assumed to be constant throughout the simulation ( from  \hyperref[setPoint]{A: Set-Point} ). The initial value of the Process Variable if assumed to be zero ( from  \hyperref[initialValue]{A: Initial Value} ).
         
 \\ \midrule \\
 Source & \cite{johnson2008}
@@ -467,51 +539,13 @@ Description & \begin{symbDescription}
               \item{$s$ is the Complex frequency-domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ).
+Notes & Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ) A pure form of the Derivative controller is used in this application ( from \hyperref[unfilteredDerivative]{A: Unfiltered Derivative} ).
         
 \\ \midrule \\
 Source & \cite{johnson2008}
          
 \\ \midrule \\
 RefBy & \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}
-        
-\\ \bottomrule
-\end{tabular}
-\end{minipage}
-
-\vspace{\baselineskip}
-\noindent
-\begin{minipage}{\textwidth}
-\begin{tabular}{>{\raggedright}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.82\textwidth}}
-\toprule \textbf{Refname} & \textbf{DD:ddPowerPlant}
-\phantomsection 
-\label{DD:ddPowerPlant}
-\\ \midrule \\
-Label & Transfer Function in the frequency domain
-        
-\\ \midrule \\
-Symbol & ${H_{\text{s}}}$
-         
-\\ \midrule \\
-Units & Unitless
-        
-\\ \midrule \\
-Equation & \begin{displaymath}
-           {H_{\text{s}}}=\frac{1}{2 s+1}
-           \end{displaymath}
-\\ \midrule \\
-Description & \begin{symbDescription}
-              \item{${H_{\text{s}}}$ is the Transfer Function in the frequency domain (Unitless)}
-              \item{$s$ is the Complex frequency-domain parameter (Unitless)}
-              \end{symbDescription}
-\\ \midrule \\
-Notes & The power plant is represented by a first order system ( from  \hyperref[pwrPlant]{A: Power plant} ) The equation is converted to frequency domain by applying the Laplace transform ( from \hyperref[TM:laplaceTransform]{TM: laplaceTransform} ) Additionally there are no external disturbances to the power plant ( from  \hyperref[externalDistub]{A: External disturbance} ).
-        
-\\ \midrule \\
-Source & \cite{pidWiki}
-         
-\\ \midrule \\
-RefBy & \hyperref[IM:pdEquationIM]{IM: pdEquationIM}
         
 \\ \bottomrule
 \end{tabular}
@@ -546,7 +580,7 @@ Description & \begin{symbDescription}
               \item{$s$ is the Complex frequency-domain parameter (Unitless)}
               \end{symbDescription}
 \\ \midrule \\
-Notes & The control variable is the output of the controller. In this case, it is the sum of the Proportional ( from \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} ) and Derivative ( from  \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} ) controllers The parallel ( from \hyperref[parallelEq]{A: Parallel equation} ) and de-coupled ( from \hyperref[decoupled]{A: Decoupled equation} ) form of the PD equation is used in this document.
+Notes & The control variable is the output of the controller. In this case, it is the sum of the Proportional ( from \hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} ) and Derivative ( from  \hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} ) controllers The parallel ( from \hyperref[parallelEq]{A: Parallel Equation} ) and de-coupled ( from \hyperref[decoupled]{A: Decoupled equation} ) form of the PD equation is used in this document.
         
 \\ \midrule \\
 Source & \cite{johnson2008}
@@ -615,7 +649,7 @@ RefBy & \hyperref[outputValues]{FR: Output-Values} and \hyperref[calculateValues
 \end{minipage}
 \paragraph{Detailed derivation of Process Variable:}
 \label{IM:pdEquationIMDeriv}
-The Process Variable (Y(S)) in a PD Control Loop is the product of the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ), Control Variable ( from \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}  ), and the Power-Plant ( from \hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} ).
+The Process Variable (Y(S)) in a PD Control Loop is the product of the Process Error ( from  \hyperref[DD:ddProcessError]{DD: ddProcessError} ), Control Variable ( from \hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}  ), and the Power-Plant ( from \hyperref[GD:gdPowerPlant]{GD: gdPowerPlant} ).
 
 \begin{displaymath}
 {Y_{\text{s}}}=\left({R_{\text{s}}}-{Y_{\text{s}}}\right) \left({K_{\text{p}}}+{K_{\text{d}}} s\right) \frac{1}{2 s+1}
@@ -653,7 +687,7 @@ ${r_{\text{t}}}$ & ${r_{\text{t}}}\gt{}0$ & $1.0$ & 10$\%$
 \\
 ${t_{\text{sim}}}$ & $1\leq{}{t_{\text{sim}}}\leq{}60$ & $10.0$ ${\text{s}}$ & 10$\%$
 \\
-${t_{\text{step}}}$ & $\frac{1}{100}\leq{}{t_{\text{step}}}\leq{}1$ & $0.01$ ${\text{s}}$ & 10$\%$
+${t_{\text{step}}}$ & $\frac{1}{100}\leq{}{t_{\text{step}}}\lt{}{t_{\text{sim}}}$ & $0.01$ ${\text{s}}$ & 10$\%$
 \\
 \bottomrule
 \caption{Input Data Constraints}
@@ -669,7 +703,7 @@ This section provides the functional requirements, the tasks and behaviours that
 
 \begin{itemize}
 \item[Input-Values:\phantomsection\label{inputValues}]{Input the values from \hyperref[Table:ReqInputs]{Table:ReqInputs}.}
-\item[Verify-Input-Values:\phantomsection\label{verifyInputs}]{Ensure that the input values are within the limits specified in \hyperref[Sec:DataConstraints]{Section: Data Constraints}..}
+\item[Verify-Input-Values:\phantomsection\label{verifyInputs}]{Ensure that the input values are within the limits specified in \hyperref[Sec:DataConstraints]{Section: Data Constraints}.}
 \item[Calculate-Values:\phantomsection\label{calculateValues}]{Calculate the Process Variable ( from \hyperref[IM:pdEquationIM]{IM: pdEquationIM}  ) over  the simulation time.}
 \item[Output-Values:\phantomsection\label{outputValues}]{Output the Process Variable ( from \hyperref[IM:pdEquationIM]{IM: pdEquationIM}  ) over  the simulation time.}
 \end{itemize}
@@ -708,127 +742,140 @@ This section provides the non-functional requirements, the qualities that the so
 This section lists the likely changes to be made to the software.
 
 \begin{itemize}
-\item[Second Order Power Plant:\phantomsection\label{likeChgIC}]{The Power Plant maybe changed into a second order system ( from  \hyperref[pwrPlant]{A: Power plant} ).}
+\item[Second Order Power Plant:\phantomsection\label{likeChgIC}]{The Power Plant maybe changed into a second order system ( from  \hyperref[pwrPlantTxFnx]{A: Transfer Function} ).}
+\item[DC Gain and Time Constant:\phantomsection\label{likeChgPP}]{The DC Gain and Time Constant maybe changed to be supplied by the User ( from  \hyperref[dcGainTimeConst]{A: Power Plant Parameters} ).}
 \end{itemize}
 \section{Traceability Matrices and Graphs}
 \label{Sec:TraceMatrices}
 The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed. Every time a component is changed, the items in the column of that component that are marked with an ``X'' should be modified as well. \hyperref[Table:TraceMatAvsA]{Table:TraceMatAvsA} shows the dependencies of assumptions on the assumptions. \hyperref[Table:TraceMatAvsAll]{Table:TraceMatAvsAll} shows the dependencies of data definitions, theoretical models, general definitions, instance models, requirements, likely changes, and unlikely changes on the assumptions. \hyperref[Table:TraceMatRefvsRef]{Table:TraceMatRefvsRef} shows the dependencies of data definitions, theoretical models, general definitions, and instance models with each other. \hyperref[Table:TraceMatAllvsR]{Table:TraceMatAllvsR} shows the dependencies of requirements, goal statements on the data definitions, theoretical models, general definitions, and instance models.
 
-\begin{longtable}{l l l l l l l}
+\begin{longtable}{l l l l l l l l l l}
 \toprule
-\textbf{} & \textbf{\hyperref[pwrPlant]{A: Power plant}} & \textbf{\hyperref[decoupled]{A: Decoupled equation}} & \textbf{\hyperref[setPoint]{A: Set-Point}} & \textbf{\hyperref[externalDistub]{A: External disturbance}} & \textbf{\hyperref[initialValue]{A: Initial value}} & \textbf{\hyperref[parallelEq]{A: Parallel equation}}
+\textbf{} & \textbf{\hyperref[pwrPlant]{A: Power plant}} & \textbf{\hyperref[decoupled]{A: Decoupled equation}} & \textbf{\hyperref[setPoint]{A: Set-Point}} & \textbf{\hyperref[externalDistub]{A: External disturbance}} & \textbf{\hyperref[initialValue]{A: Initial Value}} & \textbf{\hyperref[parallelEq]{A: Parallel Equation}} & \textbf{\hyperref[unfilteredDerivative]{A: Unfiltered Derivative}} & \textbf{\hyperref[pwrPlantTxFnx]{A: Transfer Function}} & \textbf{\hyperref[dcGainTimeConst]{A: Power Plant Parameters}}
 \\
 \midrule
 \endhead
-\hyperref[pwrPlant]{A: Power plant} &  &  &  &  &  & 
+\hyperref[pwrPlant]{A: Power plant} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[decoupled]{A: Decoupled equation} &  &  &  &  &  & 
+\hyperref[decoupled]{A: Decoupled equation} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[setPoint]{A: Set-Point} &  &  &  &  &  & 
+\hyperref[setPoint]{A: Set-Point} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[externalDistub]{A: External disturbance} &  &  &  &  &  & 
+\hyperref[externalDistub]{A: External disturbance} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[initialValue]{A: Initial value} &  &  &  &  &  & 
+\hyperref[initialValue]{A: Initial Value} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[parallelEq]{A: Parallel equation} &  &  &  &  &  & 
+\hyperref[parallelEq]{A: Parallel Equation} &  &  &  &  &  &  &  &  & 
+\\
+\hyperref[unfilteredDerivative]{A: Unfiltered Derivative} &  &  &  &  &  &  &  &  & 
+\\
+\hyperref[pwrPlantTxFnx]{A: Transfer Function} & X &  &  &  &  &  &  &  & 
+\\
+\hyperref[dcGainTimeConst]{A: Power Plant Parameters} & X &  &  &  &  &  &  & X & 
 \\
 \bottomrule
 \caption{Traceability Matrix Showing the Connections Between Assumptions dependence of each other.}
 \label{Table:TraceMatAvsA}
 \end{longtable}
-\begin{longtable}{l l l l l l l}
+\begin{longtable}{l l l l l l l l l l}
 \toprule
-\textbf{} & \textbf{\hyperref[pwrPlant]{A: Power plant}} & \textbf{\hyperref[decoupled]{A: Decoupled equation}} & \textbf{\hyperref[setPoint]{A: Set-Point}} & \textbf{\hyperref[externalDistub]{A: External disturbance}} & \textbf{\hyperref[initialValue]{A: Initial value}} & \textbf{\hyperref[parallelEq]{A: Parallel equation}}
+\textbf{} & \textbf{\hyperref[pwrPlant]{A: Power plant}} & \textbf{\hyperref[decoupled]{A: Decoupled equation}} & \textbf{\hyperref[setPoint]{A: Set-Point}} & \textbf{\hyperref[externalDistub]{A: External disturbance}} & \textbf{\hyperref[initialValue]{A: Initial Value}} & \textbf{\hyperref[parallelEq]{A: Parallel Equation}} & \textbf{\hyperref[unfilteredDerivative]{A: Unfiltered Derivative}} & \textbf{\hyperref[pwrPlantTxFnx]{A: Transfer Function}} & \textbf{\hyperref[dcGainTimeConst]{A: Power Plant Parameters}}
 \\
 \midrule
 \endhead
-\hyperref[DD:ddProcessError]{DD: ddProcessError} &  &  & X &  & X & 
+\hyperref[DD:ddProcessError]{DD: ddProcessError} &  &  & X &  & X &  &  &  & 
 \\
-\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} &  &  &  &  &  & 
+\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} &  &  &  &  &  & 
+\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} &  &  &  &  &  &  & X &  & 
 \\
-\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} & X &  &  & X &  & 
+\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar} &  & X &  &  &  & X &  &  & 
 \\
-\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar} &  & X &  &  &  & X
+\hyperref[TM:laplaceTransform]{TM: laplaceTransform} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[TM:laplaceTransform]{TM: laplaceTransform} &  &  &  &  &  & 
+\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} &  &  &  &  &  & 
+\hyperref[TM:tmFOSystem]{TM: tmFOSystem} &  &  &  &  &  &  &  & X & 
 \\
-\hyperref[IM:pdEquationIM]{IM: pdEquationIM} &  &  & X &  &  & 
+\hyperref[GD:gdPowerPlant]{GD: gdPowerPlant} &  &  &  & X &  &  &  &  & X
 \\
-\hyperref[inputValues]{FR: Input-Values} &  &  &  &  &  & 
+\hyperref[IM:pdEquationIM]{IM: pdEquationIM} &  &  & X &  &  &  &  &  & 
 \\
-\hyperref[verifyInputs]{FR: Verify-Input-Values} &  &  &  &  &  & 
+\hyperref[inputValues]{FR: Input-Values} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[calculateValues]{FR: Calculate-Values} &  &  &  &  &  & 
+\hyperref[verifyInputs]{FR: Verify-Input-Values} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[outputValues]{FR: Output-Values} &  &  &  &  &  & 
+\hyperref[calculateValues]{FR: Calculate-Values} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[portability]{NFR: Portable} &  &  &  &  &  & 
+\hyperref[outputValues]{FR: Output-Values} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[security]{NFR: Secure} &  &  &  &  &  & 
+\hyperref[portability]{NFR: Portable} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[maintainability]{NFR: Maintainable} &  &  &  &  &  & 
+\hyperref[security]{NFR: Secure} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  & 
+\hyperref[maintainability]{NFR: Maintainable} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[likeChgIC]{LC: Second Order Power Plant} & X &  &  &  &  & 
+\hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  &  &  &  & 
+\\
+\hyperref[likeChgIC]{LC: Second Order Power Plant} &  &  &  &  &  &  &  & X & 
+\\
+\hyperref[likeChgPP]{LC: DC Gain and Time Constant} &  &  &  &  &  &  &  &  & X
 \\
 \bottomrule
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
 \label{Table:TraceMatAvsAll}
 \end{longtable}
-\begin{longtable}{l l l l l l l l l}
+\begin{longtable}{l l l l l l l l l l}
 \toprule
-\textbf{} & \textbf{\hyperref[DD:ddProcessError]{DD: ddProcessError}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}}
+\textbf{} & \textbf{\hyperref[DD:ddProcessError]{DD: ddProcessError}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[TM:tmFOSystem]{TM: tmFOSystem}} & \textbf{\hyperref[GD:gdPowerPlant]{GD: gdPowerPlant}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}}
 \\
 \midrule
 \endhead
-\hyperref[DD:ddProcessError]{DD: ddProcessError} &  &  &  &  &  & X &  & 
+\hyperref[DD:ddProcessError]{DD: ddProcessError} &  &  &  &  & X &  &  &  & 
 \\
-\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} & X &  &  &  &  & X &  & 
+\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl} & X &  &  &  & X &  &  &  & 
 \\
-\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} & X &  &  &  &  & X &  & 
+\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl} & X &  &  &  & X &  &  &  & 
 \\
-\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant} &  &  &  &  &  & X &  & 
+\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar} &  & X & X &  &  &  &  &  & 
 \\
-\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar} &  & X & X &  &  &  &  & 
+\hyperref[TM:laplaceTransform]{TM: laplaceTransform} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[TM:laplaceTransform]{TM: laplaceTransform} &  &  &  &  &  &  &  & 
+\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform} &  &  &  &  &  &  &  & 
+\hyperref[TM:tmFOSystem]{TM: tmFOSystem} &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[IM:pdEquationIM]{IM: pdEquationIM} & X &  &  & X & X &  & X & 
+\hyperref[GD:gdPowerPlant]{GD: gdPowerPlant} &  &  &  &  & X &  & X &  & 
+\\
+\hyperref[IM:pdEquationIM]{IM: pdEquationIM} & X &  &  & X &  & X &  & X & 
 \\
 \bottomrule
 \caption{Traceability Matrix Showing the Connections Between Items and Other Sections}
 \label{Table:TraceMatRefvsRef}
 \end{longtable}
-\begin{longtable}{l l l l l l l l l l l l l l l l l}
+\begin{longtable}{l l l l l l l l l l l l l l l l l l}
 \toprule
-\textbf{} & \textbf{\hyperref[DD:ddProcessError]{DD: ddProcessError}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddPowerPlant]{DD: ddPowerPlant}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}} & \textbf{\hyperref[inputValues]{FR: Input-Values}} & \textbf{\hyperref[verifyInputs]{FR: Verify-Input-Values}} & \textbf{\hyperref[calculateValues]{FR: Calculate-Values}} & \textbf{\hyperref[outputValues]{FR: Output-Values}} & \textbf{\hyperref[portability]{NFR: Portable}} & \textbf{\hyperref[security]{NFR: Secure}} & \textbf{\hyperref[maintainability]{NFR: Maintainable}} & \textbf{\hyperref[verifiability]{NFR: Verifiable}}
+\textbf{} & \textbf{\hyperref[DD:ddProcessError]{DD: ddProcessError}} & \textbf{\hyperref[DD:ddPropCtrl]{DD: ddPropCtrl}} & \textbf{\hyperref[DD:ddDerivCtrl]{DD: ddDerivCtrl}} & \textbf{\hyperref[DD:ddCtrlVar]{DD: ddCtrlVar}} & \textbf{\hyperref[TM:laplaceTransform]{TM: laplaceTransform}} & \textbf{\hyperref[TM:invLaplaceTransform]{TM: invLaplaceTransform}} & \textbf{\hyperref[TM:tmFOSystem]{TM: tmFOSystem}} & \textbf{\hyperref[GD:gdPowerPlant]{GD: gdPowerPlant}} & \textbf{\hyperref[IM:pdEquationIM]{IM: pdEquationIM}} & \textbf{\hyperref[inputValues]{FR: Input-Values}} & \textbf{\hyperref[verifyInputs]{FR: Verify-Input-Values}} & \textbf{\hyperref[calculateValues]{FR: Calculate-Values}} & \textbf{\hyperref[outputValues]{FR: Output-Values}} & \textbf{\hyperref[portability]{NFR: Portable}} & \textbf{\hyperref[security]{NFR: Secure}} & \textbf{\hyperref[maintainability]{NFR: Maintainable}} & \textbf{\hyperref[verifiability]{NFR: Verifiable}}
 \\
 \midrule
 \endhead
-\hyperref[processVariable]{GS: Process-Variable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[processVariable]{GS: Process-Variable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[inputValues]{FR: Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[inputValues]{FR: Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[verifyInputs]{FR: Verify-Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[verifyInputs]{FR: Verify-Input-Values} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[calculateValues]{FR: Calculate-Values} &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & 
+\hyperref[calculateValues]{FR: Calculate-Values} &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & 
 \\
-\hyperref[outputValues]{FR: Output-Values} &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & 
+\hyperref[outputValues]{FR: Output-Values} &  &  &  &  &  &  &  &  & X &  &  &  &  &  &  &  & 
 \\
-\hyperref[portability]{NFR: Portable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[portability]{NFR: Portable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[security]{NFR: Secure} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[security]{NFR: Secure} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[maintainability]{NFR: Maintainable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[maintainability]{NFR: Maintainable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
-\hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
+\hyperref[verifiability]{NFR: Verifiable} &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & 
 \\
 \bottomrule
 \caption{Traceability Matrix Showing the Connections Between Requirements, Goal Statements and Other Items}
@@ -837,6 +884,12 @@ The purpose of the traceability matrices is to provide easy references on what h
 \section{References}
 \label{Sec:References}
 \begin{filecontents*}{bibfile.bib}
+@misc{electrical4UWiki,
+author={Electical4U team},
+title={First Order Systems},
+howpublished={\url{https://www.electrical4u.com/first-order-control-system}},
+month=nov,
+year={2020}}
 @book{johnson2008,
 author={Johnson, Michael A. and Moradi, Mohammad H.},
 title={PID Control: New Identification and Design Methods, Chapter 1},

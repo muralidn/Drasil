@@ -55,7 +55,7 @@ def input_constraints(r_t, K_d, K_p, t_step, t_sim):
         print(0, end="")
         print(".")
         raise Exception("InputError")
-    if (not(1.0 / 100.0 <= t_step and t_step <= 1)) :
+    if (not(1.0 / 100.0 <= t_step and t_step < t_sim)) :
         print("t_step has value ", end="")
         print(t_step, end="")
         print(", but is expected to be ", end="")
@@ -63,7 +63,8 @@ def input_constraints(r_t, K_d, K_p, t_step, t_sim):
         print(1.0 / 100.0, end="")
         print(" ((1)/(100))", end="")
         print(" and ", end="")
-        print(1, end="")
+        print(t_sim, end="")
+        print(" (t_sim)", end="")
         print(".")
         raise Exception("InputError")
     if (not(1 <= t_sim and t_sim <= 60)) :
