@@ -39,7 +39,7 @@ def input_constraints(r_t, K_d, K_p, t_step, t_sim):
         print(0, end="")
         print(".")
         raise Exception("InputError")
-    if (not(K_d > 0)) :
+    if (not(K_d >= 0)) :
         print("K_d has value ", end="")
         print(K_d, end="")
         print(", but is expected to be ", end="")

@@ -48,7 +48,7 @@ public class InputParameters {
             Console.WriteLine(".");
             throw new Exception("InputError");
         }
-        if (!(K_d > 0)) {
+        if (!(K_d >= 0)) {
             Console.Write("K_d has value ");
             Console.Write(K_d);
             Console.Write(", but is expected to be ");

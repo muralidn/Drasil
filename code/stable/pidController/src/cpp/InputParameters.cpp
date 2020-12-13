@@ -40,7 +40,7 @@ void input_constraints(double r_t, double K_d, double K_p, double t_step, double
         std::cout << "." << std::endl;
         throw("InputError");
     }
-    if (!(K_d > 0)) {
+    if (!(K_d >= 0)) {
         std::cout << "K_d has value ";
         std::cout << K_d;
         std::cout << ", but is expected to be ";

@@ -187,12 +187,12 @@ ipPropGain, ipDerivGain, ipSetPt, ipStepTime, ipSimTime, opProcessVariable ::
 ipSetPtUnc, ipPropGainUnc, ipDerGainUnc, ipStepTimeUnc, ipSimTimeUnc :: UncertQ
 
 ipPropGain
-  = constrained' (dqdNoUnit propGain sym_Kp Real) [gtZeroConstr] (dbl 100)
+  = constrained' (dqdNoUnit propGain sym_Kp Real) [gtZeroConstr] (dbl 20)
 ipPropGainUnc = uq ipPropGain defaultUncrt
 qdPropGain = qw ipPropGain
 
 ipDerivGain
-  = constrained' (dqdNoUnit derGain sym_Kd Real) [gtZeroConstr] (dbl 1)
+  = constrained' (dqdNoUnit derGain sym_Kd Real) [physc $ UpFrom  (Inc, 0)] (dbl 1)
 ipDerGainUnc = uq ipDerivGain defaultUncrt
 qdDerivGain = qw ipDerivGain
 
