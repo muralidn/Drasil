@@ -5,12 +5,15 @@
 #ifndef Calculations_h
 #define Calculations_h
 
+#include <string>
 #include <vector>
 
 #include "Constants.hpp"
 #include "ODE.hpp"
 #include "Populate.hpp"
 
+using std::ofstream;
+using std::string;
 using std::vector;
 
 /** \brief Calculates Process Variable: The output value from the power plant

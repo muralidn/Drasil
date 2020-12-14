@@ -12,6 +12,22 @@ public class OutputFormat {
         \param y_t Process Variable: The output value from the power plant
     */
     public static void write_output(List<double> y_t) {
+        StreamWriter outfile;
+        outfile = new StreamWriter("log.txt", true);
+        outfile.WriteLine("function write_output called with inputs: {");
+        outfile.Write("  y_t = ");
+        outfile.Write("[");
+        for (int list_i1 = 0; list_i1 < y_t.Count - 1; list_i1++) {
+            outfile.Write(y_t[list_i1]);
+            outfile.Write(", ");
+        }
+        if (y_t.Count > 0) {
+            outfile.Write(y_t[y_t.Count - 1]);
+        }
+        outfile.WriteLine("]");
+        outfile.WriteLine("  }");
+        outfile.Close();
+        
         StreamWriter outputfile;
         outputfile = new StreamWriter("output.txt", false);
         outputfile.Write("y_t = ");

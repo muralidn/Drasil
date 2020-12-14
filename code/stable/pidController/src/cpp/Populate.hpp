@@ -5,8 +5,11 @@
 #ifndef Populate_h
 #define Populate_h
 
+#include <string>
 #include <vector>
 
+using std::ofstream;
+using std::string;
 using std::vector;
 
 /** \brief Class for populating a list during an ODE solution process

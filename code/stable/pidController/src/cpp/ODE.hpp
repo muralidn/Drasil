@@ -5,8 +5,11 @@
 #ifndef ODE_h
 #define ODE_h
 
+#include <string>
 #include <vector>
 
+using std::ofstream;
+using std::string;
 using std::vector;
 
 /** \brief Class representing an ODE system

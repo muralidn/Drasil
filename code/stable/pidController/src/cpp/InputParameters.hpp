@@ -8,6 +8,7 @@
 #include <string>
 
 using std::ifstream;
+using std::ofstream;
 using std::string;
 
 /** \brief Reads input from a file with the given file name
