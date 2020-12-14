@@ -132,12 +132,12 @@
                 </tr>
                 <tr>
                   <td><em>R<sub>s</sub></em></td>
-                  <td>Set Point in the frequency domain</td>
+                  <td>Set-Point in the frequency domain</td>
                   <td>--</td>
                 </tr>
                 <tr>
                   <td><em>r<sub>t</sub></em></td>
-                  <td>Set Point</td>
+                  <td>Set-Point</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -287,7 +287,7 @@
           <div class="subsection">
             <h2>Scope of Requirements</h2>
             <p class="paragraph">
-              The scope of the requirements includes a PD Control Loop  with three subsystems namely a  PD Controller , a Summing Point , and a Power Plant . Only  the Proportional and Derivative controllers are used here;  the Integral controller is beyond the scope of this software. Additionally, this software is intended to aid with the manual  tuning of the PD Controller.
+              The scope of the requirements includes a PD Control Loop  with three subsystems namely a  PD Controller, a Summing Point, and a Power Plant. Only  the Proportional and Derivative controllers are used in this sofware;  the Integral controller is beyond the scope of this project. Additionally, this software is intended to aid with the manual  tuning of the PD Controller.
             </p>
           </div>
         </div>
@@ -295,7 +295,7 @@
           <div class="subsection">
             <h2>Characteristics of Intended Reader</h2>
             <p class="paragraph">
-              Reviewers of this documentation should have an understanding of control systems (control theory and controllers) at a fourth year undergraduate level and engineering mathematics at a second year undergraduate level. The users of PD Controller can have a lower level of expertise, as explained in <a href=#Sec:UserChars>Section: User Characteristics</a>.
+              Reviewers of this documentation should have an understanding of control systems (control theory and controllers) at the fourth-year undergraduate level and engineering mathematics at a second-year undergraduate level. The users of PD Controller can have a lower level of expertise, as explained in <a href=#Sec:UserChars>Section: User Characteristics</a>.
             </p>
           </div>
         </div>
@@ -358,7 +358,7 @@
           <div class="subsection">
             <h2>User Characteristics</h2>
             <p class="paragraph">
-              The end user of  PD Controller  is expected to have taken a course on Control Systems at an  undergraduate level.
+              The end-user of  PD Controller  is expected to have taken a course on Control Systems at an  undergraduate level.
             </p>
           </div>
         </div>
@@ -390,7 +390,7 @@
                 </p>
                 <ul class="list">
                   <li>
-                    PD Control Loop: Closed loop control system with PD Controller, Summing Point and Power Plant.
+                    PD Control Loop: Closed-Loop control system with PD Controller, Summing Point and Power Plant.
                   </li>
                   <li>PD Controller: Proportional-Derivative Controller.</li>
                   <li>
@@ -398,17 +398,17 @@
                   </li>
                   <li>Power Plant: A first order system to be controlled.</li>
                   <li>
-                    First Order System: A system whose input-output relationship is denoted by a first order differential equation.
+                    First Order System: A system whose input-output relationship is denoted by a first-order differential equation.
                   </li>
                   <li>
-                    Process Error: Input to the PID controller. Process Error is the difference between the Set Point and the Process Variable.
+                    Process Error: Input to the PID controller. Process Error is the difference between the Set-Point and the Process Variable.
                   </li>
                   <li>
                     Simulation Time: Total execution time of the PD simulation.
                   </li>
                   <li>Process Variable: The output value from the power plant.</li>
                   <li>
-                    Set Point: The desired value that the control system must reach. This also knows as reference variable.
+                    Set-Point: The desired value that the control system must reach. This also knows as the reference variable.
                   </li>
                   <li>
                     Proportional Gain: Gain constant of the proportional controller.
@@ -417,7 +417,7 @@
                     Derivative Gain: Gain constant of the derivative controller.
                   </li>
                   <li>
-                    Frequency Domain: The analysis of mathematical functions with respect to frequency, instead of time.
+                    Frequency Domain: The analysis of mathematical functions in terms of frequency, instead of time.
                   </li>
                   <li>
                     Laplace transform: An integral transform that converts a function of a real variable t (often time) to a function of a complex variable s (complex frequency).
@@ -429,13 +429,13 @@
                   <li>Absolute Tolerance: Absolute tolerance for the integrator.</li>
                   <li>Relative Tolerance: Relative tolerance for the integrator.</li>
                   <li>
-                    DC Gain: DC Gain is the ratio of the steady state output to the input signal.
+                    DC Gain: DC Gain is the ratio of the steady-state output to the input signal.
                   </li>
                   <li>
                     Time Constant: Time Constant is a measure of the response of a First Order System to a step input.
                   </li>
                   <li>
-                    Transfer Function: Transfer Function of a system is the ratio of the output to the inputfunctions in the Frequency Domain.
+                    Transfer Function: The Transfer Function of a system is the ratio of the output to the input functions in the Frequency Domain.
                   </li>
                 </ul>
               </div>
@@ -453,7 +453,7 @@
                 </div>
                 <div id="Figure:pidSysDiagram">
                   <figure>
-                    <img src="../../../datafiles/PIDController/Fig_PDController.png" alt="The physical system" width="60.0%" >
+                    <img src="../../../datafiles/PIDController/Fig_PDController.png" alt="The physical system" width="70.0%" >
                     <figcaption>The physical system</figcaption>
                   </figure>
                 </div>
@@ -463,7 +463,7 @@
               <div class="subsubsection">
                 <h3>Goal Statements</h3>
                 <p class="paragraph">
-                  Given Set Point, Simulation Time, Proportional Gain, Derivative Gain, and Step Time, the goal statements are:
+                  Given Set-Point, Simulation Time, Proportional Gain, Derivative Gain, and Step Time, the goal statements are:
                 </p>
                 <div class="list">
                   <p>
@@ -501,7 +501,7 @@
                   </p>
                   <p>
                     <div id="setPoint">
-                      Set-Point: The Set Point is a constant throughout the simulation. (RefBy: <a href=#DD:ddProcessError>DD: ddProcessError</a> and <a href=#IM:pdEquationIM>IM: pdEquationIM</a>.)
+                      Set-Point: The Set-Point is constant throughout the simulation. (RefBy: <a href=#DD:ddProcessError>DD: ddProcessError</a> and <a href=#IM:pdEquationIM>IM: pdEquationIM</a>.)
                     </div>
                   </p>
                   <p>
@@ -526,12 +526,12 @@
                   </p>
                   <p>
                     <div id="pwrPlantTxFnx">
-                      Transfer Function: The combined Power Plant and Sensor ( from  <a href=#pwrPlant>A: Power plant</a>  ) are characterized by a First Order  System. (RefBy: <a href=#TM:tmFOSystem>TM: tmFOSystem</a>, <a href=#likeChgIC>LC: Second Order Power Plant</a>, and <a href=#dcGainTimeConst>A: Power Plant Parameters</a>.)
+                      Transfer Function: The combined Power Plant and Sensor ( from  <a href=#pwrPlant>A: Power plant</a>  ) are characterized by a First Order  System. (RefBy: <a href=#TM:tmFOSystem>TM: tmFOSystem</a>, <a href=#likeChgIC>LC: Second-Order Power Plant</a>, and <a href=#dcGainTimeConst>A: Power Plant Parameters</a>.)
                     </div>
                   </p>
                   <p>
                     <div id="dcGainTimeConst">
-                      Power Plant Parameters: The DC Gain and Time Constant of the First Order System ( from <a href=#pwrPlant>A: Power plant</a> and <a href=#pwrPlantTxFnx>A: Transfer Function</a> ) are assumed to be 1, and 2 seconds respectively. There are no physical signifiance to the values chosen. (RefBy: <a href=#likeChgPP>LC: DC Gain and Time Constant</a> and <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a>.)
+                      Power Plant Parameters: The DC Gain and Time Constant of the First Order System ( from <a href=#pwrPlant>A: Power plant</a> and <a href=#pwrPlantTxFnx>A: Transfer Function</a> ) are assumed to be 1, and 2 seconds respectively. There is no physical significance to the values chosen. (RefBy: <a href=#likeChgPP>LC: DC Gain and Time Constant</a> and <a href=#GD:gdPowerPlant>GD: gdPowerPlant</a>.)
                     </div>
                   </p>
                 </div>
@@ -685,7 +685,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          The  Transfer Function  of a  First Order System is characterised by this equation ( from <a href=#pwrPlantTxFnx>A: Transfer Function</a> ).
+                          The  Transfer Function  of a  First Order System is characterized by this equation ( from <a href=#pwrPlantTxFnx>A: Transfer Function</a> ).
                         </p>
                       </td>
                     </tr>
@@ -724,7 +724,7 @@
                     <tr>
                       <th>Label</th>
                       <td>
-                        <p class="paragraph">Transfer function of the Power Plant.</p>
+                        <p class="paragraph">The Transfer Function of the Power Plant.</p>
                       </td>
                     </tr>
                     <tr>
@@ -745,7 +745,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          The  Transfer Function of the First Order System is reduced to this equation by substituting the DC Gain ( <em>K<sub>DC</sub></em> ) to 1, and the Time Constant ( <em>𝛕</em> ) to 2 seconds ( from  <a href=#TM:tmFOSystem>TM: tmFOSystem</a> and <a href=#dcGainTimeConst>A: Power Plant Parameters</a> ). The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). Additionally, there are no external disturbances to the power plant ( from  <a href=#externalDistub>A: External disturbance</a> ).
+                          The  Transfer Function of the First Order System is reduced to this equation by substituting the DC Gain ( <em>K<sub>DC</sub></em> ) to 1, and the Time Constant ( <em>𝛕</em> ) to 2 seconds ( from  <a href=#TM:tmFOSystem>TM: tmFOSystem</a> and <a href=#dcGainTimeConst>A: Power Plant Parameters</a> ). The equation is converted to the frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). Additionally, there are no external disturbances to the power plant ( from  <a href=#externalDistub>A: External disturbance</a> ).
                         </p>
                       </td>
                     </tr>
@@ -807,7 +807,7 @@
                             <em>E<sub>s</sub></em> is the Process Error in the frequency domain (Unitless)
                           </li>
                           <li>
-                            <em>R<sub>s</sub></em> is the Set Point in the frequency domain (Unitless)
+                            <em>R<sub>s</sub></em> is the Set-Point in the frequency domain (Unitless)
                           </li>
                           <li>
                             <em>Y<sub>s</sub></em> is the Process Variable in the frequency domain (Unitless)
@@ -819,7 +819,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). The Set-Point is assumed to be constant throughout the simulation ( from  <a href=#setPoint>A: Set-Point</a> ). The initial value of the Process Variable if assumed to be zero ( from  <a href=#initialValue>A: Initial Value</a> ).
+                          The Process Error is the difference between the Set-Point and  Process Variable. The equation is converted to the frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ). The Set-Point is assumed to be constant throughout the simulation ( from  <a href=#setPoint>A: Set-Point</a> ). The initial value of the Process Variable is assumed to be zero ( from  <a href=#initialValue>A: Initial Value</a> ).
                         </p>
                       </td>
                     </tr>
@@ -884,7 +884,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Proportional controller is the product of the Proportional Gain and the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
+                          The Proportional Controller is the product of the Proportional Gain and the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to the frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ).
                         </p>
                       </td>
                     </tr>
@@ -950,7 +950,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          Derivative controller is the product of the Derivative Gain and the differential of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ) A pure form of the Derivative controller is used in this application ( from <a href=#unfilteredDerivative>A: Unfiltered Derivative</a> ).
+                          The Derivative Controller is the product of the Derivative Gain and the differential of the Process Error ( from  <a href=#DD:ddProcessError>DD: ddProcessError</a> ) The equation is converted to the frequency domain by applying the Laplace transform ( from <a href=#TM:laplaceTransform>TM: laplaceTransform</a> ) A pure form of the Derivative controller is used in this application ( from <a href=#unfilteredDerivative>A: Unfiltered Derivative</a> ).
                         </p>
                       </td>
                     </tr>
@@ -1017,7 +1017,7 @@
                       <th>Notes</th>
                       <td>
                         <p class="paragraph">
-                          The control variable is the output of the controller. In this case, it is the sum of the Proportional ( from <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a> ) and Derivative ( from  <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a> ) controllers The parallel ( from <a href=#parallelEq>A: Parallel Equation</a> ) and de-coupled ( from <a href=#decoupled>A: Decoupled equation</a> ) form of the PD equation is used in this document.
+                          The Control Variable is the output of the controller. In this case, it is the sum of the Proportional ( from <a href=#DD:ddPropCtrl>DD: ddPropCtrl</a> ) and Derivative ( from  <a href=#DD:ddDerivCtrl>DD: ddDerivCtrl</a> ) controllers The parallel ( from <a href=#parallelEq>A: Parallel Equation</a> ) and de-coupled ( from <a href=#decoupled>A: Decoupled equation</a> ) form of the PD equation is used in this document.
                         </p>
                       </td>
                     </tr>
@@ -1098,7 +1098,7 @@
                           <li><em>t</em> is the time (<em>s</em>)</li>
                           <li><em>y<sub>t</sub></em> is the Process Variable (Unitless)</li>
                           <li><em>K<sub>p</sub></em> is the Proportional Gain (Unitless)</li>
-                          <li><em>r<sub>t</sub></em> is the Set Point (Unitless)</li>
+                          <li><em>r<sub>t</sub></em> is the Set-Point (Unitless)</li>
                         </ul>
                       </td>
                     </tr>
@@ -1251,7 +1251,7 @@
                 </tr>
                 <tr>
                   <td><em>r<sub>t</sub></em></td>
-                  <td>Set Point</td>
+                  <td>Set-Point</td>
                   <td>--</td>
                 </tr>
                 <tr>
@@ -1312,12 +1312,12 @@
         <div class="list">
           <p>
             <div id="likeChgIC">
-              Second Order Power Plant: The Power Plant maybe changed into a second order system ( from  <a href=#pwrPlantTxFnx>A: Transfer Function</a> ).
+              Second-Order Power Plant: The Power Plant may be changed into a second-order system ( from  <a href=#pwrPlantTxFnx>A: Transfer Function</a> ).
             </div>
           </p>
           <p>
             <div id="likeChgPP">
-              DC Gain and Time Constant: The DC Gain and Time Constant maybe changed to be supplied by the User ( from  <a href=#dcGainTimeConst>A: Power Plant Parameters</a> ).
+              DC Gain and Time Constant: The DC Gain and Time Constant may be changed to be supplied by the user ( from  <a href=#dcGainTimeConst>A: Power Plant Parameters</a> ).
             </div>
           </p>
         </div>
@@ -1677,7 +1677,7 @@
               <td></td>
             </tr>
             <tr>
-              <td><a href=#likeChgIC>LC: Second Order Power Plant</a></td>
+              <td><a href=#likeChgIC>LC: Second-Order Power Plant</a></td>
               <td></td>
               <td></td>
               <td></td>
