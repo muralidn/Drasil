@@ -40,7 +40,7 @@ pidC, pidCL, summingPt, powerPlant, firstOrderSystem, processError,
       ConceptChunk
 pidCL
   = dcc "pdCtrlLoop" (nounPhraseSP "PD Control Loop")
-      ("Closed loop control system with PD Controller, Summing Point and Power Plant")
+      ("Closed-Loop control system with PD Controller, Summing Point and Power Plant")
 
 pidC
   = dcc "pdController" (nounPhraseSP "PD Controller")
@@ -57,13 +57,13 @@ powerPlant
 
 firstOrderSystem
   = dcc "firstOrderSystem" (nounPhraseSP "First Order System")
-      ("A system whose input-output relationship is denoted by a first order "
+      ("A system whose input-output relationship is denoted by a first-order "
          ++ "differential equation")
 
 processError
   = dcc "processError" (nounPhraseSP "Process Error")
       ("Input to the PID controller. Process Error is the difference between the "
-         ++ "Set Point and the Process Variable")
+         ++ "Set-Point and the Process Variable")
 
 stepTime = dcc "stepTime" (nounPhraseSP "Step Time") ("Simulation step time")
 
@@ -80,9 +80,9 @@ controlVariable
       ("The Control Variable is the output of the PD controller")
 
 setPoint
-  = dcc "setPoint" (nounPhraseSP "Set Point")
+  = dcc "setPoint" (nounPhraseSP "Set-Point")
       ("The desired value that the control system must reach. This also knows "
-         ++ "as reference variable")
+         ++ "as the reference variable")
 
 propGain
   = dcc "propGain" (nounPhraseSP "Proportional Gain")
@@ -98,7 +98,7 @@ simulation
 
 ccFrequencyDomain
   = dcc "frequencyDomain" (nounPhraseSP "Frequency Domain")
-      ("The analysis of mathematical functions with respect to frequency, instead "
+      ("The analysis of mathematical functions in terms of frequency, instead "
          ++ "of time")
 
 ccLaplaceTransform
@@ -116,7 +116,7 @@ ccRelTolerance
 
 ccDcGain
   = dcc "dcGain" (nounPhraseSP "DC Gain")
-      ("DC Gain is the ratio of the steady state output to the input signal")
+      ("DC Gain is the ratio of the steady-state output to the input signal")
 
 ccTimeConst
   = dcc "timeConst" (nounPhraseSP "Time Constant")
@@ -125,8 +125,8 @@ ccTimeConst
 
 ccTransferFxn
   = dcc "transferFxn" (nounPhraseSP "Transfer Function")
-      ("Transfer Function of a system is the ratio of the output to the input"
-         ++ "functions in the Frequency Domain")
+      ("The Transfer Function of a system is the ratio of the output to the input"
+         ++ " functions in the Frequency Domain")
 
 concepts :: [IdeaDict]
 concepts = map nw defs
@@ -257,7 +257,7 @@ opProcessVariable
 qdProcessVariableTD = qw opProcessVariable
 
 qdSetPointFD
-  = vc "qdSetPointFD" (nounPhraseSent (S "Set Point in the frequency domain"))
+  = vc "qdSetPointFD" (nounPhraseSent (S "Set-Point in the frequency domain"))
       sym_YrS
       Real
 

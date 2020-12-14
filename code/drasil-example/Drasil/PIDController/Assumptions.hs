@@ -51,7 +51,7 @@ aDecoupledDesc
 
 aSPDesc
   = foldlSent
-      [S "The" +:+ phrase setPoint +:+ S "is a constant throughout the" +:+
+      [S "The" +:+ phrase setPoint +:+ S "is constant throughout the" +:+
          phrase simulation]
 
 aExtDisturbDesc
@@ -83,4 +83,4 @@ aDCGainDesc
       [S "The DC Gain and Time Constant of the First Order System ( from",
        makeRef2S aPwrPlant, S "and", makeRef2S apwrPlantTxFnx, S ")",
        S "are assumed to be 1, and 2 seconds respectively.",
-       S "There are no physical signifiance to the values chosen"]
+       S "There is no physical significance to the values chosen"]

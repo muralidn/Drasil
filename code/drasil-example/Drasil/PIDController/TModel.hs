@@ -105,7 +105,7 @@ foSystemDesc :: Sentence
 foSystemDesc
   = foldlSent
       [S "The ", phrase ccTransferFxn, S " of a ", phrase firstOrderSystem,
-       S "is characterised by this equation ( from", makeRef2S apwrPlantTxFnx,
+       S "is characterized by this equation ( from", makeRef2S apwrPlantTxFnx,
        S ")"]
 
        --------

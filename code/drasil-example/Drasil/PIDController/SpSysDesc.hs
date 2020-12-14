@@ -24,7 +24,7 @@ sysFigure
   = llcc (makeFigRef "pidSysDiagram") $
       figWithWidth (atStartNP $ the physicalSystem)
         ("../../../datafiles/PIDController/Fig_PDController.png")
-        60
+        70
 
 sysGoalInput :: [Sentence]
 sysGoalInput

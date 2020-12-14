@@ -31,9 +31,9 @@ ddErrSigEqn = (sy qdSetPointFD) - (sy qdProcessVariableFD)
 ddErrSigNote :: Sentence
 ddErrSigNote
   = foldlSent
-      [S "Process Error is the difference between the Set-Point and " +:+
+      [S "The Process Error is the difference between the Set-Point and " +:+
          S "Process Variable.",
-       S "The equation is converted to frequency" +:+
+       S "The equation is converted to the frequency" +:+
          S "domain by applying the Laplace transform ( from"
          +:+ makeRef2S tmLaplace
          +:+ S ").",
@@ -41,7 +41,7 @@ ddErrSigNote
          S "simulation ( from "
          +:+ makeRef2S aSP
          +:+ S ").",
-       S "The initial value of the Process Variable if assumed" +:+
+       S "The initial value of the Process Variable is assumed" +:+
          S "to be zero ( from "
          +:+ makeRef2S aInitialValue
          +:+ S ")"]
@@ -62,11 +62,11 @@ ddPropCtrlEqn = ($.) (sy qdPropGain) (sy qdProcessErrorFD)
 ddPropCtrlNote :: Sentence
 ddPropCtrlNote
   = foldlSent
-      [S "Proportional controller is the product of the Proportional Gain" +:+
-         S "and the Process Error ( from "
+      [S "The Proportional Controller is the product of the Proportional Gain"
+         +:+ S "and the Process Error ( from "
          +:+ makeRef2S ddErrSig
          +:+ S ")",
-       S "The equation is converted to frequency" +:+
+       S "The equation is converted to the frequency" +:+
          S "domain by applying the Laplace transform ( from"
          +:+ makeRef2S tmLaplace
          +:+ S ")"]
@@ -88,11 +88,11 @@ ddDerivCtrlEqn
 ddDerivCtrlNote :: Sentence
 ddDerivCtrlNote
   = foldlSent
-      [S "Derivative controller is the product of the Derivative Gain" +:+
+      [S "The Derivative Controller is the product of the Derivative Gain" +:+
          S "and the differential of the Process Error ( from "
          +:+ makeRef2S ddErrSig
          +:+ S ")",
-       S "The equation is" +:+ S "converted to frequency" +:+
+       S "The equation is" +:+ S "converted to the frequency" +:+
          S "domain by applying the Laplace"
          +:+ S "transform ( from"
          +:+ makeRef2S tmLaplace
@@ -119,7 +119,7 @@ ddCtrlEqn
 ddCtrlNote :: Sentence
 ddCtrlNote
   = foldlSent
-      [S "The control variable is the output of the controller.",
+      [S "The Control Variable is the output of the controller.",
        S "In this case," +:+ S "it is the sum of the Proportional ( from" +:+
          makeRef2S ddPropCtrl
          +:+ S ") and Derivative ( from "

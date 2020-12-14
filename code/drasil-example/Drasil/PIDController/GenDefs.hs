@@ -27,7 +27,7 @@ gdPowerPlant
 gdPowerPlantRC :: RelationConcept
 gdPowerPlantRC
   = makeRC "gdPowerPlantRC"
-      (nounPhraseSP "Transfer function of the Power Plant.")
+      (nounPhraseSP "The Transfer Function of the Power Plant.")
       EmptyS
       gdPowerPlantEqn
 
@@ -54,7 +54,7 @@ gdPowerPlantNote
          +:+ S "and"
          +:+ makeRef2S aDCGain
          +:+ S ").",
-       S "The equation is" +:+ S "converted to frequency" +:+
+       S "The equation is" +:+ S "converted to the frequency" +:+
          S "domain by applying the Laplace"
          +:+ S "transform ( from"
          +:+ makeRef2S tmLaplace

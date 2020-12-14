@@ -8,8 +8,8 @@ import Drasil.PIDController.Body (pidODEInfo, printSetting, si, srs)
 import Language.Drasil.Code
        (AuxFile(..), Choices(..), CodeSpec, Comments(..), ConstantRepr(..),
         ConstantStructure(..), ConstraintBehaviour(..), ImplementationType(..),
-        InputModule(..), Lang(..), Modularity(..), Structure(..), Verbosity(..),
-        Visibility(..), codeSpec, defaultChoices, Logging (..))
+        InputModule(..), Lang(..), Logging(..), Modularity(..), Structure(..),
+        Verbosity(..), Visibility(..), codeSpec, defaultChoices)
 
 import Language.Drasil.Generate (gen, genCode)
 import Language.Drasil.Printers (DocSpec(DocSpec), DocType(SRS, Website))
@@ -20,7 +20,8 @@ codeSpecs = codeSpec si codeChoices []
 codeChoices :: Choices
 codeChoices
   = defaultChoices{lang = [Python, Cpp, CSharp], modularity = Modular Combined,
-                   impType = Program, logFile = "log.txt", logging = [LogFunc, LogVar],
+                   impType = Program, logFile = "log.txt",
+                   logging = [LogFunc, LogVar],
                    comments = [CommentFunc, CommentClass, CommentMod],
                    doxVerbosity = Verbose, dates = Hide,
                    onSfwrConstraint = Exception, onPhysConstraint = Exception,
