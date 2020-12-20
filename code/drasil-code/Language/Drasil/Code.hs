@@ -21,7 +21,7 @@ module Language.Drasil.Code (
   implementation, constructorInfo, methodInfo, methodInfoNoReturn, 
   appendCurrSol, populateSolList, assignArrayIndex, assignSolFromObj, 
   initSolListFromArray, initSolListWithVal, solveAndPopulateWhile, 
-  returnExprList, fixedReturn,
+  returnExprList, fixedReturn, initSolWithVal,
   ExternalLibraryCall, StepGroupFill(..), StepFill(..), FunctionIntFill(..), 
   ArgumentFill(..), ParameterFill(..), ClassInfoFill(..), MethodInfoFill(..),
   externalLibCall, choiceStepsFill, choiceStepFill, mandatoryStepFill, 
@@ -65,7 +65,7 @@ import Language.Drasil.Code.ExternalLibrary (ExternalLibrary, Step,
   implementation, constructorInfo, methodInfo, methodInfoNoReturn, 
   appendCurrSol, populateSolList, assignArrayIndex, assignSolFromObj, 
   initSolListFromArray, initSolListWithVal, solveAndPopulateWhile, 
-  returnExprList, fixedReturn)
+  returnExprList, fixedReturn, initSolWithVal)
 import Language.Drasil.Code.ExternalLibraryCall (ExternalLibraryCall,
   StepGroupFill(..), StepFill(..), FunctionIntFill(..), ArgumentFill(..),
   ParameterFill(..), ClassInfoFill(..), MethodInfoFill(..), externalLibCall, 

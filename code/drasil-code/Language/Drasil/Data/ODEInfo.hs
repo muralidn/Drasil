@@ -31,11 +31,13 @@ data ODEOptions = ODEOpts {
   solveMethod :: ODEMethod,
   absTol :: Expr,
   relTol :: Expr,
-  stepSize :: Expr
+  stepSize :: Expr,
+  initVal2Order :: Expr -- This can be removed by making initVal a list. I was
+  -- not sure about the effects on other packages, so let this be for now.
 }
 
 -- Basic odeOptions constructor
-odeOptions :: ODEMethod -> Expr -> Expr -> Expr -> ODEOptions
+odeOptions :: ODEMethod -> Expr -> Expr -> Expr -> Expr -> ODEOptions
 odeOptions = ODEOpts
 
 -- Runge-Kutta 4-5, Backwards Differentiation Formula, or Adams' method.
